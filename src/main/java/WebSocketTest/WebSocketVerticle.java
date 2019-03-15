@@ -20,12 +20,12 @@ public class WebSocketVerticle extends AbstractVerticle {
     // 保存每一个连接到服务器的通道
     private Map<String, Tuple2<String, ServerWebSocket>> connectionMap = new HashMap<>(16);
 
-    public boolean checkID(String id) {
-        return connectionMap.containsKey(id);
+    private boolean checkID(String aid) {
+        return connectionMap.containsKey(aid);
     }
 
     @Override
-    public void start() {
+    public void start() throws Exception {
         HttpServer server = vertx.createHttpServer();
         Router router = Router.router(vertx);
         router.route("/").handler(routingContext -> {
@@ -40,21 +40,50 @@ public class WebSocketVerticle extends AbstractVerticle {
     public void webSocketMethod(HttpServer server) {
         server.websocketHandler(webSocket -> { // 获取每一个链接的ID
             String id = webSocket.binaryHandlerID();
+            //TODO Login Server
             EventBus eb = vertx.eventBus();
             // 判断当前连接的ID是否存在于map集合中，如果不存在则添加进map集合中
             if (!checkID(id)) {
+                //TODO reconnect
                 connectionMap.put(id, Tuple2.apply("loginHall", webSocket));
 
                 eb.send("player.inHall", id);
+            } else {
+                //TODO ???
             }
+
+
+            eb.consumer("player.inHall", msg -> {
+                if (msg.body().equals("ok")) {
+
+                    connectionMap.put(id, Tuple2.apply("inHall", webSocket));
+                } else {
+                    connectionMap.remove(id);
+                    webSocket.close();
+
+                }
+            });
+
             webSocket.closeHandler(handler -> {
                         eb.send("playerOffLine", id);
                         connectionMap.remove(id);
                     }
             );
-            eb.consumer("createRoom",msg ->{
-                
+
+
+            eb.consumer("createRoom", msg -> {
+                JSONObject crInfo =
+                        JSONObject.parseObject(msg.body().toString());
+
+                String cid = crInfo.getString("Id");
+                int RoomId = crInfo.getInteger("roomId");
+                if (connectionMap.containsKey(cid) && cid.equals(id)) {
+                    connectionMap.put(cid, Tuple2.apply("inRoom" + RoomId, webSocket));
+                } else {
+                    System.out.println("not such user connect" + cid);
+                }
             });
+
 
             //　WebSocket 连接
             webSocket.frameHandler(handler -> {
@@ -62,16 +91,16 @@ public class WebSocketVerticle extends AbstractVerticle {
                 String currID = webSocket.binaryHandlerID();
                 if (textData.equals("create")) {
                     eb.send("createRoom", currID);
+
                 }
                 //给非当前连接到服务器的每一个WebSocket连接发送消息
                 for (Map.Entry<String, Tuple2<String, ServerWebSocket>> entry : connectionMap.entrySet()) {
 
-
-
-
                     if (currID.equals(entry.getKey())) {
                         continue;
-                    } /* 发送文本消息 文本信息似乎不支持图片等二进制消息
+                    }
+
+                    /* 发送文本消息 文本信息似乎不支持图片等二进制消息
                     若要发送二进制消息，可用writeBinaryMessage方法
                     */
 
@@ -83,8 +112,6 @@ public class WebSocketVerticle extends AbstractVerticle {
                     eb.send("test.address", output);
                     entry.getValue()._2.writeTextMessage("用户" + id + ":" + textData + "\r");
                 }
-
-
             });
         });
     }

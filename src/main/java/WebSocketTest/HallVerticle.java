@@ -8,13 +8,17 @@ import io.vertx.core.eventbus.*;
 import io.vertx.core.json.JsonObject;
 
 
+import java.util.HashMap;
 import java.util.HashSet;
 
+import java.util.Map;
 import java.util.Set;
 
 public class HallVerticle extends AbstractVerticle {
 
-    private Set<Object> players = new HashSet<>(16);
+    private Set<String> players = new HashSet<>(16);
+    private Map<Integer,Integer> rooms = new HashMap<>(16);
+    private Integer roomId = 1;
 
     @Override
     public void start() {
@@ -35,42 +39,50 @@ public class HallVerticle extends AbstractVerticle {
         });
         eb.consumer("player.inHall", msg -> {
 
-            if (players.add(msg.body())) {
-//                for (Object ob : players) {
-//                   System.out.println(ob);
-//                }
+            if (players.add(msg.body().toString())) {
+
+                msg.reply("ok");
+            } else {
+                msg.reply("fail");
             }
         });
 
         eb.consumer("playerOffLine", msg -> {
-            if (players.remove(msg.body())) {
-//                for (Object ob : players) {
-//                    System.out.println(ob);
-//                }
+            if (players.remove(msg.body().toString())) {
+                msg.reply("ok");
+            } else {
+                msg.reply("fail");
             }
         });
 
 
         eb.consumer("createRoom", msg -> {
-            if (players.contains(msg.body()))
-            {
+            String Id =msg.body().toString();
+            if (players.contains(Id)) {
 
 
+                JsonObject config = new JsonObject().put("host", Id).put("roomId", roomId);
 
-            JsonObject config = new JsonObject().put("host", msg.body());
-            DeploymentOptions opt = new DeploymentOptions().setConfig(config).setWorker(true);
-            vertx.deployVerticle(new RoomVerticle(), opt);
-            msg.reply("ok");
-            players.remove(msg.body());}
-            else {
+                DeploymentOptions opt = new DeploymentOptions().setConfig(config).setWorker(true);
+                vertx.deployVerticle(new RoomVerticle(), opt);
+                players.remove(Id);
+                rooms.put(roomId,1);
+                JSONObject roomInfo = new JSONObject();
+                roomInfo.put("Id", msg.body());
+                roomInfo.put("roomId", roomId);
+                msg.reply(roomInfo);
+                if (roomId < 10000)
+                    roomId++;
+                else roomId = 1;
+            } else {
                 msg.reply("fail");
             }
 
         });
 
-//        eb.consumer("joinRoom",msg->{
-//            eb.send("")
-//        });
+        eb.consumer("joinRoom", msg -> {
+            eb.send("a", "a");
+        });
         System.out.println("Receiver ready!");
 
 
