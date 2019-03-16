@@ -9,7 +9,7 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
 
 import io.vertx.ext.web.Router;
-
+import javafx.util.Pair;
 import scala.Tuple2;
 
 
@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class WebSocketVerticle extends AbstractVerticle {
     // 保存每一个连接到服务器的通道
-    private Map<String, Tuple2<String, ServerWebSocket>> connectionMap = new HashMap<>(16);
+    private Map<String, Pair<String, ServerWebSocket>> connectionMap = new HashMap<>(16);
 
     private boolean checkID(String aid) {
         return connectionMap.containsKey(aid);
@@ -45,7 +45,7 @@ public class WebSocketVerticle extends AbstractVerticle {
             // 判断当前连接的ID是否存在于map集合中，如果不存在则添加进map集合中
             if (!checkID(id)) {
                 //TODO reconnect
-                connectionMap.put(id, Tuple2.apply("loginHall", webSocket));
+                connectionMap.put(id, new Pair<>("loginHall", webSocket));
 
                 eb.send("player.inHall", id);
             } else {
@@ -56,12 +56,16 @@ public class WebSocketVerticle extends AbstractVerticle {
             eb.consumer("player.inHall", msg -> {
                 if (msg.body().equals("ok")) {
 
-                    connectionMap.put(id, Tuple2.apply("inHall", webSocket));
+                    connectionMap.put(id, new Pair<>("inHall", webSocket));
                 } else {
                     connectionMap.remove(id);
                     webSocket.close();
 
                 }
+            });
+
+            eb.consumer("joinRoom", who -> {
+
             });
 
             webSocket.closeHandler(handler -> {
@@ -78,7 +82,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                 String cid = crInfo.getString("Id");
                 int RoomId = crInfo.getInteger("roomId");
                 if (connectionMap.containsKey(cid) && cid.equals(id)) {
-                    connectionMap.put(cid, Tuple2.apply("inRoom" + RoomId, webSocket));
+                    connectionMap.put(cid, new Pair<>("inRoom" + RoomId, webSocket));
                 } else {
                     System.out.println("not such user connect" + cid);
                 }
@@ -89,12 +93,17 @@ public class WebSocketVerticle extends AbstractVerticle {
             webSocket.frameHandler(handler -> {
                 String textData = handler.textData();
                 String currID = webSocket.binaryHandlerID();
-                if (textData.equals("create")) {
+                if (textData.equals("createRoom")) {
                     eb.send("createRoom", currID);
 
+                } else if (textData.equals("joinRoom")) {
+                    eb.send("joinRoom", currID);
+                } else if (textData.equals("fastPlay")) {
+                    eb.send("fastPlay", currID);
                 }
+
                 //给非当前连接到服务器的每一个WebSocket连接发送消息
-                for (Map.Entry<String, Tuple2<String, ServerWebSocket>> entry : connectionMap.entrySet()) {
+                for (Map.Entry<String, Pair<String, ServerWebSocket>> entry : connectionMap.entrySet()) {
 
                     if (currID.equals(entry.getKey())) {
                         continue;
@@ -110,7 +119,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                     String output = msg.toJSONString();
                     System.out.println(output);
                     eb.send("test.address", output);
-                    entry.getValue()._2.writeTextMessage("用户" + id + ":" + textData + "\r");
+                    entry.getValue().getValue().writeTextMessage("用户" + id + ":" + textData + "\r");
                 }
             });
         });

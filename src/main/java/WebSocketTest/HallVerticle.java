@@ -17,8 +17,9 @@ import java.util.Set;
 public class HallVerticle extends AbstractVerticle {
 
     private Set<String> players = new HashSet<>(16);
-    private Map<Integer,Integer> rooms = new HashMap<>(16);
+    private Map<Integer, Integer> rooms = new HashMap<>(16);
     private Integer roomId = 1;
+    private final int maxPlayer = Config.maxPlayer();
 
     @Override
     public void start() {
@@ -57,7 +58,7 @@ public class HallVerticle extends AbstractVerticle {
 
 
         eb.consumer("createRoom", msg -> {
-            String Id =msg.body().toString();
+            String Id = msg.body().toString();
             if (players.contains(Id)) {
 
 
@@ -66,7 +67,7 @@ public class HallVerticle extends AbstractVerticle {
                 DeploymentOptions opt = new DeploymentOptions().setConfig(config).setWorker(true);
                 vertx.deployVerticle(new RoomVerticle(), opt);
                 players.remove(Id);
-                rooms.put(roomId,1);
+                rooms.put(roomId, 1);
                 JSONObject roomInfo = new JSONObject();
                 roomInfo.put("Id", msg.body());
                 roomInfo.put("roomId", roomId);
@@ -80,8 +81,15 @@ public class HallVerticle extends AbstractVerticle {
 
         });
 
-        eb.consumer("joinRoom", msg -> {
-            eb.send("a", "a");
+        eb.consumer("joinRoom", who -> {
+            for (Map.Entry<Integer, Integer> entry : rooms.entrySet()) {
+                if (entry.getKey() < maxPlayer) {
+                String roomChannel = "joinRoom"+entry.getKey();
+                eb.send(roomChannel,who.body());
+                who.reply(roomChannel);
+                }
+            }
+
         });
         System.out.println("Receiver ready!");
 
