@@ -32,7 +32,7 @@ public class WebSocketVerticle extends AbstractVerticle {
             routingContext.response().sendFile("html/ws.html");
         });
         webSocketMethod(server);
-        server.requestHandler(router::accept).listen(8080);
+        server.requestHandler(router).listen(8080);
         DeploymentOptions options = new DeploymentOptions().setWorker(true);
         vertx.deployVerticle(HallVerticle.class.getName(), options);
     }
@@ -52,7 +52,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                 //TODO ???
             }
 
-
+            //InHallResp
             eb.consumer("player.inHall", msg -> {
                 if (msg.body().equals("ok")) {
 
@@ -68,13 +68,16 @@ public class WebSocketVerticle extends AbstractVerticle {
 
             });
 
+            //OFFLineResp
             webSocket.closeHandler(handler -> {
                         eb.send("playerOffLine", id);
                         connectionMap.remove(id);
                     }
             );
 
+            eb.consumer("playerOffLine",msg-> msg.body());
 
+            //CreateRoomResp
             eb.consumer("createRoom", msg -> {
                 JSONObject crInfo =
                         JSONObject.parseObject(msg.body().toString());
@@ -83,8 +86,10 @@ public class WebSocketVerticle extends AbstractVerticle {
                 int RoomId = crInfo.getInteger("roomId");
                 if (connectionMap.containsKey(cid) && cid.equals(id)) {
                     connectionMap.put(cid, new Pair<>("inRoom" + RoomId, webSocket));
+                    connectionMap.get(cid).getValue().writeTextMessage("createRoomOK");
                 } else {
                     System.out.println("not such user connect" + cid);
+
                 }
             });
 
@@ -93,6 +98,7 @@ public class WebSocketVerticle extends AbstractVerticle {
             webSocket.frameHandler(handler -> {
                 String textData = handler.textData();
                 String currID = webSocket.binaryHandlerID();
+                //TODO proto decode
                 if (textData.equals("createRoom")) {
                     eb.send("createRoom", currID);
 
@@ -101,6 +107,8 @@ public class WebSocketVerticle extends AbstractVerticle {
                 } else if (textData.equals("fastPlay")) {
                     eb.send("fastPlay", currID);
                 }
+
+
 
                 //给非当前连接到服务器的每一个WebSocket连接发送消息
                 for (Map.Entry<String, Pair<String, ServerWebSocket>> entry : connectionMap.entrySet()) {
