@@ -9,7 +9,7 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
 
 import io.vertx.ext.web.Router;
-import javafx.util.Pair;
+
 import org.javatuples.Triplet;
 
 
@@ -66,8 +66,9 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 String who = ar.result().body().toString();
                                 System.out.println("ws:收到进入大厅回复：" + who);
                                 if (who.equals(id) && connectionMap.get(who).getValue0().equals("loginHall")) {
-                                    System.out.println("ws：进入大厅成功" + who);
+
                                     connectionMap.put(id, new Triplet<>("inHall", "free", webSocket));
+                                    System.out.println("ws：进入大厅成功" + who);
                                 } else {
                                     connectionMap.remove(who);
                                     System.out.println("ws：没有此玩家或玩家状态错误：" + who);
@@ -90,45 +91,28 @@ public class WebSocketVerticle extends AbstractVerticle {
 
             //OFFLineResp
             webSocket.closeHandler(handler -> {
+                        String playerPosition = connectionMap.get(id).getValue0();
 
-                        eb.send("playerOffLine", id);
+                        if (playerPosition.startsWith("Room")) {
+                            eb.send("offLine" + playerPosition, id);
+                        } else
+                            switch (connectionMap.get(id).getValue0()) {
+                                case "loginHall":
+                                    eb.send("cancelLogin", id);
+                                    break;
+                                case "inHall":
+                                    eb.send("quitHall", id);
+                                    break;
+                                case "creatingRoom":
+                                    eb.send("cancelCreate", id);
+                                    break;
+
+
+                            }
+                        eb.send("playerOffLineInHall", id);
                         connectionMap.remove(id);
                     }
             );
-            eb.consumer("player.inHall", msg -> {
-
-                String who = msg.body().toString();
-                System.out.println("ws:收到进入大厅回复：" + who);
-                if (who.equals(id) && connectionMap.get(who).getValue0().equals("loginHall")) {
-                    System.out.println("ws：进入大厅成功" + who);
-                    connectionMap.put(id, new Triplet<>("inHall", "free", webSocket));
-                } else {
-                    connectionMap.remove(who);
-                    System.out.println("ws：没有此玩家或玩家状态错误：" + who);
-                    webSocket.close();
-
-                }
-            });
-            eb.consumer("playerOffLine", msg -> {
-            });
-
-            //CreateRoomResp
-            eb.consumer("createRoom", msg -> {
-                JSONObject crInfo =
-                        JSONObject.parseObject(msg.body().toString());
-
-                String cid = crInfo.getString("Id");
-                int RoomId = crInfo.getInteger("roomId");
-                if (connectionMap.get(cid).getValue0().equals("goRoom") && cid.equals(id)) {
-                    connectionMap.put(cid, new Triplet<>("Room" + RoomId, "free", webSocket));
-                    System.out.println("回复房间ok" + cid);
-                    connectionMap.get(cid).getValue2().writeTextMessage("createRoomOK");
-
-                } else {
-                    System.out.println("ws：createRoom：没有此玩家或玩家状态错误：" + cid);
-
-                }
-            });
 
 
             //　WebSocket 连接
@@ -139,8 +123,31 @@ public class WebSocketVerticle extends AbstractVerticle {
 
                 switch (textData) {
                     case "createRoom": {
-                        eb.send("createRoom", currID);
-                        connectionMap.put(currID, new Triplet<>("goRoom", "free", webSocket));
+                        if (connectionMap.get(currID).getValue0().equals("inHall")) {
+                            connectionMap.put(currID, new Triplet<>("creatingRoom", "free", webSocket));
+                            eb.send("createRoom", currID, ar ->
+
+                            {
+                                JSONObject crInfo =
+                                        JSONObject.parseObject(ar.result().body().toString());
+
+                                String cid = crInfo.getString("Id");
+                                int RoomId = crInfo.getInteger("roomId");
+                                if (connectionMap.get(cid).getValue0().equals("creatingRoom") && cid.equals(id)) {
+                                    connectionMap.put(cid, new Triplet<>("Room" + RoomId, "free", webSocket));
+                                    System.out.println("回复房间:" + RoomId + "开启ok" + cid);
+                                    connectionMap.get(cid).getValue2().writeTextMessage("房间建立成功，房间号：" + RoomId);
+
+                                } else {
+                                    System.out.println("ws：createRoom：没有此玩家或玩家状态错误：" + cid);
+
+                                }
+
+                            });
+                        } else {
+                            connectionMap.get(currID).getValue2().writeTextMessage("不可建立房间，你不在大厅中");
+                        }
+
                         break;
                     }
                     case "joinRoom": {

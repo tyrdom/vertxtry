@@ -1,11 +1,12 @@
 package WebSocketTest;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.eventbus.*;
 import io.vertx.core.json.JsonObject;
+import org.javatuples.Triplet;
+import scala.AnyVal;
 
 
 import java.util.HashMap;
@@ -17,8 +18,12 @@ import java.util.Set;
 public class HallVerticle extends AbstractVerticle {
 
     private Set<String> players = new HashSet<>(16);
-    private Map<Integer, Integer> rooms = new HashMap<>(16);
+    //所有房间的信息 房间id，创建者，人数，verticleId
+    private Map<Integer, Triplet<String, Integer, String>> rooms = new HashMap<>(16);
     private Integer roomId = 1;
+    private Set<String> createCancelPlayers = new HashSet<>(16);
+    private Set<String> loginCancelPlayers = new HashSet<>(16);
+
     private final int maxPlayer = Config.maxPlayer();
 
     @Override
@@ -39,23 +44,38 @@ public class HallVerticle extends AbstractVerticle {
 
         });
         eb.consumer("player.inHall", msg -> {
-            String who= msg.body().toString();
-            if (players.add(who)) {
-                System.out.println("大厅：进入大厅成功"+who);
-                msg.reply(who);
-            } else {
-                msg.reply("fail");
+            String who = msg.body().toString();
+            if (!loginCancelPlayers.remove(who)) {
+                if (players.add(who)) {
+                    System.out.println("大厅：进入大厅成功" + who);
+                    msg.reply(who);
+                } else {
+                    msg.reply("fail");
+                }
+            }
+
+            msg.reply("fail");
+        });
+
+        eb.consumer("quitHall", msg -> {
+            if (!players.remove(msg.body().toString())) {
+
+                System.out.println("！！！！有一个用户在大厅掉线，但是大厅没有这个用户，一定有个bug");
             }
         });
 
-        eb.consumer("playerOffLine", msg -> {
-            if (players.remove(msg.body().toString())) {
-                msg.reply("ok");
-            } else {
-                msg.reply("fail");
+        eb.consumer("cancelLogin", who -> {
+            String player = who.body().toString();
+            if (!players.remove(player)) {
+                loginCancelPlayers.add(player);
             }
         });
 
+        eb.consumer("cancelCreate", msg -> {
+                    String who = msg.body().toString();
+
+                }
+        );
 
         eb.consumer("createRoom", msg -> {
             String Id = msg.body().toString();
@@ -65,16 +85,25 @@ public class HallVerticle extends AbstractVerticle {
                 JsonObject config = new JsonObject().put("host", Id).put("roomId", roomId);
 
                 DeploymentOptions opt = new DeploymentOptions().setConfig(config).setWorker(true);
-                vertx.deployVerticle(new RoomVerticle(), opt);
-                players.remove(Id);
-                rooms.put(roomId, 1);
-                JSONObject roomInfo = new JSONObject();
-                roomInfo.put("Id", msg.body());
-                roomInfo.put("roomId", roomId);
-                msg.reply(roomInfo);
-                if (roomId < 10000)
-                    roomId++;
-                else roomId = 1;
+                vertx.deployVerticle(new RoomVerticle(), opt, stringAsyncResult -> {
+                    if (stringAsyncResult.succeeded()) {
+                        String roomVerticleId = stringAsyncResult.result();
+                        players.remove(Id);
+                        rooms.put(roomId, new Triplet<>(Id, 1, roomVerticleId));
+                        JSONObject roomInfo = new JSONObject();
+                        roomInfo.put("Id", msg.body());
+                        roomInfo.put("roomId", roomId);
+                        msg.reply(roomInfo.toJSONString());
+
+
+                        if (roomId < 10000)
+                            roomId++;
+                        else roomId = 1;
+                    } else {
+                        msg.reply("createFail");
+                    }
+                });
+
             } else {
                 msg.reply("fail");
             }
@@ -82,8 +111,8 @@ public class HallVerticle extends AbstractVerticle {
         });
 
         eb.consumer("joinRoom", who -> {
-            for (Map.Entry<Integer, Integer> entry : rooms.entrySet()) {
-                if (entry.getValue() < maxPlayer) {
+            for (Map.Entry<Integer, Triplet<String, Integer, String>> entry : rooms.entrySet()) {
+                if (entry.getValue().getValue1() < maxPlayer) {
                     String roomChannel = "joinRoom" + entry.getKey();
                     eb.send(roomChannel, who.body());
                     break;
