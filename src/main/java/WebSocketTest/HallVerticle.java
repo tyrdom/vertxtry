@@ -39,10 +39,10 @@ public class HallVerticle extends AbstractVerticle {
 
         });
         eb.consumer("player.inHall", msg -> {
-
-            if (players.add(msg.body().toString())) {
-
-                msg.reply("ok");
+            String who= msg.body().toString();
+            if (players.add(who)) {
+                System.out.println("大厅：进入大厅成功"+who);
+                msg.reply(who);
             } else {
                 msg.reply("fail");
             }
@@ -83,10 +83,10 @@ public class HallVerticle extends AbstractVerticle {
 
         eb.consumer("joinRoom", who -> {
             for (Map.Entry<Integer, Integer> entry : rooms.entrySet()) {
-                if (entry.getKey() < maxPlayer) {
-                String roomChannel = "joinRoom"+entry.getKey();
-                eb.send(roomChannel,who.body());
-                who.reply(roomChannel);
+                if (entry.getValue() < maxPlayer) {
+                    String roomChannel = "joinRoom" + entry.getKey();
+                    eb.send(roomChannel, who.body());
+                    break;
                 }
             }
 

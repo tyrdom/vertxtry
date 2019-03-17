@@ -10,7 +10,7 @@ import io.vertx.core.http.ServerWebSocket;
 
 import io.vertx.ext.web.Router;
 import javafx.util.Pair;
-import scala.Tuple2;
+import org.javatuples.Triplet;
 
 
 import java.util.HashMap;
@@ -18,8 +18,18 @@ import java.util.Map;
 
 public class WebSocketVerticle extends AbstractVerticle {
     // 保存每一个连接到服务器的通道
-    private Map<String, Pair<String, ServerWebSocket>> connectionMap = new HashMap<>(16);
+    private Map<String, Triplet<String, String, ServerWebSocket>> connectionMap = new HashMap<>(16);
 
+    /*
+    元组为：玩家位置，玩家状态，玩家webSocket
+    位置：loginHall 去大厅
+            inHall  在大厅
+            goRoom  正在去房间
+            Room + 数字  在房间，数字代表房间号
+     状态：free 未在游戏中
+            play 在游戏中
+
+     * */
     private boolean checkID(String aid) {
         return connectionMap.containsKey(aid);
     }
@@ -45,24 +55,34 @@ public class WebSocketVerticle extends AbstractVerticle {
             // 判断当前连接的ID是否存在于map集合中，如果不存在则添加进map集合中
             if (!checkID(id)) {
                 //TODO reconnect
-                connectionMap.put(id, new Pair<>("loginHall", webSocket));
+                connectionMap.put(id, new Triplet<>("loginHall", "free", webSocket));
+                System.out.print("ws：id列表");
+                for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
+                    System.out.println(entry.getKey());
+                }
+                System.out.println("ws：发送进入大厅请求：" + id);
+                eb.send("player.inHall", id, ar -> {
+                            if (ar.succeeded()) {
+                                String who = ar.result().body().toString();
+                                System.out.println("ws:收到进入大厅回复：" + who);
+                                if (who.equals(id) && connectionMap.get(who).getValue0().equals("loginHall")) {
+                                    System.out.println("ws：进入大厅成功" + who);
+                                    connectionMap.put(id, new Triplet<>("inHall", "free", webSocket));
+                                } else {
+                                    connectionMap.remove(who);
+                                    System.out.println("ws：没有此玩家或玩家状态错误：" + who);
+                                    webSocket.close();
 
-                eb.send("player.inHall", id);
+                                }
+                            }
+                        }
+                );
             } else {
                 //TODO ???
             }
 
             //InHallResp
-            eb.consumer("player.inHall", msg -> {
-                if (msg.body().equals("ok")) {
 
-                    connectionMap.put(id, new Pair<>("inHall", webSocket));
-                } else {
-                    connectionMap.remove(id);
-                    webSocket.close();
-
-                }
-            });
 
             eb.consumer("joinRoom", who -> {
 
@@ -70,12 +90,27 @@ public class WebSocketVerticle extends AbstractVerticle {
 
             //OFFLineResp
             webSocket.closeHandler(handler -> {
+
                         eb.send("playerOffLine", id);
                         connectionMap.remove(id);
                     }
             );
+            eb.consumer("player.inHall", msg -> {
 
-            eb.consumer("playerOffLine",msg-> msg.body());
+                String who = msg.body().toString();
+                System.out.println("ws:收到进入大厅回复：" + who);
+                if (who.equals(id) && connectionMap.get(who).getValue0().equals("loginHall")) {
+                    System.out.println("ws：进入大厅成功" + who);
+                    connectionMap.put(id, new Triplet<>("inHall", "free", webSocket));
+                } else {
+                    connectionMap.remove(who);
+                    System.out.println("ws：没有此玩家或玩家状态错误：" + who);
+                    webSocket.close();
+
+                }
+            });
+            eb.consumer("playerOffLine", msg -> {
+            });
 
             //CreateRoomResp
             eb.consumer("createRoom", msg -> {
@@ -84,11 +119,13 @@ public class WebSocketVerticle extends AbstractVerticle {
 
                 String cid = crInfo.getString("Id");
                 int RoomId = crInfo.getInteger("roomId");
-                if (connectionMap.containsKey(cid) && cid.equals(id)) {
-                    connectionMap.put(cid, new Pair<>("inRoom" + RoomId, webSocket));
-                    connectionMap.get(cid).getValue().writeTextMessage("createRoomOK");
+                if (connectionMap.get(cid).getValue0().equals("goRoom") && cid.equals(id)) {
+                    connectionMap.put(cid, new Triplet<>("Room" + RoomId, "free", webSocket));
+                    System.out.println("回复房间ok" + cid);
+                    connectionMap.get(cid).getValue2().writeTextMessage("createRoomOK");
+
                 } else {
-                    System.out.println("not such user connect" + cid);
+                    System.out.println("ws：createRoom：没有此玩家或玩家状态错误：" + cid);
 
                 }
             });
@@ -99,37 +136,49 @@ public class WebSocketVerticle extends AbstractVerticle {
                 String textData = handler.textData();
                 String currID = webSocket.binaryHandlerID();
                 //TODO proto decode
-                if (textData.equals("createRoom")) {
-                    eb.send("createRoom", currID);
 
-                } else if (textData.equals("joinRoom")) {
-                    eb.send("joinRoom", currID);
-                } else if (textData.equals("fastPlay")) {
-                    eb.send("fastPlay", currID);
-                }
-
-
-
-                //给非当前连接到服务器的每一个WebSocket连接发送消息
-                for (Map.Entry<String, Pair<String, ServerWebSocket>> entry : connectionMap.entrySet()) {
-
-                    if (currID.equals(entry.getKey())) {
-                        continue;
+                switch (textData) {
+                    case "createRoom": {
+                        eb.send("createRoom", currID);
+                        connectionMap.put(currID, new Triplet<>("goRoom", "free", webSocket));
+                        break;
                     }
+                    case "joinRoom": {
+                        eb.send("joinRoom", currID);
+                        connectionMap.put(currID, new Triplet<>("goRoom", "free", webSocket));
+                        break;
+                    }
+
+                    case "fastPlay": {
+                        eb.send("fastPlay", currID);
+                        connectionMap.put(currID, new Triplet<>("goRoom", "free", webSocket));
+                        break;
+                    }
+
+                    default:
+                        //给非当前连接到服务器的每一个WebSocket连接发送消息
+                        for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
+
+                            if (currID.equals(entry.getKey())) {
+                                continue;
+                            }
 
                     /* 发送文本消息 文本信息似乎不支持图片等二进制消息
                     若要发送二进制消息，可用writeBinaryMessage方法
                     */
 
-                    JSONObject msg = new JSONObject();
-                    msg.put("name", "abc");
-                    msg.put("age", 11);
-                    String output = msg.toJSONString();
-                    System.out.println(output);
-                    eb.send("test.address", output);
-                    entry.getValue().getValue().writeTextMessage("用户" + id + ":" + textData + "\r");
+                            JSONObject msg = new JSONObject();
+                            msg.put("name", "abc");
+                            msg.put("age", 11);
+                            String output = msg.toJSONString();
+                            System.out.println(output);
+                            eb.send("test.address", output);
+                            entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+                        }
+                        break;
                 }
             });
         });
     }
 }
+
