@@ -20,7 +20,7 @@ public class RoomVerticle extends AbstractVerticle {
         String hostPlayerId = config().getString("host");
         players.put(hostPlayerId, "standBy");
         System.out.println("Room is ok:" + hostPlayerId);
-        final int roomId = config().getInteger("roomId");
+        final Integer roomId = config().getInteger("roomId");
 
         EventBus eb = vertx.eventBus();
 
@@ -29,8 +29,9 @@ public class RoomVerticle extends AbstractVerticle {
             if (players.containsKey(offId)) {
                 if (roomStatus.equals("standBy")) {
                     players.remove(offId);
+                    eb.send("leftRoom", roomId);
                     if (players.size() == 0) {
-                        eb.send("emptyRoom",roomId);
+                        eb.send("emptyRoom", roomId);
                     }
                 }
 
@@ -41,10 +42,9 @@ public class RoomVerticle extends AbstractVerticle {
             String who = msg.body().toString();
             if (players.size() < maxPlayer) {
                 players.put(who, "standBy");
-                eb.send("joinRoom", who);
+                msg.reply("ok");
             } else {
-
-                eb.send("cantJoin", roomId);
+                msg.reply("full");
             }
         });
 
