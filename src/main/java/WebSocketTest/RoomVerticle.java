@@ -3,8 +3,6 @@ package WebSocketTest;
 import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
-
-
 import java.util.*;
 
 public class RoomVerticle extends AbstractVerticle {
