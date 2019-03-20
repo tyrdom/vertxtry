@@ -82,10 +82,9 @@ public class WebSocketVerticle extends AbstractVerticle {
             EventBus eb = vertx.eventBus();
             // 判断当前连接的ID是否存在于map集合中，如果不存在则添加进map集合中
             if (!checkID(id)) {
-                //TODO reconnect
                 loginHallProcess(id, webSocket, eb);
             } else {
-                //TODO ???
+                //TODO reconnect
             }
             System.out.print("ws：id列表");
             for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
@@ -145,7 +144,7 @@ public class WebSocketVerticle extends AbstractVerticle {
 
             //　WebSocket 连接
             webSocket.frameHandler(handler -> {
-                String textData = handler.textData();
+                String textData = handler.textData();//TODO protobuf translate
                 String currID = webSocket.binaryHandlerID();//TODO webSocket to find Id
                 //TODO proto decode
 
@@ -174,6 +173,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 });
                             }
                         } else {
+                            //TODO protobuf
                             connectionMap.get(currID).getValue2().writeTextMessage("不可建立房间，你不在大厅中");
                         }
                         break;
@@ -190,20 +190,24 @@ public class WebSocketVerticle extends AbstractVerticle {
                                     eb.send("joinRoom" + roomId, currID, messageAsyncResult1 -> {
                                         //房间回复ok，则记录在房间的状态
                                         if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
+                                            //TODO protobuf
                                             connectionMap.get(currID).getValue2().writeTextMessage("房间进入成功，你在房间" + roomId);
                                             connectionMap.put(currID, new Triplet<>("Room" + roomId, "free", webSocket));
                                         } else {
+                                            //TODO protobuf
                                             connectionMap.get(currID).getValue2().writeTextMessage("房间出问题，不可进入");
                                             connectionMap.put(currID, new Triplet<>("inHall", "free", webSocket));
                                         }
                                     });
 
                                 } else {
+                                    //TODO protobuf
                                     connectionMap.get(currID).getValue2().writeTextMessage("没有剩余的空房间");
                                     connectionMap.put(currID, new Triplet<>("inHall", "free", webSocket));
                                 }
                             });
                         } else {
+                            //TODO protobuf
                             connectionMap.get(currID).getValue2().writeTextMessage("不可加入房间，你不在大厅中");
                         }
                         break;
@@ -216,12 +220,54 @@ public class WebSocketVerticle extends AbstractVerticle {
                             String whoAndReasonMsg = whoAndReason.toJSONString();
                             eb.send("quit" + connectionMap.get(currID).getValue0(), whoAndReasonMsg);
                             loginHallProcess(currID, webSocket, eb);
+                            //TODO protobuf
                             connectionMap.get(currID).getValue2().writeTextMessage("退出成功，你回到大厅");
                         } else {
+                            //TODO protobuf
                             connectionMap.get(currID).getValue2().writeTextMessage("不可退出房间，你不在房间中");
                         }
                     }
 
+                    case "ready": {
+                        if (connectionMap.get(currID).getValue0().startsWith("Room") && connectionMap.get(currID).getValue1().equals("free")) {
+                            eb.send("ready" + connectionMap.get(currID).getValue0(), currID, messageAsyncResult -> {
+                                Triplet<String, String, ServerWebSocket> oldStatus = connectionMap.get(currID);
+
+                                ServerWebSocket webSocketToSend = oldStatus.getValue2();
+                                if (messageAsyncResult.succeeded()) {
+                                    String replyMsg = messageAsyncResult.result().body().toString();
+
+                                    switch (replyMsg) {
+                                        case "gameStart":
+                                            webSocketToSend.writeTextMessage("所有玩家准备完成，开始");
+                                            connectionMap.put(currID, new Triplet<>(oldStatus.getValue0(), "play", webSocketToSend));
+                                            break;
+                                        case "readyOk": {
+                                            webSocketToSend.writeTextMessage("准备完成，等待其他玩家准备");
+                                            connectionMap.put(currID, new Triplet<>(oldStatus.getValue0(), "ready", webSocketToSend));
+                                            break;
+                                        }
+                                        case "notFull":
+                                            webSocketToSend.writeTextMessage("房间人数未满，暂时不可准备");
+                                            break;
+                                        default:
+                                            webSocketToSend.writeTextMessage("房间连接错误，连接断开");
+                                            webSocketToSend.close();
+                                            connectionMap.remove(currID);
+                                            break;
+                                    }
+                                } else {
+                                    webSocketToSend.writeTextMessage("超时关闭");
+                                    webSocketToSend.close();
+                                    connectionMap.remove(currID);
+                                }
+                            });
+                        } else {
+                            connectionMap.get(currID).getValue2().writeTextMessage("不可准备，你已经准备或在游戏中，或者你不在房间");
+
+                        }
+                    }
+                    break;
 
                     default:
                         //给非当前连接到服务器的每一个WebSocket连接发送消息
@@ -241,7 +287,8 @@ public class WebSocketVerticle extends AbstractVerticle {
 //                            String output = msg.toJSONString();
 //                            System.out.println(output);
 //                            eb.send("test.address", output);
-                            entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+
+//                            entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
                         }
                         break;
                 }

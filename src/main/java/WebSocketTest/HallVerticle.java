@@ -8,7 +8,6 @@ import io.vertx.core.json.JsonObject;
 import org.javatuples.Triplet;
 
 
-
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -171,8 +170,8 @@ public class HallVerticle extends AbstractVerticle {
                         roomInfo.put("room", roomId);
                         msg.reply(roomInfo.toJSONString());
 
-                        //房间号1-10000循环使用
-                        if (roomId < 10000)
+                        //房间号1-100000循环使用
+                        if (roomId < 100000)
                             roomId++;
                         else roomId = 1;
                     } else {
@@ -202,7 +201,6 @@ public class HallVerticle extends AbstractVerticle {
             if (reason.equals("offLine")) {
                 playersInHall.remove(who);
             }
-
         });
 
         eb.consumer("findRoom", msg ->

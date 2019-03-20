@@ -3,16 +3,20 @@ package WebSocketTest;
 import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
+
 import java.util.*;
 
 public class RoomVerticle extends AbstractVerticle {
+    //玩家id 玩家状态 ：standBy 待命
+    //                  ready 准备完成
+    //                  gaming 游戏中
 
     private Map<String, String> players = new HashMap<>(16);
     //房间状态 standBy：准备 ，gaming： 游戏中
     private String roomStatus = "standBy";
     //最大人数
     private final Integer maxPlayer = Config.maxPlayer();
-
+    // 在进入消息前如果退出消息先到，那么记录想要退出的人
     private Set<String> somebodyWantToQuit = new HashSet<>(16);
 
     @Override
@@ -48,6 +52,11 @@ public class RoomVerticle extends AbstractVerticle {
                 }
 
             }
+            //TODO 重连 将不发出leftRoom消息，等待账号重连
+            else {
+                players.remove(who);
+                eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
+            }
 
         });
 
@@ -63,6 +72,12 @@ public class RoomVerticle extends AbstractVerticle {
                     players.put(who, "standBy");
                     msg.reply("ok");
                     eb.send("haveInRoom", sendMsg);
+                    if (players.size() == maxPlayer) {
+                        roomStatus = "full";
+                    } else if (players.size() > maxPlayer) {
+                        //TODO roomError
+
+                    }
                 } else {
                     msg.reply("full");
                 }
@@ -70,5 +85,33 @@ public class RoomVerticle extends AbstractVerticle {
             msg.reply("fail");
         });
 
+        eb.consumer("readyRoom" + roomId, msg ->
+
+        {
+            String who = msg.body().toString();
+            if (roomStatus.equals("full")) {
+                if (players.containsKey(who)) {
+                    players.put(who, "ready");
+                    boolean allReady = true;
+                    for (Map.Entry<String, String> entry : players.entrySet()) {
+                        if (!entry.getValue().equals("ready")) {
+                            allReady = false;
+                        }
+                        if (allReady) {
+                            msg.reply("gameStart");
+                            roomStatus = "starting";
+                            //TODO gameStart
+
+                        } else {
+                            msg.reply("readyOk");
+                        }
+                    }
+                } else {
+                    msg.reply("error");
+                }
+            } else {
+                msg.reply("notFull");
+            }
+        });
     }
 }
