@@ -45,7 +45,7 @@ public class RoomVerticle extends AbstractVerticle {
                 if (players.containsKey(who)) {
                     players.remove(who);
                     eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
-
+            //如果在待命状态 则把先到退出消息加入
                 } else {
                     somebodyWantToQuit.add(who);
                     eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
