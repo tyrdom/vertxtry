@@ -52,8 +52,9 @@ public class RoomVerticle extends AbstractVerticle {
                 }
 
             }
-            //TODO 重连 将不发出leftRoom消息，等待账号重连
+
             else {
+                //TODO 重连 将不发出leftRoom消息，等待账号重连
                 players.remove(who);
                 eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
             }

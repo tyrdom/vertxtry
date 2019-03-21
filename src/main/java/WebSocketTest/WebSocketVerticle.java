@@ -96,6 +96,7 @@ public class WebSocketVerticle extends AbstractVerticle {
             webSocket.closeHandler(handler -> {
                         String playerPosition = connectionMap.get(id).getValue0();
                         JSONObject whoAndReason = new JSONObject();
+                        System.out.println(id + "已断开");
                         whoAndReason.put("id", id);
                         whoAndReason.put("reason", "offLine");
 
@@ -287,7 +288,6 @@ public class WebSocketVerticle extends AbstractVerticle {
 //                            String output = msg.toJSONString();
 //                            System.out.println(output);
 //                            eb.send("test.address", output);
-
 //                            entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
                         }
                         break;
