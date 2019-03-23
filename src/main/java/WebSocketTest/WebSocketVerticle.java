@@ -275,7 +275,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                         for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
 
                             if (currID.equals(entry.getKey())) {
-                                continue;
+                                entry.getValue().getValue2().writeTextMessage("yourself:" + textData + "\r");
                             }
 
                     /* 发送文本消息 文本信息似乎不支持图片等二进制消息
@@ -288,7 +288,9 @@ public class WebSocketVerticle extends AbstractVerticle {
 //                            String output = msg.toJSONString();
 //                            System.out.println(output);
 //                            eb.send("test.address", output);
-//                            entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+                            else {
+                                entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+                            }
                         }
                         break;
                 }
