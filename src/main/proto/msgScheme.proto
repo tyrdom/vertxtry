@@ -1,0 +1,32 @@
+syntax = "proto3";
+option java_package = "msgScheme";
+
+message AMsg {
+    enum Head {
+        First_Msg = 0;
+        Login_Request = 100001;
+        Login_Response = 100002;
+
+        CreateRoom_Request = 100003;
+        CreateRoom_Response = 100004;
+    }
+    Head head = 1;
+
+    oneof body {
+        LoginRequest loginRequest = 2;
+        LoginResponse loginResponse = 3;
+    }
+
+}
+
+//100001
+message LoginRequest {
+    string userId = 1;
+    string password = 2;
+
+}
+//100002
+message LoginResponse {
+    bool ok = 1;
+
+}
