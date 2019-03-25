@@ -4,12 +4,15 @@ package WebSocketTest;
 import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.ext.web.Router;
 
 import org.javatuples.Triplet;
+import scala.Array;
+import scala.Byte;
 
 
 import java.util.HashMap;
@@ -146,9 +149,22 @@ public class WebSocketVerticle extends AbstractVerticle {
             //　WebSocket 连接
             webSocket.frameHandler(handler -> {
                 String textData = handler.textData();//TODO protobuf translate
+                byte[] binData = handler.binaryData().getBytes();
+                JSONObject request = CodeMsgTranslate.decode(binData);
                 String currID = webSocket.binaryHandlerID();//TODO webSocket to find Id
                 //TODO proto decode
+                String head = request.getString("head");
 
+                switch (head) {
+                    case "Login_Request":
+                        JSONObject body = new JSONObject();
+                        body.put("ok", true);
+                        byte[] loginBin = CodeMsgTranslate.encode("Login_Response", body);
+                        connectionMap.get(currID).getValue2().writeBinaryMessage(Buffer.buffer(loginBin));
+                        break;
+                    default:
+                        connectionMap.get(currID).getValue2().writeTextMessage("error");
+                }
                 //创建 加入房间只能位于大厅操作
                 switch (textData) {
                     case "createRoom": {

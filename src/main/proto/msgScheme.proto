@@ -1,9 +1,11 @@
 syntax = "proto3";
 option java_package = "msgScheme";
-
+package msgScheme;
 message AMsg {
     enum Head {
-        First_Msg = 0;
+        Undefined_Msg = 0;
+        Undefined_Request = 1;
+        Undefined_Response = 2;
         Login_Request = 100001;
         Login_Response = 100002;
 
@@ -15,7 +17,22 @@ message AMsg {
     oneof body {
         LoginRequest loginRequest = 2;
         LoginResponse loginResponse = 3;
+        UndefinedMsg undefinedMsg = 4;
+        UndefinedRequest undefinedRequest = 5;
+        UndefinedResponse undefinedResponse = 6;
     }
+
+}
+//0
+message UndefinedMsg {
+
+}
+//1
+message UndefinedRequest {
+
+}
+//2
+message UndefinedResponse {
 
 }
 
