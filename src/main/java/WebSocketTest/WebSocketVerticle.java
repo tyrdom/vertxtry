@@ -4,15 +4,17 @@ package WebSocketTest;
 import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
-import io.vertx.core.buffer.Buffer;
+
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.ext.web.Router;
 
+import msgScheme.MsgScheme;
 import org.javatuples.Triplet;
 import scala.Array;
 import scala.Byte;
+import scala.Tuple2;
 
 
 import java.util.HashMap;
@@ -150,23 +152,28 @@ public class WebSocketVerticle extends AbstractVerticle {
             webSocket.frameHandler(handler -> {
                 String textData = handler.textData();//TODO protobuf translate
                 byte[] binData = handler.binaryData().getBytes();
-                JSONObject request = CodeMsgTranslate.decode(binData);
+                Tuple2<MsgScheme.AMsg.Head,JSONObject> msg = CodeMsgTranslate.decode(binData);
                 String currID = webSocket.binaryHandlerID();//TODO webSocket to find Id
                 //TODO proto decode
-                try{
-                String head = request.getString("head");
+                try {
+                    //String head = request.getString("head");
+                   // MsgScheme.AMsg aMsg = MsgScheme.AMsg.parseFrom(binData);
+                    MsgScheme.AMsg.Head head = msg._1;
+                    switch (head) {
+                        case Login_Request:
+                            String userId =msg._2.getString("userId");
+                            String password =msg._2.getString("password");
+                            System.out.println("收到登录消息"+"userId:"+userId+"===password:"+password);
+                            JSONObject body = new JSONObject();
+                            body.put("ok", true);
+                            byte[] loginBin = CodeMsgTranslate.encode("Login_Response", body);
 
-                switch (head) {
-                    case "Login_Request":
-                        JSONObject body = new JSONObject();
-                        body.put("ok", true);
-                        byte[] loginBin = CodeMsgTranslate.encode("Login_Response", body);
-                        System.out.println("收到登录消息");
 //                        connectionMap.get(currID).getValue2().writeBinaryMessage(Buffer.buffer(loginBin));
-                        break;
-                    default:
-                        connectionMap.get(currID).getValue2().writeTextMessage("error");
-                }}catch (Exception e) {
+                            break;
+                        default:
+                            connectionMap.get(currID).getValue2().writeTextMessage("error");
+                    }
+                } catch (Exception e) {
                     connectionMap.get(currID).getValue2().close();
                 }
 
