@@ -153,6 +153,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                 JSONObject request = CodeMsgTranslate.decode(binData);
                 String currID = webSocket.binaryHandlerID();//TODO webSocket to find Id
                 //TODO proto decode
+                try{
                 String head = request.getString("head");
 
                 switch (head) {
@@ -165,7 +166,10 @@ public class WebSocketVerticle extends AbstractVerticle {
                         break;
                     default:
                         connectionMap.get(currID).getValue2().writeTextMessage("error");
+                }}catch (Exception e) {
+                    connectionMap.get(currID).getValue2().close();
                 }
+
                 //创建 加入房间只能位于大厅操作
                 switch (textData) {
                     case "createRoom": {
