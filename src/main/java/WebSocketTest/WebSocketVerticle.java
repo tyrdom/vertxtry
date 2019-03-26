@@ -160,7 +160,8 @@ public class WebSocketVerticle extends AbstractVerticle {
                         JSONObject body = new JSONObject();
                         body.put("ok", true);
                         byte[] loginBin = CodeMsgTranslate.encode("Login_Response", body);
-                        connectionMap.get(currID).getValue2().writeBinaryMessage(Buffer.buffer(loginBin));
+                        System.out.println("收到登录消息");
+//                        connectionMap.get(currID).getValue2().writeBinaryMessage(Buffer.buffer(loginBin));
                         break;
                     default:
                         connectionMap.get(currID).getValue2().writeTextMessage("error");
