@@ -174,6 +174,7 @@ public class WebSocketVerticle extends AbstractVerticle {
 
                             responseWebSocket.writeBinaryMessage(Buffer.buffer(loginBin));
                             break;
+
                         default:
                             responseWebSocket.writeTextMessage("error");
                             responseWebSocket.close();
