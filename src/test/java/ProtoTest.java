@@ -3,8 +3,10 @@
 import WebSocketTest.CodeMsgTranslate;
 import com.alibaba.fastjson.JSONObject;
 import com.google.protobuf.InvalidProtocolBufferException;
+import msgScheme.MsgScheme;
 import org.junit.Test;
 import protoTest.PersonModel;
+import scala.Tuple2;
 
 public class ProtoTest {
     @Test
@@ -26,7 +28,7 @@ public class ProtoTest {
         JSONObject loginRequestBody = new JSONObject();
         loginRequestBody.put("userId","someId");
         loginRequestBody.put("password","somePassword");
-        byte[] someByteArray =CodeMsgTranslate.encode("Login_Request",loginRequestBody);
+        byte[] someByteArray =CodeMsgTranslate.encode(MsgScheme.AMsg.Head.Login_Request,loginRequestBody);
         System.out.println("===Request Byte:");
         for (byte b : someByteArray) {
             System.out.print(b);
@@ -40,9 +42,9 @@ public class ProtoTest {
 //        System.out.println("after name:" + p2.getName());
 //        System.out.println("after email:" + p2.getEmail());
         //decode
-        JSONObject decodeRequest = CodeMsgTranslate.decode(someByteArray);
+        Tuple2<MsgScheme.AMsg.Head,JSONObject> decodeRequest = CodeMsgTranslate.decode(someByteArray);
 
-        System.out.println("after id:" + decodeRequest.getString("userId"));
-        System.out.println("after password:" + decodeRequest.getString("password"));
+        System.out.println("after id:" + decodeRequest._2.getString("userId"));
+        System.out.println("after password:" + decodeRequest._2.getString("password"));
     }
 }

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
@@ -151,30 +152,34 @@ public class WebSocketVerticle extends AbstractVerticle {
             //　WebSocket 连接
             webSocket.frameHandler(handler -> {
                 String textData = handler.textData();//TODO protobuf translate
-                byte[] binData = handler.binaryData().getBytes();
-                Tuple2<MsgScheme.AMsg.Head,JSONObject> msg = CodeMsgTranslate.decode(binData);
                 String currID = webSocket.binaryHandlerID();//TODO webSocket to find Id
                 //TODO proto decode
                 try {
+                    byte[] binData = handler.binaryData().getBytes();
+                    Tuple2<MsgScheme.AMsg.Head, JSONObject> msg = CodeMsgTranslate.decode(binData);
                     //String head = request.getString("head");
-                   // MsgScheme.AMsg aMsg = MsgScheme.AMsg.parseFrom(binData);
+                    // MsgScheme.AMsg aMsg = MsgScheme.AMsg.parseFrom(binData);
                     MsgScheme.AMsg.Head head = msg._1;
+                    JSONObject body =msg._2;
+                    ServerWebSocket responseWebSocket = connectionMap.get(currID).getValue2();
                     switch (head) {
                         case Login_Request:
-                            String userId =msg._2.getString("userId");
-                            String password =msg._2.getString("password");
-                            System.out.println("收到登录消息"+"userId:"+userId+"===password:"+password);
-                            JSONObject body = new JSONObject();
-                            body.put("ok", true);
-                            byte[] loginBin = CodeMsgTranslate.encode("Login_Response", body);
+                            String userId = body.getString("userId");
+                            String password = body.getString("password");
+                            System.out.println("收到登录消息" + "userId:" + userId + "===password:" + password);
+                            JSONObject responseBody = new JSONObject();
+                            responseBody.put("ok", true);
+                            System.out.println("js:"+responseBody);
+                            byte[] loginBin = CodeMsgTranslate.encode(MsgScheme.AMsg.Head.Login_Response, responseBody);
 
-//                        connectionMap.get(currID).getValue2().writeBinaryMessage(Buffer.buffer(loginBin));
+                            responseWebSocket.writeBinaryMessage(Buffer.buffer(loginBin));
                             break;
                         default:
-                            connectionMap.get(currID).getValue2().writeTextMessage("error");
+                            responseWebSocket.writeTextMessage("error");
+                            responseWebSocket.close();
                     }
                 } catch (Exception e) {
-                    connectionMap.get(currID).getValue2().close();
+
                 }
 
                 //创建 加入房间只能位于大厅操作
@@ -299,28 +304,29 @@ public class WebSocketVerticle extends AbstractVerticle {
                     break;
 
                     default:
-                        //给非当前连接到服务器的每一个WebSocket连接发送消息
-                        for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
 
-                            if (currID.equals(entry.getKey())) {
-                                entry.getValue().getValue2().writeTextMessage("yourself:" + textData + "\r");
-                            }
-
-                    /* 发送文本消息 文本信息似乎不支持图片等二进制消息
-                    若要发送二进制消息，可用writeBinaryMessage方法
-                    */
+//                        //给非当前连接到服务器的每一个WebSocket连接发送消息
+//                        for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
 //
-//                            JSONObject msg = new JSONObject();
-//                            msg.put("name", "abc");
-//                            msg.put("age", 11);
-//                            String output = msg.toJSONString();
-//                            System.out.println(output);
-//                            eb.send("test.address", output);
-                            else {
-                                entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
-                            }
-                        }
-                        break;
+//                            if (currID.equals(entry.getKey())) {
+//                                entry.getValue().getValue2().writeTextMessage("yourself:" + textData + "\r");
+//                            }
+//
+//                    /* 发送文本消息 文本信息似乎不支持图片等二进制消息
+//                    若要发送二进制消息，可用writeBinaryMessage方法
+//                    */
+////
+////                            JSONObject msg = new JSONObject();
+////                            msg.put("name", "abc");
+////                            msg.put("age", 11);
+////                            String output = msg.toJSONString();
+////                            System.out.println(output);
+////                            eb.send("test.address", output);
+//                            else {
+//                                entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+//                            }
+//                        }
+//                        break;
                 }
             });
         });
