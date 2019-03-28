@@ -6,45 +6,92 @@ message AMsg {
         Undefined_Msg = 0;
         Undefined_Request = 1;
         Undefined_Response = 2;
+
+        Error_Response =3;
+
         Login_Request = 100001;
         Login_Response = 100002;
 
         CreateRoom_Request = 100003;
         CreateRoom_Response = 100004;
+
+        JoinRoom_Request = 100005;
+        JoinRoom_Response = 100006;
+
+        QuitRoom_Request = 100007;
+        QuitRoom_Response = 100008;
     }
     Head head = 1;
 
     oneof body {
+        ErrorResponse errorResponse =14;
+
         LoginRequest loginRequest = 2;
         LoginResponse loginResponse = 3;
+
         UndefinedMsg undefinedMsg = 4;
         UndefinedRequest undefinedRequest = 5;
         UndefinedResponse undefinedResponse = 6;
+
+        CreateRoomRequest createRoomRequest = 7;
+        CreateRoomResponse createRoomResponse = 8;
+
+        JoinRoomRequest joinRoomRequest = 9;
+        JoinRoomResponse joinRoomResponse = 10;
+
+        QuitRoomRequest quitRoomRequest = 11;
+        QuitRoomResponse quitRoomResponse = 12;
     }
 
 }
-//0
+
 message UndefinedMsg {
 
 }
-//1
+
 message UndefinedRequest {
 
 }
-//2
+
 message UndefinedResponse {
 
 }
 
-//100001
+
 message LoginRequest {
     string userId = 1;
     string password = 2;
 
 }
-//100002
+
 message LoginResponse {
     bool ok = 1;
+}
+message CreateRoomRequest {
+}
+message CreateRoomResponse {
 
+    int32 roomId = 1;
+}
 
+message JoinRoomRequest {
+    bool certainRoom = 1;//TODO 选择房间进入功能未完成
+    int32 roomId= 2;
+}
+
+message JoinRoomResponse {
+
+    int32 roomId = 1;
+}
+
+message QuitRoomRequest {
+
+}
+
+message QuitRoomResponse {
+
+}
+
+message ErrorResponse {
+    string reason =1;
 }

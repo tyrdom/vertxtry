@@ -3,9 +3,7 @@
 import WebSocketTest.CodeMsgTranslate;
 import com.alibaba.fastjson.JSONObject;
 import com.google.protobuf.InvalidProtocolBufferException;
-import msgScheme.MsgScheme;
 import org.junit.Test;
-import protoTest.PersonModel;
 import scala.Tuple2;
 
 public class ProtoTest {
