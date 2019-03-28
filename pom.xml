@@ -100,11 +100,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
         </dependency>
-        ---------------------
-        作者：jhappyfly
-        来源：CSDN
-        原文：https://blog.csdn.net/king_kgh/article/details/84894599
-        版权声明：本文为博主原创文章，转载请附上博文链接！
+
     </dependencies>
 
     <build>
