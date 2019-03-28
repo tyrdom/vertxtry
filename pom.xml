@@ -9,7 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
 
-
     <properties>
 
         <grpc.version>1.6.1</grpc.version>
@@ -17,7 +16,6 @@
         <protobuf.version>3.4.0</protobuf.version>
 
     </properties>
-
 
 
     <dependencies>
@@ -53,18 +51,25 @@
             <version>${grpc.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
             <version>${grpc.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-redis-client</artifactId>
+            <version>3.5.2.CR3</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -84,7 +89,22 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.56</version>
         </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-jdbc-client</artifactId>
+            <version>3.6.0</version>
+        </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
+        </dependency>
+        ---------------------
+        作者：jhappyfly
+        来源：CSDN
+        原文：https://blog.csdn.net/king_kgh/article/details/84894599
+        版权声明：本文为博主原创文章，转载请附上博文链接！
     </dependencies>
 
     <build>

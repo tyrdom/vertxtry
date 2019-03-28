@@ -53,6 +53,8 @@ public class WebSocketVerticle extends AbstractVerticle {
     }
 
     private void loginHallProcess(String someId, ServerWebSocket someWebSocket, EventBus eb) {
+        //
+
         connectionMap.put(someId, new Triplet<>("loginHall", "free", someWebSocket));
 
         System.out.println("ws：发送进入大厅请求：" + someId);
@@ -149,9 +151,8 @@ public class WebSocketVerticle extends AbstractVerticle {
 
             //　WebSocket 连接
             webSocket.frameHandler(handler -> {
-                String textData = handler.textData();//TODO protobuf translate
-                String currID = webSocket.binaryHandlerID();//TODO webSocket to find Id
-                //TODO proto decode
+                String textData = handler.textData();
+                String currID = webSocket.binaryHandlerID();
                 try {
                     byte[] binData = handler.binaryData().getBytes();
                     Tuple2<MsgScheme.AMsg.Head, JSONObject> msg = CodeMsgTranslate.decode(binData);
@@ -269,153 +270,153 @@ public class WebSocketVerticle extends AbstractVerticle {
 
                 }
 
-                //创建 加入房间只能位于大厅操作
-                switch (textData) {
-                    case "createRoom": {
-                        if (connectionMap.get(currID).getValue0().equals("inHall")) {
-                            {
-                                connectionMap.put(currID, new Triplet<>("creatingRoom", "free", webSocket));
-                                eb.send("createRoom", currID, ar ->
-
-                                {
-                                    JSONObject crInfo =
-                                            JSONObject.parseObject(ar.result().body().toString());
-
-                                    String cid = crInfo.getString("id");
-                                    int RoomId = crInfo.getInteger("room");
-                                    if (connectionMap.get(cid).getValue0().equals("creatingRoom") && cid.equals(id)) {
-                                        connectionMap.put(cid, new Triplet<>("Room" + RoomId, "free", webSocket));
-                                        System.out.println("回复房间:" + RoomId + "开启ok" + cid);
-                                        connectionMap.get(cid).getValue2().writeTextMessage("房间建立成功，房间号：" + RoomId);
-
-                                    } else {
-                                        System.out.println("ws：createRoom：没有此玩家或玩家状态错误：" + cid);
-                                    }
-                                });
-                            }
-                        } else {
-                            //TODO protobuf
-                            connectionMap.get(currID).getValue2().writeTextMessage("不可建立房间，你不在大厅中");
-                        }
-                        break;
-                    }
-                    case "joinRoom": {
-                        if (connectionMap.get(currID).getValue0().equals("inHall")) {
-                            connectionMap.put(currID, new Triplet<>("findingRoom", "free", webSocket));
-                            //向大厅请求一个有位置的房间号
-                            eb.send("findRoom", currID, messageAsyncResult -> {
-                                if (messageAsyncResult.succeeded() && !messageAsyncResult.result().body().equals("fail")) {
-                                    String roomId = messageAsyncResult.result().body().toString();
-                                    //请求到房间成功后，开始进入房间
-                                    connectionMap.put(currID, new Triplet<>("joiningRoom", roomId, webSocket));
-                                    eb.send("joinRoom" + roomId, currID, messageAsyncResult1 -> {
-                                        //房间回复ok，则记录在房间的状态
-                                        if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
-                                            //TODO protobuf
-                                            connectionMap.get(currID).getValue2().writeTextMessage("房间进入成功，你在房间" + roomId);
-                                            connectionMap.put(currID, new Triplet<>("Room" + roomId, "free", webSocket));
-                                        } else {
-                                            //TODO protobuf
-                                            connectionMap.get(currID).getValue2().writeTextMessage("房间出问题，不可进入");
-                                            connectionMap.put(currID, new Triplet<>("inHall", "free", webSocket));
-                                        }
-                                    });
-
-                                } else {
-                                    //TODO protobuf
-                                    connectionMap.get(currID).getValue2().writeTextMessage("没有剩余的空房间");
-                                    connectionMap.put(currID, new Triplet<>("inHall", "free", webSocket));
-                                }
-                            });
-                        } else {
-                            //TODO protobuf
-                            connectionMap.get(currID).getValue2().writeTextMessage("不可加入房间，你不在大厅中");
-                        }
-                        break;
-                    }
-                    case "leaveRoom": {
-                        if (connectionMap.get(currID).getValue0().startsWith("Room")) {
-                            JSONObject whoAndReason = new JSONObject();
-                            whoAndReason.put("id", currID);
-                            whoAndReason.put("reason", "normal");
-                            String whoAndReasonMsg = whoAndReason.toJSONString();
-                            eb.send("quit" + connectionMap.get(currID).getValue0(), whoAndReasonMsg);
-                            loginHallProcess(currID, webSocket, eb);
-                            //TODO protobuf
-                            connectionMap.get(currID).getValue2().writeTextMessage("退出成功，你回到大厅");
-                        } else {
-                            //TODO protobuf
-                            connectionMap.get(currID).getValue2().writeTextMessage("不可退出房间，你不在房间中");
-                        }
-                    }
-                    break;
-
-                    case "ready": {
-                        if (connectionMap.get(currID).getValue0().startsWith("Room") && connectionMap.get(currID).getValue1().equals("free")) {
-                            eb.send("ready" + connectionMap.get(currID).getValue0(), currID, messageAsyncResult -> {
-                                Triplet<String, String, ServerWebSocket> oldStatus = connectionMap.get(currID);
-
-                                ServerWebSocket webSocketToSend = oldStatus.getValue2();
-                                if (messageAsyncResult.succeeded()) {
-                                    String replyMsg = messageAsyncResult.result().body().toString();
-
-                                    switch (replyMsg) {
-                                        case "gameStart":
-                                            webSocketToSend.writeTextMessage("所有玩家准备完成，开始");
-                                            connectionMap.put(currID, new Triplet<>(oldStatus.getValue0(), "play", webSocketToSend));
-                                            break;
-                                        case "readyOk": {
-                                            webSocketToSend.writeTextMessage("准备完成，等待其他玩家准备");
-                                            connectionMap.put(currID, new Triplet<>(oldStatus.getValue0(), "ready", webSocketToSend));
-                                            break;
-                                        }
-                                        case "notFull":
-                                            webSocketToSend.writeTextMessage("房间人数未满，暂时不可准备");
-                                            break;
-                                        default:
-                                            webSocketToSend.writeTextMessage("房间连接错误，连接断开");
-                                            webSocketToSend.close();
-                                            connectionMap.remove(currID);
-                                            break;
-                                    }
-                                } else {
-                                    webSocketToSend.writeTextMessage("超时关闭");
-                                    webSocketToSend.close();
-                                    connectionMap.remove(currID);
-                                }
-                            });
-                        } else {
-                            connectionMap.get(currID).getValue2().writeTextMessage("不可准备，你已经准备或在游戏中，或者你不在房间");
-
-                        }
-                    }
-                    break;
-
-                    default:
-
-//                        //给非当前连接到服务器的每一个WebSocket连接发送消息
-//                        for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
+                //创建 加入房间只能位于大厅操作 字符串协议
+//                switch (textData) {
+//                    case "createRoom": {
+//                        if (connectionMap.get(currID).getValue0().equals("inHall")) {
+//                            {
+//                                connectionMap.put(currID, new Triplet<>("creatingRoom", "free", webSocket));
+//                                eb.send("createRoom", currID, ar ->
 //
-//                            if (currID.equals(entry.getKey())) {
-//                                entry.getValue().getValue2().writeTextMessage("yourself:" + textData + "\r");
-//                            }
+//                                {
+//                                    JSONObject crInfo =
+//                                            JSONObject.parseObject(ar.result().body().toString());
 //
-//                    /* 发送文本消息 文本信息似乎不支持图片等二进制消息
-//                    若要发送二进制消息，可用writeBinaryMessage方法
-//                    */
-////
-////                            JSONObject msg = new JSONObject();
-////                            msg.put("name", "abc");
-////                            msg.put("age", 11);
-////                            String output = msg.toJSONString();
-////                            System.out.println(output);
-////                            eb.send("test.address", output);
-//                            else {
-//                                entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+//                                    String cid = crInfo.getString("id");
+//                                    int RoomId = crInfo.getInteger("room");
+//                                    if (connectionMap.get(cid).getValue0().equals("creatingRoom") && cid.equals(id)) {
+//                                        connectionMap.put(cid, new Triplet<>("Room" + RoomId, "free", webSocket));
+//                                        System.out.println("回复房间:" + RoomId + "开启ok" + cid);
+//                                        connectionMap.get(cid).getValue2().writeTextMessage("房间建立成功，房间号：" + RoomId);
+//
+//                                    } else {
+//                                        System.out.println("ws：createRoom：没有此玩家或玩家状态错误：" + cid);
+//                                    }
+//                                });
 //                            }
+//                        } else {
+//                            //TODO protobuf
+//                            connectionMap.get(currID).getValue2().writeTextMessage("不可建立房间，你不在大厅中");
 //                        }
 //                        break;
-                }
+//                    }
+//                    case "joinRoom": {
+//                        if (connectionMap.get(currID).getValue0().equals("inHall")) {
+//                            connectionMap.put(currID, new Triplet<>("findingRoom", "free", webSocket));
+//                            //向大厅请求一个有位置的房间号
+//                            eb.send("findRoom", currID, messageAsyncResult -> {
+//                                if (messageAsyncResult.succeeded() && !messageAsyncResult.result().body().equals("fail")) {
+//                                    String roomId = messageAsyncResult.result().body().toString();
+//                                    //请求到房间成功后，开始进入房间
+//                                    connectionMap.put(currID, new Triplet<>("joiningRoom", roomId, webSocket));
+//                                    eb.send("joinRoom" + roomId, currID, messageAsyncResult1 -> {
+//                                        //房间回复ok，则记录在房间的状态
+//                                        if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
+//                                            //TODO protobuf
+//                                            connectionMap.get(currID).getValue2().writeTextMessage("房间进入成功，你在房间" + roomId);
+//                                            connectionMap.put(currID, new Triplet<>("Room" + roomId, "free", webSocket));
+//                                        } else {
+//                                            //TODO protobuf
+//                                            connectionMap.get(currID).getValue2().writeTextMessage("房间出问题，不可进入");
+//                                            connectionMap.put(currID, new Triplet<>("inHall", "free", webSocket));
+//                                        }
+//                                    });
+//
+//                                } else {
+//                                    //TODO protobuf
+//                                    connectionMap.get(currID).getValue2().writeTextMessage("没有剩余的空房间");
+//                                    connectionMap.put(currID, new Triplet<>("inHall", "free", webSocket));
+//                                }
+//                            });
+//                        } else {
+//                            //TODO protobuf
+//                            connectionMap.get(currID).getValue2().writeTextMessage("不可加入房间，你不在大厅中");
+//                        }
+//                        break;
+//                    }
+//                    case "leaveRoom": {
+//                        if (connectionMap.get(currID).getValue0().startsWith("Room")) {
+//                            JSONObject whoAndReason = new JSONObject();
+//                            whoAndReason.put("id", currID);
+//                            whoAndReason.put("reason", "normal");
+//                            String whoAndReasonMsg = whoAndReason.toJSONString();
+//                            eb.send("quit" + connectionMap.get(currID).getValue0(), whoAndReasonMsg);
+//                            loginHallProcess(currID, webSocket, eb);
+//                            //TODO protobuf
+//                            connectionMap.get(currID).getValue2().writeTextMessage("退出成功，你回到大厅");
+//                        } else {
+//                            //TODO protobuf
+//                            connectionMap.get(currID).getValue2().writeTextMessage("不可退出房间，你不在房间中");
+//                        }
+//                    }
+//                    break;
+//
+//                    case "ready": {
+//                        if (connectionMap.get(currID).getValue0().startsWith("Room") && connectionMap.get(currID).getValue1().equals("free")) {
+//                            eb.send("ready" + connectionMap.get(currID).getValue0(), currID, messageAsyncResult -> {
+//                                Triplet<String, String, ServerWebSocket> oldStatus = connectionMap.get(currID);
+//
+//                                ServerWebSocket webSocketToSend = oldStatus.getValue2();
+//                                if (messageAsyncResult.succeeded()) {
+//                                    String replyMsg = messageAsyncResult.result().body().toString();
+//
+//                                    switch (replyMsg) {
+//                                        case "gameStart":
+//                                            webSocketToSend.writeTextMessage("所有玩家准备完成，开始");
+//                                            connectionMap.put(currID, new Triplet<>(oldStatus.getValue0(), "play", webSocketToSend));
+//                                            break;
+//                                        case "readyOk": {
+//                                            webSocketToSend.writeTextMessage("准备完成，等待其他玩家准备");
+//                                            connectionMap.put(currID, new Triplet<>(oldStatus.getValue0(), "ready", webSocketToSend));
+//                                            break;
+//                                        }
+//                                        case "notFull":
+//                                            webSocketToSend.writeTextMessage("房间人数未满，暂时不可准备");
+//                                            break;
+//                                        default:
+//                                            webSocketToSend.writeTextMessage("房间连接错误，连接断开");
+//                                            webSocketToSend.close();
+//                                            connectionMap.remove(currID);
+//                                            break;
+//                                    }
+//                                } else {
+//                                    webSocketToSend.writeTextMessage("超时关闭");
+//                                    webSocketToSend.close();
+//                                    connectionMap.remove(currID);
+//                                }
+//                            });
+//                        } else {
+//                            connectionMap.get(currID).getValue2().writeTextMessage("不可准备，你已经准备或在游戏中，或者你不在房间");
+//
+//                        }
+//                    }
+//                    break;
+//
+//                    default:
+//
+////                        //给非当前连接到服务器的每一个WebSocket连接发送消息
+////                        for (Map.Entry<String, Triplet<String, String, ServerWebSocket>> entry : connectionMap.entrySet()) {
+////
+////                            if (currID.equals(entry.getKey())) {
+////                                entry.getValue().getValue2().writeTextMessage("yourself:" + textData + "\r");
+////                            }
+////
+////                    /* 发送文本消息 文本信息似乎不支持图片等二进制消息
+////                    若要发送二进制消息，可用writeBinaryMessage方法
+////                    */
+//////
+//////                            JSONObject msg = new JSONObject();
+//////                            msg.put("name", "abc");
+//////                            msg.put("age", 11);
+//////                            String output = msg.toJSONString();
+//////                            System.out.println(output);
+//////                            eb.send("test.address", output);
+////                            else {
+////                                entry.getValue().getValue2().writeTextMessage("用户" + id + ":" + textData + "\r");
+////                            }
+////                        }
+////                        break;
+//                }
             });
         });
     }
