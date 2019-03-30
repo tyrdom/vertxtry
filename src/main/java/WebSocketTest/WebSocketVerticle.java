@@ -48,8 +48,10 @@ public class WebSocketVerticle extends AbstractVerticle {
         });
         webSocketMethod(server);
         server.requestHandler(router).listen(8080);
-        DeploymentOptions options = new DeploymentOptions().setWorker(true);
-        vertx.deployVerticle(HallVerticle.class.getName(), options);
+        DeploymentOptions hallOptions = new DeploymentOptions().setWorker(true);
+        vertx.deployVerticle(HallVerticle.class.getName(), hallOptions);
+        DeploymentOptions jdbcOptions = new DeploymentOptions().setWorker(true);
+        vertx.deployVerticle(JdbcVerticle.class.getName(), jdbcOptions);
     }
 
     private void loginHallProcess(String someId, ServerWebSocket someWebSocket, EventBus eb) {
