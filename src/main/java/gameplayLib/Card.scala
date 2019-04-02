@@ -38,31 +38,21 @@ case class Card(standard: CommonValue, owner: Option[String], skill: Option[Skil
 
   def sortCard(Cards: Seq[Card]): Seq[Card] = Cards.sortWith(compareCardLessThan)
 
-  def genPointMap(Cards: Seq[Card]): Map[Int, Int] = {
-    var map: Map[Int, Int] = Map()
-    val min = Config.minPoint - 1
-    val max = Config.maxPoint + 1
-    for (i <- min to max) {
-      if (i == min) {
-        map += (min -> Cards.count(x => x.standard.nowPoint <= min))
-      }
-      else if (i == max) {
-        map += (max -> Cards.count(x => x.standard.nowPoint >= max))
-      }
-      else
+  def genPointMapAndSpecial(Cards: Seq[Card]): (Seq[(Int, Int)], Int, Int) = {
+    val map: Seq[(Int, Int)] = (Config.minPoint to Config.maxPoint).foldLeft(Nil: Seq[(Int, Int)])((map, point) => (point, Cards.count(c => c.standard.nowPoint == point)) +: map)
+    val dCard = Config.minPoint - 1
+    val xCard = Config.maxPoint + 1
 
-        map += (max -> Cards.count(x => x.standard.nowPoint == i))
-
-    }
-    map
+    (map, Cards.count(x => x.standard.nowPoint <= dCard), Cards.count(x => x.standard.nowPoint >= xCard))
   }
 
   def compareCardLessThan(a: Card, b: Card): Boolean = a.standard.nowPoint < b.standard.nowPoint || (a.standard.nowPoint == b.standard.nowPoint && a.standard.id == b.standard.id)
 
-  def genShapes(cards: Seq[Card]): Seq[Shape] = {
-    val pointMap = genPointMap(cards)
+  def genMaxShapes(cards: Seq[Card]): Shape = {
+    val (pointMap, d, x) = genPointMapAndSpecial(cards)
+//    pointMap.sortBy()
 
-    Shape(1, 1, 1, 1, 1) +: Nil
+      Shape(1, 1, 1, 1, 1)
   }
 
   def canShapeCounter(cards: Seq[Card], shape: Shape): Option[Shape] = ???
