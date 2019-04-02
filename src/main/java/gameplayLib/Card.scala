@@ -39,7 +39,8 @@ case class Card(standard: CommonValue, owner: Option[String], skill: Option[Skil
   def sortCard(Cards: Seq[Card]): Seq[Card] = Cards.sortWith(compareCardLessThan)
 
   def genPointMapAndSpecial(Cards: Seq[Card]): (Seq[(Int, Int)], Int, Int) = {
-    val map: Seq[(Int, Int)] = (Config.minPoint to Config.maxPoint).foldLeft(Nil: Seq[(Int, Int)])((map, point) => (point, Cards.count(c => c.standard.nowPoint == point)) +: map)
+    val map: Seq[(Int, Int)] = (Config.minPoint to Config.maxPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.standard.nowPoint == i)) +: m)
+
     val dCard = Config.minPoint - 1
     val xCard = Config.maxPoint + 1
 
@@ -49,10 +50,15 @@ case class Card(standard: CommonValue, owner: Option[String], skill: Option[Skil
   def compareCardLessThan(a: Card, b: Card): Boolean = a.standard.nowPoint < b.standard.nowPoint || (a.standard.nowPoint == b.standard.nowPoint && a.standard.id == b.standard.id)
 
   def genMaxShapes(cards: Seq[Card]): Shape = {
-    val (pointMap, d, x) = genPointMapAndSpecial(cards)
-//    pointMap.sortBy()
+    val (pointSeq, d, x) = genPointMapAndSpecial(cards)
 
-      Shape(1, 1, 1, 1, 1)
+    val sortedSeq = pointSeq.sortBy(p => (p._2, p._1))(Ordering.Tuple2(Ordering.Int.reverse, Ordering.Int.reverse))
+    val maxHeight = sortedSeq.head._2
+    val maxHeightPoint = sortedSeq.head._1
+    var shapeTemp = (maxHeightPoint, maxHeight + x, maxHeight + x, 1) //口袋计算最大可组的牌型=（点数，面积（牌数），高度，宽度）
+
+
+    Shape(1, 1, 1, 1, 1)
   }
 
   def canShapeCounter(cards: Seq[Card], shape: Shape): Option[Shape] = ???
