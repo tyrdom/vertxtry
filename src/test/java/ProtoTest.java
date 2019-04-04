@@ -24,17 +24,17 @@ public class ProtoTest {
 //            System.out.print(b);
 //        }
 
-//        //encode
-//        JSONObject loginRequestBody = new JSONObject();
-//        loginRequestBody.put("userId","someId");
-//        loginRequestBody.put("password","somePassword");
-//        byte[] someByteArray =CodeMsgTranslate.encode(MsgScheme.AMsg.Head.Login_Request,loginRequestBody);
-//        System.out.println("===Request Byte:");
-//        for (byte b : someByteArray) {
-//            System.out.print(b);
-//        }
+        //encode
+        JSONObject loginRequestBody = new JSONObject();
+        loginRequestBody.put("userId","someId");
+        loginRequestBody.put("password","somePassword");
+        byte[] someByteArray =CodeMsgTranslate.encode(MsgScheme.AMsg.Head.Login_Request,loginRequestBody);
+        System.out.println("===Request Byte:");
+        for (byte b : someByteArray) {
+            System.out.print(b);
+        }
 
-        System.out.println(Card.sliceTest()+"================");
+
 
 //        byte[] byteArray = person.toByteArray();
 //        PersonModel.Person p2 = PersonModel.Person.parseFrom(byteArray);
