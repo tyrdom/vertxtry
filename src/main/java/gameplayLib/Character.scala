@@ -1,6 +1,6 @@
 package gameplayLib
 
-case class Character(id: Int, name: String, var level: Int, var atk: Int, var defence: Int, var exp: Int) //有状态的数据，这个
+case class Character(id: Int, var level: Int, var atk: Int, var defence: Int, var exp: Int) //有状态的数据，这个
 {
 
   def initCharacter(id:Int) :Character = ???

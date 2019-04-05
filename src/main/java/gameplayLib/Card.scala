@@ -2,11 +2,11 @@ package gameplayLib
 
 import scala.util.Random
 
-case class CommonValue(id: Int, level: Int, nowPoint: Int, copy: Boolean) //卡牌的一般属性 id 牌的唯一id nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
+//卡牌的一般属性 id 牌的唯一id nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
 
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
-case class Card(standard: CommonValue, owner: Option[String], skill: Option[Skill])
+case class Card(id: Int, level: Int, nowPoint: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[Skill])
 
 object Card {
   def sortCard(Cards: Seq[Card]): Seq[Card] = Cards.sortWith(compareCardLessThan) //  按点数排列卡牌，从小到大排列，某些技能用到此功能
@@ -14,14 +14,14 @@ object Card {
   def shuffleCard(Cards: Seq[Card]): Seq[Card] = Random.shuffle(Cards)
 
   def genPointMapAndSpecial(Cards: Seq[Card]): (Seq[(Int, Int)], Int, Int) = {
-    val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.standard.nowPoint == i)) +: m)
+    val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.nowPoint == i)) +: m)
     val dCardP = Config.minPoint - 1
     val xCardP = Config.maxPoint + 1
 
-    (map, Cards.count(x => x.standard.nowPoint <= dCardP), Cards.count(x => x.standard.nowPoint >= xCardP))
+    (map, Cards.count(x => x.nowPoint <= dCardP), Cards.count(x => x.nowPoint >= xCardP))
   }
 
-  def compareCardLessThan(a: Card, b: Card): Boolean = a.standard.nowPoint < b.standard.nowPoint || (a.standard.nowPoint == b.standard.nowPoint && a.standard.id == b.standard.id)
+  def compareCardLessThan(a: Card, b: Card): Boolean = a.nowPoint < b.nowPoint || (a.nowPoint == b.nowPoint && a.id == b.id)
 
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌
