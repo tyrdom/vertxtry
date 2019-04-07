@@ -18,4 +18,8 @@ object Config {
     (72, 9),
     (97, 10)
   )
+
+  val initLifePoint = 1000
+
+
 }
