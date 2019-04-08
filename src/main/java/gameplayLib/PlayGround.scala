@@ -41,7 +41,7 @@ type Position = Value
 case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆，公共一个 ，如果没有牌，则
                           var dropDeck: Seq[Card] = Nil: Seq[Card], //弃牌堆，公共一个
                           var destroyedDeck: Seq[Card] = Nil: Seq[Card], //毁掉的牌，不在循环
-                          var playersStatus: Map[String, OnePlayerStatus] = Map()[String, OnePlayerStatus], // 玩家id 座位号 玩家牌状态，可以用于多于两个人的情况
+                          var playersStatus: Map[String, OnePlayerStatus] = Map(), // 玩家id 座位号 玩家牌状态，可以用于多于两个人的情况
                           var characterPool: Seq[Character] = Nil: Seq[Character],
                           var totalTurn: Int = 0,
                           var turn: Int = 0, //回合，一次轮换出牌对象为一回合
@@ -58,14 +58,14 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
 
     this.characterPool = pool
     for (player <- players) {
-      this.playersStatus += player -> OnePlayerStatus
+      this.playersStatus += player -> OnePlayerStatus()
     }
   } //初始化玩家状态的过程
 
   def genPlayerChooseCharacterPools(chooseNum: Int): Map[String, Seq[Int]] = {
     val oPool = Random.shuffle(this.characterPool.map(_.id))
     val characterNum = oPool.count(_ => true)
-    val rMap = Map()[String, Seq[Int]]
+    val rMap: Map[String, Seq[Int]] = Map()
     val realChooseNum: Int = chooseNum match {
       case cNum if cNum * this.maxPlayerNum <= characterNum => cNum
       case _ => characterNum / this.maxPlayerNum
@@ -76,13 +76,23 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   }
 
   def sliceToPieces[X](piecesNum: Int, pieceMaxRoom: Int, pool: Seq[X]): Seq[Seq[X]] = {
-    val num = pool.count(_ => true)
-    val realRoom: Int = pieceMaxRoom match {
-      case cNum if cNum * piecesNum <= num => cNum
-      case _ => num / piecesNum
+    val total = pieceMaxRoom * piecesNum
+    val sPool = pool.slice(0, total)
+    var temp: Map[Int, Seq[X]] = Map()
+    for (i <- 0 until (piecesNum - 1)) {
+      temp += (i -> Nil)
     }
-    (1 to piecesNum).map(_ => Nil: Seq[X])
-    Nil: Seq[Seq[X]]
+
+    var index = 0
+    for (x <- sPool) {
+      val p = index % piecesNum
+      val q = x +: temp(p)
+      temp += (p -> q)
+      index = index + 1
+    }
+
+    temp.values.toSeq
+
   }
 
   def initCharacterAndDeck() = ???
