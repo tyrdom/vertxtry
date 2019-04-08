@@ -19,7 +19,7 @@ object Config {
     (97, 10)
   )
 
-  val initLifePoint = 1000
+  val initHitPoint = 1000
 
 
 }
