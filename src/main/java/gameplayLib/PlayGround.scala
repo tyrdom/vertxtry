@@ -75,9 +75,9 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     rMap
   }
 
-  def sliceToPieces[X](piecesNum: Int, pieceMaxRoom: Int, pool: Seq[X]): Seq[Seq[X]] = {
+  def sliceToPieces[X](piecesNum: Int, pieceMaxRoom: Int, pool: Seq[X]): (Seq[Seq[X]],Seq[X]) = {
     val total = pieceMaxRoom * piecesNum
-    val sPool = pool.slice(0, total)
+    val (sPool,rPool) = pool.splitAt(total)
     var temp: Map[Int, Seq[X]] = Map()
     for (i <- 0 until (piecesNum - 1)) {
       temp += (i -> Nil)
@@ -91,7 +91,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       index = index + 1
     }
 
-    temp.values.toSeq
+    (temp.values.toSeq,rPool)
 
   }
 

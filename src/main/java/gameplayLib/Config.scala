@@ -21,5 +21,5 @@ object Config {
 
   val initHitPoint = 1000
 
-
+  val test = (1 to 10).splitAt(11)
 }

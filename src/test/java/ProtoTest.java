@@ -41,7 +41,7 @@ public class ProtoTest {
 //        System.out.println("after id:" + p2.getId());
 //        System.out.println("after name:" + p2.getName());
 //        System.out.println("after email:" + p2.getEmail());
-
+        System.out.println(gameplayLib.Config.test());
 
         //decode
 //        Tuple2<MsgScheme.AMsg.Head,JSONObject> decodeRequest = CodeMsgTranslate.decode(someByteArray);
