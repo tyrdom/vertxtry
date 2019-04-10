@@ -1,6 +1,7 @@
 package gameplayLib
 
 import com.sun.deploy.util.SyncFileAccess.RandomAccessFileLock
+import gameplayLib.Phrase.Phrase
 
 import scala.collection.immutable
 import scala.util.Random
@@ -21,20 +22,24 @@ case class OnePlayerStatus(
 {
   def addCharacters(cSeq: Seq[Character]): OnePlayerStatus = {
     this.characters = cSeq ++ this.characters
-    def getatk(x:Character) = x.attack
-//   val atk = this.characters.sum(getatk(x))
+    val atk = this.characters.map(x => x.attack).sum
+    val defence = this.characters.map(x => x.defence).sum
+    this.attack = atk
+    this.defence = defence
     this
   }
 
   def drawAPlayerCards(Cards: Seq[Card]): OnePlayerStatus = {
-    this.handCards = Cards ++ this.handCards
+    this.handCards = Card.sortCard(Cards ++ this.handCards)
     this
   }
 }
 
 object Phrase extends Enumeration { //阶段分类
 type Phrase = Value
-  val Draw: Phrase = Value
+  val Prepare: Phrase = Value
+  val ChooseCharacters: Phrase = Value
+  val DrawCards: Phrase = Value
   val Check: Phrase = Value
   val Spawn: Phrase = Value
   val Damage: Phrase = Value
@@ -59,6 +64,8 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
                           var chosenPool: Seq[Character] = Nil: Seq[Character],
                           var choosePoolsForCheck: Map[String, Seq[Int]] = Map(),
                           var totalTurn: Int = 0,
+                          var nowTurnSeat: Int = 0,
+                          var nowPhrase: Phrase = Phrase.Prepare,
                           var turn: Int = 0, //回合，一次轮换出牌对象为一回合
                           var round: Int = 0, //轮，一方打完牌再弃牌重新抽牌为1轮
                           var spawnRight: Int = 0,
@@ -83,6 +90,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   } //初始化玩家状态的过程
 
   def genPlayerChoosesFromCharacterPool(chooseNum: Int): Map[String, Seq[Int]] = { //给玩家生成各自的角色选择池，供玩家选择
+    this.nowPhrase = Phrase.ChooseCharacters
     val oPool = Random.shuffle(this.characterPool.map(_.id))
     val characterNum = oPool.count(_ => true)
     var rMap: Map[String, Seq[Int]] = Map()
@@ -113,32 +121,36 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     ok
   }
 
-  def updateCharacterPoolAfterPlayerChooseAndDrawDeck(chooses: Map[String, Int]): String = {
-    val cidS = chooses.values
-    val cidSet = cidS.toSet
-    if (cidS.count(_ => true) == cidSet.count(_ => true)) {
-      val oPool = this.characterPool
-      this.characterPool = oPool.filter(x => !cidSet.contains(x.id))
-      val cPool = oPool.filter(x => cidSet.contains(x.id))
-      this.chosenPool = cPool
-      chooses.foreach(
-        t => {
-          val playerId = t._1
-          val cid = t._2
-          val cs = cPool.filter(x => x.id == cid)
-          val aPlayerNewStatus: OnePlayerStatus = playersStatus(playerId).addCharacters(cs)
-          playersStatus += playerId -> aPlayerNewStatus
-        }
-      )
-      val cards: Seq[Card] = cidS.flatMap(i => Config.genTestCharCards(i)).toSeq
-      this.drawDeck = cards ++ this.drawDeck
-      "ok"
+  def updateCharacterPoolAfterPlayerChooseAndDrawDeck(chooses: Map[String, Int]): String = { //把选择的角色分配给在场玩家
+    if (checkChosenIsOK(chooses)) {
+      val cidS = chooses.values
+      val cidSet = cidS.toSet
+      if (cidS.count(_ => true) == cidSet.count(_ => true)) {
+        val oPool = this.characterPool
+        this.characterPool = oPool.filter(x => !cidSet.contains(x.id))
+        val cPool = oPool.filter(x => cidSet.contains(x.id))
+        this.chosenPool = cPool
+        chooses.foreach(
+          t => {
+            val playerId = t._1
+            val cid = t._2
+            val cs = cPool.filter(x => x.id == cid)
+            val aPlayerNewStatus: OnePlayerStatus = playersStatus(playerId).addCharacters(cs)
+            playersStatus += playerId -> aPlayerNewStatus
+          }
+        )
+        val cards: Seq[Card] = cidS.flatMap(i => Config.genTestCharCards(i)).toSeq
+        this.drawDeck = cards ++ this.drawDeck
+        "ok"
+      }
+      else
+        "error"
     }
-    else
-      "error"
+    else "error"
   }
 
   def playerDrawCards(maxCards: Int): String = {
+    this.nowPhrase = Phrase.DrawCards
     val nowDrawNum = this.drawDeck.count(_ => true)
     val nowDropDeckNum = this.dropDeck.count(_ => true)
     maxCards * this.nowPlayerNum match {
@@ -162,10 +174,10 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
         this.drawDeck = this.drawDeck ++ addDraw
         playerDrawCards(maxCards)
       }
-
       case _ => "error"
     }
   }
+
 
   def setFirstSeat(playersBid: Seq[(String, Int)]): String = playersBid.count(_ => true) {
     case this.nowPlayerNum =>
@@ -191,9 +203,6 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       temp += (p -> q)
       index = index + 1
     }
-
     (temp.values.toSeq, rPool)
-
   }
-
 }
