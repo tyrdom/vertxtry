@@ -1,8 +1,10 @@
 package WebSocketTest;
 
 import com.alibaba.fastjson.JSONObject;
+import gameplayLib.GamePlayGround;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
+import scala.Array;
 
 import java.util.*;
 
@@ -45,15 +47,13 @@ public class RoomVerticle extends AbstractVerticle {
                 if (players.containsKey(who)) {
                     players.remove(who);
                     eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
-            //如果在待命状态 则把先到退出消息加入
+                    //如果在待命状态 则把先到退出消息加入
                 } else {
                     somebodyWantToQuit.add(who);
                     eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
                 }
 
-            }
-
-            else {
+            } else {
                 //TODO 重连 将不发出leftRoom消息，等待账号重连
                 players.remove(who);
                 eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
@@ -98,14 +98,20 @@ public class RoomVerticle extends AbstractVerticle {
                         if (!entry.getValue().equals("ready")) {
                             allReady = false;
                         }
-                        if (allReady) {
-                            msg.reply("gameStart");
-                            roomStatus = "starting";
-                            //TODO gameStart
-
-                        } else {
-                            msg.reply("readyOk");
+                    }
+                    if (allReady) {
+                        msg.reply("gameStart");
+                        roomStatus = "gaming";
+                        for (Map.Entry<String, String> entry : players.entrySet()) {
+                            players.put(entry.getKey(), "gaming");
                         }
+                        GamePlayGround gamePlayGround = GamePlayGround.apply(GamePlayGround.$lessinit$greater$default$1(), GamePlayGround.$lessinit$greater$default$2(), GamePlayGround.$lessinit$greater$default$3(), GamePlayGround.$lessinit$greater$default$4(), GamePlayGround.$lessinit$greater$default$5(), GamePlayGround.$lessinit$greater$default$6(), GamePlayGround.$lessinit$greater$default$7(), GamePlayGround.$lessinit$greater$default$8(), GamePlayGround.$lessinit$greater$default$9(), GamePlayGround.$lessinit$greater$default$10(), GamePlayGround.$lessinit$greater$default$11(), GamePlayGround.$lessinit$greater$default$12(), GamePlayGround.$lessinit$greater$default$13(), GamePlayGround.$lessinit$greater$default$14(), GamePlayGround.$lessinit$greater$default$15(), GamePlayGround.$lessinit$greater$default$16(), GamePlayGround.$lessinit$greater$default$17());
+                        int[] cIds = gameplayLib.Config.standardCIds();
+                        String[] pIds = players.keySet().toArray(new String[maxPlayer]);
+                        gamePlayGround.initPlayGround(pIds, cIds);
+
+                    } else {
+                        msg.reply("readyOk");
                     }
                 } else {
                     msg.reply("error");

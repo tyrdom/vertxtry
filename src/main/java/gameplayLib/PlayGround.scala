@@ -56,6 +56,8 @@ type Position = Value
 }
 
 
+
+
 case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆，公共一个 ，如果没有牌，则
                           var dropDeck: Seq[Card] = Nil: Seq[Card], //弃牌堆，公共一个
                           var destroyedDeck: Seq[Card] = Nil: Seq[Card], //毁掉的牌，不在循环
@@ -64,18 +66,18 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
                           var chosenPool: Seq[Character] = Nil: Seq[Character],
                           var choosePoolsForCheck: Map[String, Seq[Int]] = Map(),
                           var totalTurn: Int = 0,
-                          var nowTurnSeat: Int = 0,
+                          var nowTurnSeat: Int = 1, //轮到座位几出牌
                           var nowPhrase: Phrase = Phrase.Prepare,
                           var turn: Int = 0, //回合，一次轮换出牌对象为一回合
                           var round: Int = 0, //轮，一方打完牌再弃牌重新抽牌为1轮
                           var spawnRight: Int = 0,
                           var maxPlayerNum: Int = 0, // 最大的座位数
-                          var seat2Player: Map[Int, String] = Map(), //座位上的玩家情况，关系到发牌顺序，出牌顺序
+                          var seat2Player: Map[Int, String] = Map(), //座位的玩家 情况
                           var nowPlayerNum: Int = 0,
                           var Outers: Seq[String] = Nil: Seq[String] //被淘汰的选手顺序约后面越先被淘汰
                          ) { //每个房间需new1个新的playground
 
-  def initPlayGround(players: Seq[String], charactersIds: Seq[Int]): Unit = {
+  def initPlayGround(players: Array[String], charactersIds: Array[Int]): Unit = {
     val playerNum = players.count(_ => true)
     this.maxPlayerNum = playerNum
     this.nowPlayerNum = playerNum
@@ -121,7 +123,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     ok
   }
 
-  def updateCharacterPoolAfterPlayerChooseAndDrawDeck(chooses: Map[String, Int]): String = { //把选择的角色分配给在场玩家
+  def updateCharacterPoolAfterPlayerChooseAndDrawDeck(chooses: Map[String, Int]): Boolean = { //把选择的角色分配给在场玩家
     if (checkChosenIsOK(chooses)) {
       val cidS = chooses.values
       val cidSet = cidS.toSet
@@ -141,15 +143,16 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
         )
         val cards: Seq[Card] = cidS.flatMap(i => Config.genTestCharCards(i)).toSeq
         this.drawDeck = cards ++ this.drawDeck
-        "ok"
+        true
+
       }
       else
-        "error"
+        false
     }
-    else "error"
+    else false
   }
 
-  def playerDrawCards(maxCards: Int): String = {
+  def playerDrawCards(maxCards: Int): Boolean = {
     this.nowPhrase = Phrase.DrawCards
     val nowDrawNum = this.drawDeck.count(_ => true)
     val nowDropDeckNum = this.dropDeck.count(_ => true)
@@ -165,7 +168,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
           val newStatus = this.playersStatus(id).drawAPlayerCards(addCard)
           this.playersStatus += (id -> newStatus)
         })
-        "ok"
+        true
       }
       case cardsNum
         if cardsNum <= nowDrawNum + nowDropDeckNum && cardsNum > nowDrawNum => {
@@ -174,19 +177,28 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
         this.drawDeck = this.drawDeck ++ addDraw
         playerDrawCards(maxCards)
       }
-      case _ => "error"
+      case _ => false
     }
   }
 
 
-  def setFirstSeat(playersBid: Seq[(String, Int)]): String = playersBid.count(_ => true) {
+  def setFirstSeat(playersBid: Array[(String, Int)]): Boolean = playersBid.count(_ => true) {
     case this.nowPlayerNum =>
       val nSeat = 1 to nowPlayerNum zip playersBid.sortBy(x => x._2).map(x => x._1)
       this.seat2Player = nSeat.toMap
-      "ok"
-    case _ => "error"
+      true
+    case _ => false
   }
 
+
+  def checkCards(): Boolean = { //TODO 各个玩家检查牌，发动checkCard时的可发动的技能
+    true
+  }
+
+  def getNowTurnPlayer: String = this.seat2Player(this.nowTurnSeat)
+
+  def spawnCards(who: String, cardIdx: Array[Int],objPlayer:String):Boolean //接到某玩家出牌消息，消息为当前牌的序号,在多于两人的情况下需指定出牌目标
+  = true
 
   def sliceToPieces[X](piecesNum: Int, pieceMaxRoom: Int, pool: Seq[X]): (Seq[Seq[X]], Seq[X]) = {
     val total = pieceMaxRoom * piecesNum

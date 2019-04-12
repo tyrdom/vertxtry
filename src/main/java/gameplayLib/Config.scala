@@ -33,4 +33,6 @@ object Config {
   def genTestCharCards(cid: Int): Seq[Card] = {
     (1 to 10).map(i => Card(cid * 100 + i, i, i, false, Some(cid), Nil))
   }
+
+  val standardCIds:Array[Int] = Array(1,2,3,4,5,6,7,8,9,10)
 }
