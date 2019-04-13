@@ -8,7 +8,7 @@ import scala.util.Random
 
 case class SpawnedCard(who: String, cards: Seq[Card])
 
-case class needCounter(shape: Shape, counterHistorySpawn: Seq[SpawnedCard])
+case class needCounter(shape: Option[Shape], counterHistorySpawn: Seq[SpawnedCard])
 
 //needCounterShape：需要对抗的牌型，如果有出牌权，那么就需要对抗此Shape
 //counterHistorySpawn：对抗的历史出牌，如果有需要对抗时对抗失败，则消灭这个needCounter，触发一些效果，对抗成功则把needCounter加入自己出的牌shape的点数，更新shape再转移给其他玩家
@@ -18,7 +18,7 @@ case class OnePlayerStatus(
                             var HP: Int = Config.initHitPoint, var attack: Int = 0, var defence: Int = 0, //最初的属性
                             var buffs: Seq[Buff] = Nil: Seq[Buff],
                             var characters: Seq[Character] = Nil: Seq[Character],
-                            var needCounter: Option[needCounter] = None) //需要对抗的牌型和历史记录,如果为空则不需要按照对抗出牌
+                            var needCounter: needCounter = needCounter(None, Nil: Seq[SpawnedCard])) //需要对抗的牌型和历史记录,如果为空则不需要按照对抗出牌
 {
   def addCharacters(cSeq: Seq[Character]): OnePlayerStatus = {
     this.characters = cSeq ++ this.characters
@@ -56,11 +56,9 @@ type Position = Value
 }
 
 
-
-
 case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆，公共一个 ，如果没有牌，则
                           var dropDeck: Seq[Card] = Nil: Seq[Card], //弃牌堆，公共一个
-                          var destroyedDeck: Seq[Card] = Nil: Seq[Card], //毁掉的牌，不在循环
+                          var destroyedDeck: Seq[Card] = Nil: Seq[Card], //毁掉的牌，不再循环
                           var playersStatus: Map[String, OnePlayerStatus] = Map(), // 玩家id 座位号 玩家牌状态，可以用于多于两个人的情况
                           var characterPool: Seq[Character] = Nil: Seq[Character],
                           var chosenPool: Seq[Character] = Nil: Seq[Character],
@@ -197,8 +195,15 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
 
   def getNowTurnPlayer: String = this.seat2Player(this.nowTurnSeat)
 
-  def spawnCards(who: String, cardIdx: Array[Int],objPlayer:String):Boolean //接到某玩家出牌消息，消息为当前牌的序号,在多于两人的情况下需指定出牌目标
-  = true
+  def spawnCards(who: String, cardIdx: Array[Int], objPlayer: String): Boolean //接到某玩家出牌消息，消息为当前牌的序号,在多于两人的情况下需指定出牌目标
+  = {
+    val status = this.playersStatus(who)
+    val handCards = status.handCards
+    val spawnCards = cardIdx.map(i => handCards(i - 1))
+    val newNeedConterShape = gameplayLib.Card.canShapeCounter(spawnCards, status.needCounter.shape)
+
+    true
+  }
 
   def sliceToPieces[X](piecesNum: Int, pieceMaxRoom: Int, pool: Seq[X]): (Seq[Seq[X]], Seq[X]) = {
     val total = pieceMaxRoom * piecesNum

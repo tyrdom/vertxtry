@@ -48,7 +48,10 @@ object Card {
     shapes
   }
 
-  def genBiggestShape(cards: Seq[Card]): Shape = genAllShapes(cards).maxBy(aShape => (aShape.height * aShape.length, aShape.keyPoint, aShape.height)) //获得一组牌最大的shape，
+  def genBiggestShape(cards: Seq[Card]): Option[Shape] = cards match {
+    case Nil => None
+    case _ => Some(genAllShapes(cards).maxBy(aShape => (aShape.height * aShape.length, aShape.keyPoint, aShape.height))) //获得一组牌最大的shape，
+  }
 
   def sliceAPointSeq(point: Int, length: Int, pointSeq: Seq[(Int, Int)]): Seq[(Int, Int)] =
     point match {
@@ -59,23 +62,26 @@ object Card {
     }
 
   //判断一组牌是否可以针对对应的shape非炸弹出牌
-  def canShapeCounter(cards: Seq[Card], shape: Shape): Seq[Shape] = shape.keyPoint match { //XX出牌可以压住对手牌，返回Nil为不可压制，其他为可以压制
-    case Config.maxPoint => Nil: Seq[Shape]
+
+  def canShapeCounter(cards: Seq[Card], shape: Option[Shape]): Option[Shape] = shape match { //XX出牌可以压住对手牌，返回Nil为不可压制，其他为可以压制
+    case None => genBiggestShape(cards)
+    case a_shape if a_shape.get.keyPoint == Config.maxPoint => None
     case _ =>
       val cardNum = cards.size
-      val h = shape.height
-      val l = shape.length
+      val h = shape.get.height
+      val l = shape.get.length
       val (pointSeq, d, x) = genPointMapAndSpecial(cards)
       val tempSeq =
-        (Config.maxPoint to shape.keyPoint + 1).foldLeft(Nil: Seq[Shape])((seq, p) => {
+        (Config.maxPoint to shape.get.keyPoint + 1).foldLeft(None: Option[Shape])((seq, p) => {
           val tuples = sliceAPointSeq(p, l, pointSeq)
           val fillNeed = h * l - tuples.foldLeft(0)((sum, o) => sum + o._2)
-          if (fillNeed == x && cardNum - h * l + d == 0) {
-            Shape(p, h, l, 0, 0) +: seq
+          if (fillNeed == x && cardNum - h * l + d == 0 && seq.isEmpty) {
+            Some(Shape(p, h, l, 0, 0))
           }
           else seq
         })
       tempSeq
+
 
   }
 
