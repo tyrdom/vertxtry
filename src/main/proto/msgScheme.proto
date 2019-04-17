@@ -7,7 +7,7 @@ message AMsg {
         Undefined_Request = 1;
         Undefined_Response = 2;
 
-        Error_Response =3;
+        Error_Response = 3;
 
         Login_Request = 100001;
         Login_Response = 100002;
@@ -24,7 +24,7 @@ message AMsg {
     Head head = 1;
 
     oneof body {
-        ErrorResponse errorResponse =14;
+        ErrorResponse errorResponse = 14;
 
         LoginRequest loginRequest = 2;
         LoginResponse loginResponse = 3;
@@ -75,8 +75,8 @@ message CreateRoomResponse {
 }
 
 message JoinRoomRequest {
-    bool certainRoom = 1;//TODO 选择房间进入功能未完成
-    int32 roomId= 2;
+    bool certainRoom = 1; //TODO 选择房间进入功能未完成
+    int32 roomId = 2;
 }
 
 message JoinRoomResponse {
@@ -93,5 +93,5 @@ message QuitRoomResponse {
 }
 
 message ErrorResponse {
-    string reason =1;
+    string reason = 1;
 }

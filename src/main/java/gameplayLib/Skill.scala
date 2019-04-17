@@ -1,11 +1,12 @@
 package gameplayLib
 
 
+import gameplayLib.Phrase.Phrase
+import gameplayLib.Position.Position
 import gameplayLib.Trick.Trick
 
-object Trick extends Enumeration {//如果条件都能找到满足，那么就会触发技能效果，
-  type Trick = Value
-
+object Trick extends Enumeration { //如果条件都能找到满足，那么就会触发技能效果，
+type Trick = Value
 
 
   val AnyCast = Value
@@ -14,7 +15,7 @@ object Trick extends Enumeration {//如果条件都能找到满足，那么就�
 
 }
 
-case class Skill(tricks: Seq[Trick], effects: Seq[CardEffect])
+case class Skill(phrase: Phrase, position: Position, tricks: Seq[Trick], effects: Seq[CardEffect])
 
 trait CardEffect {
 

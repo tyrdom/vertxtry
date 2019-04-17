@@ -35,13 +35,12 @@ public class ProtoTest {
 //        }
 
 
-
 //        byte[] byteArray = person.toByteArray();
 //        PersonModel.Person p2 = PersonModel.Person.parseFrom(byteArray);
 //        System.out.println("after id:" + p2.getId());
 //        System.out.println("after name:" + p2.getName());
 //        System.out.println("after email:" + p2.getEmail());
-        System.out.println(gameplayLib.Config.testTuple());
+        System.out.println(gameplayLib.Config.testNum());
 
         //decode
 //        Tuple2<MsgScheme.AMsg.Head,JSONObject> decodeRequest = CodeMsgTranslate.decode(someByteArray);

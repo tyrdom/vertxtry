@@ -11,7 +11,7 @@ case class Character(id: Int, var level: Int, var attack: Int, var defence: Int,
 } //有状态的数据，这个
 object Character {
 
-  def initCharacter(id: Int): Character = Character(id = id, level = 1, attack = 0, defence = 0, exp = 0)//TODO 根据数据查找1级的属性
+  def initCharacter(id: Int): Character = Character(id = id, level = 1, attack = 0, defence = 0, exp = 0) //TODO 根据数据查找1级的属性
 
 }
 
