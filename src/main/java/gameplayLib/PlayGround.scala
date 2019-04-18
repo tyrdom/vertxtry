@@ -51,7 +51,7 @@ type Phrase = Value
   val DrawCards: Phrase = Value
   val Check: Phrase = Value
   val Spawn: Phrase = Value
-  val Attack: Phrase = Value
+//  val Attack: Phrase = Value
   val Damage: Phrase = Value
 }
 
@@ -118,7 +118,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     rMap
   }
 
-  def getCIdFromChooseMap(chooses: Map[String, Int]): Map[String, Int] =
+  def getCIdFromChooseMap(chooses: Map[String, Int]): Map[String, Int] = //从选择号选出一个角色
     chooses.map(aChoice => {
       val id = aChoice._1
       val idx = aChoice._2
@@ -153,7 +153,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       false
   }
 
-  def playerDrawCards(maxCards: Int): Boolean = {
+  def playerDrawCards(maxCards: Int): Boolean = { //抽牌流程
     this.nowPhrase = Phrase.DrawCards
     val nowDrawNum = this.drawDeck.count(_ => true)
     val nowDropDeckNum = this.dropDeck.count(_ => true)
@@ -204,8 +204,11 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   = {
     this.nowPhrase = Phrase.Spawn
     if (who == this.seat2Player(this.nowTurnSeat)) {
-      if (cardIdx.isEmpty) {
-
+      if (cardIdx.isEmpty) { //是空组当作是PASS操作，触发通常伤害,出牌方收到伤害，出牌记录中最近一个出牌方为攻击者
+        val spawnedCard:Seq[SpawnedCard] = this.playersStatus(who).needCounter.counterHistorySpawn
+        val attacker = spawnedCard.head.who
+        val defender = who
+        genAttackDamage(attacker,defender,true,spawnedCard)
         (true, Nil: Seq[Card])
       }
       else {
@@ -219,7 +222,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
         val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsBeforeSkillActive, obStatus.needCounter.shape)
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) {
 
-          //TODO 说明没有符合的牌打出 添加自己的伤害
+          //TODO 说明没有符合的牌打出
           (true, Nil: Seq[Card])
         }
         else {
@@ -234,7 +237,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     else (false, Nil: Seq[Card])
   }
 
-  def genAttackDamage(attacker: String, obj: String, goThrough: Boolean, spawnedCards: Seq[SpawnedCard]) = {
+  def genAttackDamage(attacker: String, obj: String, goThrough: Boolean, spawnedCards: Seq[SpawnedCard]) = {  //伤害计算，攻防计算，存储到伤害map里
 
   }
 
