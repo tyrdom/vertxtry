@@ -4,9 +4,12 @@ import scala.util.Random
 
 //卡牌的一般属性 id 牌的唯一id nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
 
+
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
+
 case class Card(id: Int, level: Int, nowPoint: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[Skill])
+
 
 object Card {
   def sortCard(Cards: Seq[Card]): Seq[Card] = Cards.sortWith(compareCardLessThan) //  按点数排列卡牌，从小到大排列，某些技能用到此功能
@@ -71,18 +74,21 @@ object Card {
       val h = shape.get.height
       val l = shape.get.length
       val (pointSeq, d, x) = genPointMapAndSpecial(cards)
-      val tempSeq =
-        (Config.maxPoint to shape.get.keyPoint + 1).foldLeft(None: Option[Shape])((seq, p) => {
+      val tempShape =
+        (Config.maxPoint to shape.get.keyPoint + 1).foldLeft(None: Option[Shape])((maybeShape, p) => {
           val tuples = sliceAPointSeq(p, l, pointSeq)
           val fillNeed = h * l - tuples.foldLeft(0)((sum, o) => sum + o._2)
-          if (fillNeed == x && cardNum - h * l + d == 0 && seq.isEmpty) {
+          if (fillNeed == x && cardNum - h * l + d == 0 && maybeShape.isEmpty) {
             Some(Shape(p, h, l, 0, 0))
           }
-          else seq
+          else maybeShape
         })
-      tempSeq
+      tempShape
+  }
 
-
+  def fillAShape(cards: Seq[Card], shape: Shape): Set[Int] = { //通过一个Shape，挑选对应的牌打出，用于自动托管
+    //TODO 选牌逻辑
+    Set(1, 2, 3)
   }
 
 

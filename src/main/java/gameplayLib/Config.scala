@@ -27,7 +27,7 @@ object Config {
   val testTuple = strings
 
   val testSeq: Seq[Int] = Seq(1, 1, 3, 4, 5)
-  val testNum:Int = testSeq(5 % testSeq.count(_=>true))
+  val testNum: Int = testSeq(5 % testSeq.count(_ => true))
   val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, false, None, Nil: Seq[Skill]))
 
   def genTestCharCards(cid: Int): Seq[Card] = {
@@ -37,5 +37,6 @@ object Config {
   val standardCIds: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
   val startBombNeedNum = 4
-
+  val summonPoints: Seq[Int] = Seq(0, 10, 25, 50, 100)
+  val exSummonMax: Int = 4
 }
