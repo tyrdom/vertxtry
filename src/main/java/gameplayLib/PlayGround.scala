@@ -173,7 +173,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   }
 
 
-  def setFirstSeatByBid(playersBid: Array[(String, Int)]): Boolean = {
+  def setFirstSeatByBid(playersBid: Array[(String, Int)]): Boolean = { //抢座流程
     val bNum = playersBid.count(_ => true)
     bNum match {
       case bn if bn == this.nowPlayerNum =>
@@ -185,7 +185,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   }
 
 
-  def checkCards(): Boolean = { //TODO 各个玩家检查牌，发动check时的可发动的技能
+  def checkCards(): Boolean = { //TODO 每回合各个玩家检查牌，发动check时的可发动的技能
     this.nowPhrase = Phrase.Check
     true
   }
@@ -208,7 +208,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     val thisPerOutStatus = thisStatus.clearNeedCounter()
 
     def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean): (Boolean, Seq[Card]) = { //  出牌过程
-      val OutCards = cardIdx.map(x => handCards(x - 1))
+      val BeforeSkillOutCards = cardIdx.map(x => handCards(x - 1))
 
       val newThisStatus = if (Bomb) //新状态生成
         thisPerOutStatus.spendCards(cardIdx).addBoomNum()
@@ -221,8 +221,8 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       //检查牌当前牌是否出完，如果出完则本round结束,触发终结伤害效果
       val whetherEnd = newThisStatus.handCards.isEmpty //  出牌技能需要改为newThisStatusAfterSkill
 
-      this.dropDeck = OutCards ++ this.dropDeck
-      (whetherEnd, OutCards)
+      this.dropDeck = BeforeSkillOutCards ++ this.dropDeck
+      (whetherEnd, BeforeSkillOutCards)
     }
 
     if (whoSpawn == this.seat2Player(this.nowTurnSeat)) {

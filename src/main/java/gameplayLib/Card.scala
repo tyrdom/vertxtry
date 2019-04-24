@@ -8,7 +8,7 @@ import scala.util.Random
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
 
-case class Card(id: Int, level: Int, nowPoint: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[Skill], buffs: Seq[Buff])
+case class Card(id: Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[CardSkill], buffs: Seq[Buff])
 
 
 object Card {
@@ -17,14 +17,14 @@ object Card {
   def shuffleCard(Cards: Seq[Card]): Seq[Card] = Random.shuffle(Cards)
 
   def genPointMapAndSpecial(Cards: Seq[Card]): (Seq[(Int, Int)], Int, Int) = {
-    val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.nowPoint == i)) +: m)
+    val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.Point == i)) +: m)
     val dCardP = Config.minPoint - 1
     val xCardP = Config.maxPoint + 1
 
-    (map, Cards.count(x => x.nowPoint <= dCardP), Cards.count(x => x.nowPoint >= xCardP))
+    (map, Cards.count(x => x.Point <= dCardP), Cards.count(x => x.Point >= xCardP))
   }
 
-  def compareCardLessThan(a: Card, b: Card): Boolean = a.nowPoint < b.nowPoint || (a.nowPoint == b.nowPoint && a.id == b.id)
+  def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && a.id == b.id)
 
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌

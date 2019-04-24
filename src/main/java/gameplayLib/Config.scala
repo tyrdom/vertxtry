@@ -28,7 +28,7 @@ object Config {
 
   val testSeq: Seq[Int] = Seq(1, 1, 3, 4, 5)
   val testNum: Int = testSeq(5 % testSeq.count(_ => true))
-  val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, false, None, Nil: Seq[Skill]))
+  val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, false, None, Nil: Seq[CardSkill]))
 
   def genTestCharCards(cid: Int): Seq[Card] = {
     (1 to 10).map(i => Card(cid * 100 + i, i, i, false, Some(cid), Nil))

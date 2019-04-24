@@ -63,7 +63,6 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
 case class SpawnedCard(who: String, cards: Seq[Card])
 
 case class NeedCounter(shape: Option[Shape],
-
                        counterHistorySpawn: Seq[SpawnedCard])
 //needCounterShape：需要对抗的牌型，如果有出牌权，那么就需要对抗此Shape
 //counterHistorySpawn：对抗的历史出牌，如果有需要对抗时对抗失败，则消灭这个needCounter，触发一些效果，对抗成功则把needCounter加入自己出的牌shape的点数，更新shape再转移给其他玩家
