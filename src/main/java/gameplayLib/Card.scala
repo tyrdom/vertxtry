@@ -8,7 +8,7 @@ import scala.util.Random
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
 
-case class Card(id: Int, level: Int, nowPoint: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[Skill])
+case class Card(id: Int, level: Int, nowPoint: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[Skill], buffs: Seq[Buff])
 
 
 object Card {
