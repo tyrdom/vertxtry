@@ -1,17 +1,19 @@
 package gameplayLib
 
 
-import gameplayLib.CounterType.CounterType
 import gameplayLib.Phrase.Phrase
 
 import scala.collection.immutable
 import scala.util.Random
 
 
+case class Damage(attacker: String, obj: String, damages: Seq[Int], whetherEnd: Boolean)
+
+
 case class SpawnedCard(who: String, cards: Seq[Card])
 
 
-case class needCounter(shape: Option[Shape],
+case class NeedCounter(shape: Option[Shape],
 
                        counterHistorySpawn: Seq[SpawnedCard])
 
@@ -20,17 +22,13 @@ case class needCounter(shape: Option[Shape],
 
 case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
                            var handCards: Seq[Card] = Nil: Seq[Card], //handCards ：手上的牌
-                           var HP: Int = Config.initHitPoint, var attack: Int = 0, var defence: Int = 0, //最初的属性
+                           var HP: Int = Config.initHitPoint, //最初的属性
                            var buffs: Seq[Buff] = Nil: Seq[Buff],
                            var characters: Seq[Character] = Nil: Seq[Character],
-                           var needCounter: needCounter = new needCounter(None, Nil)) //需要对抗的牌型和历史记录,如果为空则不需要按照对抗出牌
+                           var needCounter: NeedCounter = new NeedCounter(None, Nil)) //需要对抗的牌型和历史记录,如果为空则不需要按照对抗出牌
 {
   def addCharacters(cSeq: Seq[Character]): OnePlayerStatus = {
     this.characters = cSeq ++ this.characters
-    val atk = this.characters.map(x => x.attack).sum
-    val defence = this.characters.map(x => x.defence).sum
-    this.attack = atk
-    this.defence = defence
     this
   }
 
@@ -39,17 +37,47 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
     this
   }
 
+  def addBoomNum(): OnePlayerStatus = {
+    val newNum = this.bombNeedNum + 1
+    this.bombNeedNum = newNum
+    this
+  }
+
   def spendCards(Idx: Array[Int]): OnePlayerStatus = {
     val hd = this.handCards
     this.handCards = ((1 to hd.count(_ => true)).toSet -- Idx.toSet).map(i => hd(i - 1)).toSeq
+    this.characters.foreach(x => x.addExp(Idx.length))
     this
   }
 
   def clearNeedCounter(): OnePlayerStatus = {
-    this.needCounter = new needCounter(None, Nil)
+    this.needCounter = new NeedCounter(None, Nil)
     this
   }
 
+  def putNeedCounter(newNeedCounter: NeedCounter): OnePlayerStatus = {
+    this.needCounter = newNeedCounter
+    this
+  }
+
+  def getAtk: Int = {
+
+    val characters = this.characters
+    characters.foldLeft(0)((sum, character) => sum + character.attack)
+
+  }
+
+  def getDefence: Int = {
+    val characters = this.characters
+    characters.foldLeft(0)((sum, character) => sum + character.defence)
+  }
+
+  def takeHPDamage(DamageSeq: Seq[Int]): OnePlayerStatus
+  = {
+    val newHP = this.HP - DamageSeq.sum
+    this.HP = newHP
+    this
+  }
 }
 
 object Phrase extends Enumeration { //阶段分类
@@ -60,7 +88,6 @@ type Phrase = Value
   val Check: Phrase = Value
   val FormCards: Phrase = Value
   val Spawn: Phrase = Value
-  val Attack: Phrase = Value
   val Damage: Phrase = Value
 }
 
@@ -94,7 +121,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
                           var nowPhrase: Phrase = Phrase.Prepare,
                           var turn: Int = 1, //回合，一次轮换出牌对象为一回合
                           var round: Int = 1, //轮，一方打完牌再弃牌重新抽牌为1轮
-                          var nowTurnDamageMap: Map[String, Seq[Int]] = Map(), //在一轮伤害流程前，列出所有人会受到的伤害值序列，在伤害流程计算防御扣除血量
+                          var nowTurnDamage: Seq[Damage] = Nil, //在一轮伤害流程前，列出所有人会受到的伤害值序列，先不计算攻防因素
                           var maxPlayerNum: Int = 0, // 最大的座位数
                           var seat2Player: Map[Int, String] = Map(), //座位的玩家 情况
                           var nowPlayerNum: Int = 0, //当前玩家数量
@@ -116,7 +143,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     }
   } //初始化玩家状态的过程
 
-  def canSummonNew(): Boolean = {
+  def canSummonNew: Boolean = {
     val summonLevel = this.summonPoint._1
     val nowSummonPoint = this.summonPoint._2
     val pointNeed = Config.summonPoints(summonLevel)
@@ -208,7 +235,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   }
 
 
-  def setFirstSeat(playersBid: Array[(String, Int)]): Boolean = {
+  def setFirstSeatByBid(playersBid: Array[(String, Int)]): Boolean = {
     val bNum = playersBid.count(_ => true)
     bNum match {
       case bn if bn == this.nowPlayerNum =>
@@ -226,79 +253,114 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   }
 
 
-  def canSpawnCardsToSomebody(who: String, cardIdx: Array[Int], objPlayer: String): (Boolean, Seq[Card]) //接到某玩家出牌消息，消息为当前牌的序号,在多于两人的情况下需指定出牌目标
+  def spawnCardsToSomebodyIsOKAndEnd(whoSpawn: String, cardIdx: Array[Int], objPlayer: String): (Boolean, Boolean, Seq[Card]) //接到某玩家出牌消息，消息为当前牌的序号，返回是否违规，是否终结本round，出牌的牌序列
   = {
     this.nowPhrase = Phrase.FormCards
-    val thisStatus = this.playersStatus(who)
+    val thisStatus = this.playersStatus(whoSpawn)
     val obStatus = this.playersStatus(objPlayer)
     val thisNeedCounterShape = thisStatus.needCounter.shape
     val obNeedCounterShape = obStatus.needCounter.shape
     val lastSpawnedCard: Seq[SpawnedCard] = thisStatus.needCounter.counterHistorySpawn
     val attacker = lastSpawnedCard.head.who
-    val defender = who
-
+    val defender = whoSpawn
+    val handCards = thisStatus.handCards
+    //    val cardBeforeFormCard = cardIdx.map(x => handCards(x - 1))
     //TODO FormCards的时候可以发动的技能
     //无论是否成功counter 自己的status的needCounter一般都需要清理掉，如果counter成功，新的needCounter会给对手,输出先清掉出牌方的NeedCounter，所以先处理成PerOut
     val thisPerOutStatus = thisStatus.clearNeedCounter()
 
-    def spendHandCardsDo(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String): Seq[Card] = { //  出牌过程
-      val OutCards = cardIdx.map(x => handCards(x - 1)) //  打出的牌
-      val newThisStatus = thisPerOutStatus.spendCards(cardIdx)
-      this.playersStatus += (who -> newThisStatus)
+    def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean): (Boolean, Seq[Card]) = { //  出牌过程
+      val OutCards = cardIdx.map(x => handCards(x - 1))
 
+      val newThisStatus = if (Bomb) //新状态生成
+        thisPerOutStatus.spendCards(cardIdx).addBoomNum()
+      else
+        thisPerOutStatus.spendCards(cardIdx)
+      this.playersStatus += (who -> newThisStatus)
       this.nowPhrase = Phrase.Spawn
       //TODO 出牌技能发动
 
-      //检查牌当前牌是否出完，如果出完则本round结束,触发终结效果
-      if (newThisStatus.handCards.isEmpty) {
+      //检查牌当前牌是否出完，如果出完则本round结束,触发终结伤害效果
+      val whetherEnd = newThisStatus.handCards.isEmpty //  出牌技能需要改为newThisStatusAfterSkill
 
-      }
-      OutCards
+      (whetherEnd, OutCards)
     }
 
-
-    if (who == this.seat2Player(this.nowTurnSeat)) {
+    if (whoSpawn == this.seat2Player(this.nowTurnSeat)) {
       if (cardIdx.isEmpty) { //是空组当作是PASS操作，触发通常伤害,出牌方收到伤害，出牌记录中最近一个出牌方为攻击者
-
-        genNormalAttackDamage(attacker, defender, thisNeedCounterShape.get)
-        (true, Nil: Seq[Card])
+        genNormalAttackDamageToDamageSeq(attacker, defender, thisNeedCounterShape.get, false)
+        (true, false, Nil: Seq[Card])
       }
       else {
-        val handCards = thisStatus.handCards
-
-        val spawnCardsAfterSpawnSkill = cardIdx.map(i => handCards(i - 1))
-        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterSpawnSkill, thisNeedCounterShape)
-        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterSpawnSkill, obNeedCounterShape)
+        val spawnCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的
+        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape)
+        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape)
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) { //说明普通出牌不能counter，会尝试炸弹counter
           val bombShape = Some(Shape(0, thisStatus.bombNeedNum, 0, 0, 0))
-          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterSpawnSkill, bombShape)
+          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape)
           if (newNeedBombShape.isEmpty) {
-
-            genNormalAttackDamage(attacker, defender, thisNeedCounterShape.get)
-            //说明没有符合的牌打出，炸弹也不是，储存一个伤害
-            (true, Nil: Seq[Card])
+            genNormalAttackDamageToDamageSeq(attacker, defender, thisNeedCounterShape.get, false)
+            //说明没有符合的牌打出，炸弹也不是，储存一个对当前玩家的伤害,并且牌没出完
+            (true, false, Nil: Seq[Card])
           }
           else { //说明可以是炸弹牌打出
-
-
-            val OutCards = spendHandCardsDo(thisPerOutStatus, handCards, cardIdx, who)
-            (true, OutCards)
+            //出炸弹的过程
+            val Out = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, true)
+            if (Out._1) {
+              genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedBombShape.get, true)
+            }
+            else {
+              val newHistorySpawnedCard = SpawnedCard(whoSpawn, Out._2) +: lastSpawnedCard
+              val newNeedCounter = NeedCounter(newNeedBombShape, newHistorySpawnedCard)
+              val newObStatus = this.playersStatus(objPlayer).putNeedCounter(newNeedCounter)
+              this.playersStatus += (objPlayer -> newObStatus)
+            }
+            (true, Out._1, Out._2)
           }
         }
 
 
         else {
-          val OutCards = spendHandCardsDo(thisPerOutStatus, handCards, cardIdx, who)
-
-          (true, OutCards)
+          //正常出牌过程
+          val Out = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, false)
+          if (Out._1) genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedCounterShape1.get, true)
+          else {
+            val newHistorySpawnedCard = SpawnedCard(whoSpawn, Out._2) +: lastSpawnedCard
+            val newNeedCounter = NeedCounter(newNeedCounterShape1, newHistorySpawnedCard)
+            val newObStatus = this.playersStatus(objPlayer).putNeedCounter(newNeedCounter)
+            this.playersStatus += (objPlayer -> newObStatus)
+          }
+          (true, Out._1, Out._2)
         }
       }
     }
-    else (false, Nil: Seq[Card])
+    else (false, false, Nil: Seq[Card])
   }
 
-  def genNormalAttackDamage(attacker: String, obj: String, shape: Shape) = { //伤害计算，攻防计算，存储到伤害map里
+  def genNormalAttackDamageToDamageSeq(attacker: String, obj: String, shape: Shape, whetherEnd: Boolean): Unit = { //伤害计算，攻防计算，存储到伤害map里
+    val damSeq = (1 to shape.length).map(_ => shape.height * Config.oneCardDamage)
+    val newDamage = Damage(attacker, obj, damSeq, whetherEnd)
+    this.nowTurnDamage = newDamage +: this.nowTurnDamage
+  }
 
+
+  def actDamage(): Unit = {
+    this.nowPhrase = Phrase.Damage
+    val damageSeq = this.nowTurnDamage
+    damageSeq.foreach(actOneDamage)
+
+    def actOneDamage(damage: Damage): Unit = {
+      val attacker = damage.attacker
+      val attack = this.playersStatus(attacker).getAtk
+      val defender = damage.obj
+      val lastDefenderStatus = this.playersStatus(defender)
+      val defence = lastDefenderStatus.getDefence
+      val damageSeq = damage.damages
+      val damageSeqAfterAtkDef = damageSeq.map(x => math.max(0, x + attack - defence))
+      //TODO damageSeqAfterSkill
+      val newDefStatus = lastDefenderStatus.takeHPDamage(damageSeqAfterAtkDef)
+      this.playersStatus += defender -> newDefStatus
+    }
   }
 
 

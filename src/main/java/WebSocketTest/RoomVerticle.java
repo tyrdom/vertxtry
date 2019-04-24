@@ -105,7 +105,13 @@ public class RoomVerticle extends AbstractVerticle {
                         for (Map.Entry<String, String> entry : players.entrySet()) {
                             players.put(entry.getKey(), "gaming");
                         }
-                        GamePlayGround gamePlayGround = GamePlayGround.apply(GamePlayGround.$lessinit$greater$default$1(), GamePlayGround.$lessinit$greater$default$2(), GamePlayGround.$lessinit$greater$default$3(), GamePlayGround.$lessinit$greater$default$4(), GamePlayGround.$lessinit$greater$default$5(), GamePlayGround.$lessinit$greater$default$6(), GamePlayGround.$lessinit$greater$default$7(), GamePlayGround.$lessinit$greater$default$8(), GamePlayGround.$lessinit$greater$default$9(), GamePlayGround.$lessinit$greater$default$10(), GamePlayGround.$lessinit$greater$default$11(), GamePlayGround.$lessinit$greater$default$12(), GamePlayGround.$lessinit$greater$default$13(), GamePlayGround.$lessinit$greater$default$14(), GamePlayGround.$lessinit$greater$default$15(), GamePlayGround.$lessinit$greater$default$16(), GamePlayGround.$lessinit$greater$default$17());
+                        GamePlayGround gamePlayGround = GamePlayGround.apply(
+                                GamePlayGround.$lessinit$greater$default$1(), GamePlayGround.$lessinit$greater$default$2(), GamePlayGround.$lessinit$greater$default$3(),
+                                GamePlayGround.$lessinit$greater$default$4(), GamePlayGround.$lessinit$greater$default$5(), GamePlayGround.$lessinit$greater$default$6(),
+                                GamePlayGround.$lessinit$greater$default$7(), GamePlayGround.$lessinit$greater$default$8(), GamePlayGround.$lessinit$greater$default$9(),
+                                GamePlayGround.$lessinit$greater$default$10(), GamePlayGround.$lessinit$greater$default$11(), GamePlayGround.$lessinit$greater$default$12(),
+                                GamePlayGround.$lessinit$greater$default$13(), GamePlayGround.$lessinit$greater$default$14(), GamePlayGround.$lessinit$greater$default$15(),
+                                GamePlayGround.$lessinit$greater$default$16(), GamePlayGround.$lessinit$greater$default$17(), GamePlayGround.$lessinit$greater$default$18()); //FUCK JAVA
                         int[] cIds = gameplayLib.Config.standardCIds();
                         String[] pIds = players.keySet().toArray(new String[maxPlayer]);
                         gamePlayGround.initPlayGround(pIds, cIds);

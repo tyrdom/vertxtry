@@ -39,4 +39,13 @@ object Config {
   val startBombNeedNum = 4
   val summonPoints: Seq[Int] = Seq(0, 10, 25, 50, 100)
   val exSummonMax: Int = 4
+
+  val oneCardDamage: Int = 10
+
+
+  val attrMap: Map[Int, (Seq[Int], Seq[Int])] = Map(
+    1 -> (Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8), Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8)),
+    2 -> (Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8), Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8)),
+    3 -> (Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8), Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8))
+  )
 }
