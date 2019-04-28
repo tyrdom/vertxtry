@@ -10,11 +10,7 @@ import scala.util.Random
 case class Damage(attacker: String, obj: String, damages: Seq[Int], whetherEnd: Boolean)
 
 
-
-
-
 case class SpawnResult(legal: Boolean, roundEnd: Boolean, battleEnd: Boolean, cards: Seq[Card])
-
 
 
 object Phrase extends Enumeration { //阶段分类
@@ -206,23 +202,25 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     //TODO FormCards的时候可以发动的技能
     //无论是否成功counter 自己的status的needCounter一般都需要清理掉，如果counter成功，新的needCounter会给对手,输出先清掉出牌方的NeedCounter，所以先处理成PerOut
     val thisPerOutStatus = thisStatus.clearNeedCounter()
-
-    def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean): (Boolean, Seq[Card]) = { //  出牌过程
+    case class SpendResult(whetherEnd: Boolean, spendCard: Seq[Card], newShape: Shape)
+    def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean, oldShape: Shape): SpendResult = { //  出牌过程
       val BeforeSkillOutCards = cardIdx.map(x => handCards(x - 1))
 
-      val newThisStatus = if (Bomb) //新状态生成
+      val newThisStatusBeforeSkill = if (Bomb) //如果是炸弹的情况，更新状态
         thisPerOutStatus.spendCards(cardIdx).addBoomNum()
       else
         thisPerOutStatus.spendCards(cardIdx)
-      this.playersStatus += (who -> newThisStatus)
-      this.nowPhrase = Phrase.Spawn
       //TODO 出牌技能发动
 
+      this.playersStatus += (who -> newThisStatusBeforeSkill)
+      this.nowPhrase = Phrase.Spawn
+
+
       //检查牌当前牌是否出完，如果出完则本round结束,触发终结伤害效果
-      val whetherEnd = newThisStatus.handCards.isEmpty //  出牌技能需要改为newThisStatusAfterSkill
+      val whetherEnd = newThisStatusBeforeSkill.handCards.isEmpty //  出牌技能做完后需要改为newThisStatusAfterSkill
 
       this.dropDeck = BeforeSkillOutCards ++ this.dropDeck
-      (whetherEnd, BeforeSkillOutCards)
+      SpendResult(whetherEnd, BeforeSkillOutCards, oldShape)
     }
 
     if (whoSpawn == this.seat2Player(this.nowTurnSeat)) {
@@ -232,8 +230,8 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       }
       else {
         val spawnCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的牌
-        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape)
-        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape)
+        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape) //shape检查，是否符合自己需要counter shape
+        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape) //shape检查，是否符合对方的counter shape
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) { //说明普通出牌不能counter，会尝试炸弹counter
           val bombShape = Some(Shape(0, thisStatus.bombNeedNum, 0, 0, 0))
           val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape)
@@ -244,32 +242,33 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
           }
           else { //说明可以是炸弹牌打出
             //出炸弹的过程
-            val Out = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, true)
-            if (Out._1) {
+            val spendResult = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, true, newNeedBombShape.get)
+            if (spendResult.whetherEnd) {
               genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedBombShape.get, true)
             }
             else {
-              val newHistorySpawnedCard = SpawnedCard(whoSpawn, Out._2) +: lastSpawnedCard
-              val newNeedCounter = NeedCounter(newNeedBombShape, newHistorySpawnedCard)
+              val newHistorySpawnedCard = SpawnedCard(whoSpawn, spendResult.spendCard) +: lastSpawnedCard
+              val newNeedCounter = NeedCounter(Some(spendResult.newShape), newHistorySpawnedCard)
               val newObStatus = this.playersStatus(objPlayer).putNeedCounter(newNeedCounter)
               this.playersStatus += (objPlayer -> newObStatus)
             }
-            SpawnResult(true, Out._1, false, Out._2)
+            SpawnResult(true, spendResult.whetherEnd, false, spendResult.spendCard)
           }
         }
 
 
         else {
           //正常出牌过程
-          val Out = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, false)
-          if (Out._1) genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedCounterShape1.get, true)
+          val spendResult = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, false, newNeedCounterShape1.get)
+          if (spendResult.whetherEnd)
+            genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedCounterShape1.get, true)
           else {
-            val newHistorySpawnedCard = SpawnedCard(whoSpawn, Out._2) +: lastSpawnedCard
-            val newNeedCounter = NeedCounter(newNeedCounterShape1, newHistorySpawnedCard)
+            val newHistorySpawnedCard = SpawnedCard(whoSpawn, spendResult.spendCard) +: lastSpawnedCard
+            val newNeedCounter = NeedCounter(Some(spendResult.newShape), newHistorySpawnedCard)
             val newObStatus = this.playersStatus(objPlayer).putNeedCounter(newNeedCounter)
             this.playersStatus += (objPlayer -> newObStatus)
           }
-          SpawnResult(true, Out._1, false, Out._2)
+          SpawnResult(true, spendResult.whetherEnd, false, spendResult.spendCard)
         }
       }
     }
@@ -302,7 +301,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     }
   }
 
-  def endTurn(spawnResult: SpawnResult):Unit = {
+  def endTurn(spawnResult: SpawnResult): Unit = {
     if (spawnResult.battleEnd) {
       //TODO 对抗计数的BUFF持续减少和删除
     }

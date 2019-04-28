@@ -19,7 +19,7 @@ type Who = Value
 case class CardSkill(phrase: Phrase, position: Position, whoTricks: Seq[Who], effects: Seq[SkillEffect])
 
 
-trait SkillEffect {
+sealed trait SkillEffect {
 }
 
 case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect
@@ -42,7 +42,7 @@ case class DrawCard(toWho: Who, Num: Int) extends SkillEffect
 
 case class GiveCard(FromWho: Who, toWho: Who, fromMin: Boolean, Num: Int) extends SkillEffect
 
-case class DestroyCertainCard(toWho:Who,where: Where,cardId:Int) extends  SkillEffect
+case class DestroyCertainCard(toWho: Who, where: Where, cardId: Int) extends SkillEffect
 
 
 object SkillEffect {

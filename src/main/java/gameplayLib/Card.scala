@@ -66,7 +66,7 @@ object Card {
 
   //判断一组牌是否可以针对对应的shape非炸弹出牌
 
-  def canShapeCounter(cards: Seq[Card], shape: Option[Shape]): Option[Shape] = shape match { //某手出牌可以压住对手牌，返回None为不可压制，其他为可以压制
+  def canShapeCounter(cards: Seq[Card], shape: Option[Shape]): Option[Shape] = shape match { //某手出牌可以压住对手牌，返回None为不可压制，其他shape 为可以压制
     case None => genBiggestShape(cards)
     case a_shape if a_shape.get.keyPoint == Config.maxPoint => None
     case _ =>
