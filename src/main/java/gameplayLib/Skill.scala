@@ -14,6 +14,8 @@ type Who = Value
   val Opponent: Who = Value
 
 }
+sealed trait Condition
+
 
 
 case class CardSkill(phrase: Phrase, position: Position, whoTricks: Seq[Who], effects: Seq[SkillEffect])

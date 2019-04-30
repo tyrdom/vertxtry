@@ -25,5 +25,10 @@ case class BeWatchCard(num: Int) extends BuffEffect
 
 case class BeWatchAll() extends BuffEffect
 
-case class DamageBack(backPercent:Float) extends BuffEffect
+case class DamageBack(backPercent: Float) extends BuffEffect
 
+case class GoVictory(needNum: Int) extends BuffEffect
+
+case class DamageMultiply(times: Float) extends BuffEffect
+
+case class BuffTrick(Cond: Int, buffEffect: BuffEffect) extends BuffEffect

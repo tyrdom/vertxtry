@@ -2,13 +2,13 @@ package gameplayLib
 
 import scala.util.Random
 
-//卡牌的一般属性 id 牌的唯一id nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
+
 
 
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
-
-case class Card(id: Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[CardSkill], var buffs: Seq[Buff] = Nil)
+//卡牌的一般属性 id：牌的配置id genId 生成Id：nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
+case class Card(id: Int,genId:Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[CardSkill], var buffs: Seq[Buff] = Nil)
 
 
 object Card {
@@ -24,7 +24,7 @@ object Card {
     (map, Cards.count(x => x.Point <= dCardP), Cards.count(x => x.Point >= xCardP))
   }
 
-  def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && a.id == b.id)
+  def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && a.genId > b.genId)  //genId为一局游戏中生成的id
 
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌
