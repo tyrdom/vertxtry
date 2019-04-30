@@ -14,8 +14,10 @@ type Who = Value
   val Opponent: Who = Value
 
 }
+
 sealed trait Condition
 
+case class BuffNeed(buff: Buff, stack: Int) extends Condition
 
 
 case class CardSkill(phrase: Phrase, position: Position, whoTricks: Seq[Who], effects: Seq[SkillEffect])
@@ -29,6 +31,8 @@ case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect
 case class DelBuffFromPlayer(toWho: Who, buff: Buff) extends SkillEffect
 
 case class DoDamageToPlayer(toWho: Who, damSeq: Seq[Int]) extends SkillEffect
+
+case class DirectKillPlayer(toWho: Who) extends SkillEffect
 
 case class AddBuffToCard(toWho: Who, where: Where, buff: Buff) extends SkillEffect
 
