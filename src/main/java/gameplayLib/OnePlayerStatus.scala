@@ -13,7 +13,7 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
   }
 
   def drawAPlayerCards(Cards: Seq[Card]): OnePlayerStatus = {
-    this.handCards = Card.sortCard(Cards ++ this.handCards)
+    this.handCards = Card.sortHandCard(Cards ++ this.handCards,characters)
     this
   }
 

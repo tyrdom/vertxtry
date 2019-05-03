@@ -23,15 +23,11 @@ object Config {
 
   val initHitPoint = 1000
 
-  private val strings: immutable.IndexedSeq[String] = (1 until 10).map(x => x.toString)
-  val testTuple = strings
 
-  val testSeq: Seq[Int] = Seq(1, 1, 3, 4, 5)
-  val testNum: Int = testSeq(5 % testSeq.count(_ => true))
-  val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, false, None, Nil: Seq[CardSkill]))
+  val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, false, None, Nil: Seq[CardSkill],Nil))
 
   def genTestCharCards(cid: Int): Seq[Card] = {
-    (1 to 10).map(i => Card(cid * 100 + i, i, i, false, Some(cid), Nil))
+    (1 to 10).map(i => Card(cid * 100 + i,i,  i, false, Some(cid), Nil,Nil))
   }
 
   val standardCIds: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
@@ -48,4 +44,6 @@ object Config {
     2 -> (Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8), Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8)),
     3 -> (Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8), Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8))
   )
+
+  val mapTest = attrMap.getOrElse(0,0)
 }

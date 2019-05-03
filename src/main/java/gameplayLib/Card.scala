@@ -3,16 +3,46 @@ package gameplayLib
 import scala.util.Random
 
 
-
-
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
 //卡牌的一般属性 id：牌的配置id genId 生成Id：nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
-case class Card(id: Int,genId:Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skill: Seq[CardSkill], var buffs: Seq[Buff] = Nil)
+case class Card(id: Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skills: Seq[CardSkill], var buffs: Seq[Buff] = Nil)
 
 
 object Card {
-  def sortCard(Cards: Seq[Card]): Seq[Card] = Cards.sortWith(compareCardLessThan) //  按点数排列卡牌，从小到大排列，某些技能用到此功能
+  def activeCardSkill(card: Card, caster: String, obj: String, oldGamePlayGround: GamePlayGround): GamePlayGround = {
+    val charactersLvMap = oldGamePlayGround.playersStatus.values.flatMap(ops => ops.characters.map(char => char.id -> char.level)).toMap
+    if (card.ownerCharacterId.isEmpty)
+      oldGamePlayGround
+    else {
+
+      if (charactersLvMap.getOrElse(card.ownerCharacterId.get, 9999) >= card.level) {
+        val effects = card.skills.flatMap(x => x.checkConditionToEffects)
+        effects.foldLeft(oldGamePlayGround)((old, x) => SkillEffect.activeSkillEffect(x, old, caster, obj))
+      }
+      else {
+        oldGamePlayGround
+      }
+    }
+
+  }
+
+
+  def sortHandCard(Cards: Seq[Card], characters: Seq[Character]): Seq[Card] = {
+    val charactersExpMap = characters.map(x => x.id -> x.exp).toMap
+
+    def getCharacterExp(card: Card) =
+      if (card.ownerCharacterId.isEmpty) {
+        0
+      }
+      else {
+        val exp = charactersExpMap.getOrElse(card.ownerCharacterId.get, 0)
+        exp
+      }
+
+    def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && getCharacterExp(a) < getCharacterExp(b)) //genId为一局游戏中生成的id
+    Cards.sortWith(compareCardLessThan) //  按点数排列卡牌，从小到大排列，某些技能用到此功能
+  }
 
   def shuffleCard(Cards: Seq[Card]): Seq[Card] = Random.shuffle(Cards)
 
@@ -23,8 +53,6 @@ object Card {
 
     (map, Cards.count(x => x.Point <= dCardP), Cards.count(x => x.Point >= xCardP))
   }
-
-  def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && a.genId > b.genId)  //genId为一局游戏中生成的id
 
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌

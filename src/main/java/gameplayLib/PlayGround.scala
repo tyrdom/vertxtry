@@ -12,7 +12,12 @@ case class Damage(attacker: String, obj: String, damages: Seq[Int], whetherEnd: 
 
 case class SpawnResult(legal: Boolean, roundEnd: Boolean, battleEnd: Boolean, cards: Seq[Card])
 
-
+object Who extends Enumeration { //如果条件都能找到满足，那么就会触发技能效果，
+type Who = Value
+  val This: Who = Value
+  val Other: Who = Value
+  val Opponent: Who = Value
+}
 object Phrase extends Enumeration { //阶段分类
 type Phrase = Value
   val Prepare: Phrase = Value
@@ -24,12 +29,6 @@ type Phrase = Value
   val Damage: Phrase = Value
 }
 
-object CounterType extends Enumeration { //阶段分类
-type CounterType = Value
-  val Normal: CounterType = Value
-  val Bomb: CounterType = Value
-
-}
 
 object Position extends Enumeration { //位置分类
 type Position = Value
@@ -39,6 +38,8 @@ type Position = Value
   val MyHandCards: Position = Value
   val OtherSpawnCards: Position = Value
   val OtherHandCards: Position = Value
+  val OpponentHandCards: Position = Value
+  val OpponentSpawnCards: Position = Value
 }
 
 
@@ -63,7 +64,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
                          ) { //每个房间需new1个新的playground
 
   def initPlayGround(players: Array[String], charactersIds: Array[Int]): Unit = {
-    val playerNum = players.count(_ => true)
+    val playerNum = players.length
     this.maxPlayerNum = playerNum
     this.nowPlayerNum = playerNum
     val pairs = (1 to playerNum) zip players
@@ -88,7 +89,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     val newSummonLevel = this.summonPoint._1 + 1
     this.summonPoint = (newSummonLevel, 0)
     val oPool = Random.shuffle(this.characterPool.map(_.id))
-    val characterNum = oPool.count(_ => true)
+    val characterNum = oPool.length
     var rMap: Map[String, Seq[Int]] = Map()
     val realChooseNum: Int = chooseNum match {
       case cNum if cNum * this.nowPlayerNum <= characterNum => cNum
@@ -109,7 +110,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       val id = aChoice._1
       val idx = aChoice._2
       val choosePools: Seq[Int] = this.choosePoolsForCheck(id)
-      id -> choosePools((idx - 1) % choosePools.count(_ => true))
+      id -> choosePools((idx - 1) % choosePools.length)
     })
 
 
@@ -117,7 +118,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     val chooseCIds = getCIdFromChooseMap(chooses)
     val cidS = chooseCIds.values
     val cidSet = cidS.toSet
-    if (cidS.count(_ => true) == cidSet.count(_ => true)) {
+    if (cidS.toSeq.length == cidSet.toSeq.length) {
       val oPool = this.characterPool
       this.characterPool = oPool.filter(x => !cidSet.contains(x.id))
       val cPool = oPool.filter(x => cidSet.contains(x.id))
@@ -142,8 +143,8 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
   def playerDrawCards(maxCards: Int): Boolean = { //抽牌流程
     this.nowPhrase = Phrase.DrawCards
 
-    val nowDrawNum = this.drawDeck.count(_ => true)
-    val nowDropDeckNum = this.dropDeck.count(_ => true)
+    val nowDrawNum = this.drawDeck.length
+    val nowDropDeckNum = this.dropDeck.length
     maxCards * this.nowPlayerNum match {
       case cardsNum
         if cardsNum <= nowDrawNum =>
@@ -170,7 +171,7 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
 
 
   def setFirstSeatByBid(playersBid: Array[(String, Int)]): Boolean = { //抢座流程
-    val bNum = playersBid.count(_ => true)
+    val bNum = playersBid.length
     bNum match {
       case bn if bn == this.nowPlayerNum =>
         val nSeat = 1 to nowPlayerNum zip playersBid.sortBy(x => x._2).map(x => x._1)

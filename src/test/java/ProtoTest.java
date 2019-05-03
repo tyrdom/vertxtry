@@ -1,12 +1,9 @@
 
 
-import WebSocketTest.CodeMsgTranslate;
-import com.alibaba.fastjson.JSONObject;
 import com.google.protobuf.InvalidProtocolBufferException;
-import gameplayLib.Card;
-import msgScheme.MsgScheme;
+
 import org.junit.Test;
-import scala.Tuple2;
+
 
 public class ProtoTest {
     @Test
@@ -40,7 +37,7 @@ public class ProtoTest {
 //        System.out.println("after id:" + p2.getId());
 //        System.out.println("after name:" + p2.getName());
 //        System.out.println("after email:" + p2.getEmail());
-        System.out.println(gameplayLib.Config.testNum());
+        System.out.println(gameplayLib.Config.mapTest());
 
         //decode
 //        Tuple2<MsgScheme.AMsg.Head,JSONObject> decodeRequest = CodeMsgTranslate.decode(someByteArray);
