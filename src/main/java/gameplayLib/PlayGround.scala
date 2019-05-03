@@ -17,7 +17,9 @@ type Who = Value
   val This: Who = Value
   val Other: Who = Value
   val Opponent: Who = Value
+  val All: Who = Value
 }
+
 object Phrase extends Enumeration { //阶段分类
 type Phrase = Value
   val Prepare: Phrase = Value
@@ -33,7 +35,9 @@ type Phrase = Value
 object Position extends Enumeration { //位置分类
 type Position = Value
   val DrawDeck: Position = Value
-  val DrpDeck: Position = Value
+  val DropDeck: Position = Value
+  val HandCards: Position = Value
+  val SpawnCard: Position = Value
   val MySpawnCards: Position = Value
   val MyHandCards: Position = Value
   val OtherSpawnCards: Position = Value
@@ -205,16 +209,17 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     val thisPerOutStatus = thisStatus.clearNeedCounter()
     case class SpendResult(whetherEnd: Boolean, spendCard: Seq[Card], newShape: Shape)
     def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean, oldShape: Shape): SpendResult = { //  出牌过程
+      this.nowPhrase = Phrase.Spawn
       val BeforeSkillOutCards = cardIdx.map(x => handCards(x - 1))
 
       val newThisStatusBeforeSkill = if (Bomb) //如果是炸弹的情况，更新状态
         thisPerOutStatus.spendCards(cardIdx).addBoomNum()
       else
         thisPerOutStatus.spendCards(cardIdx)
+
       //TODO 出牌技能发动
 
       this.playersStatus += (who -> newThisStatusBeforeSkill)
-      this.nowPhrase = Phrase.Spawn
 
 
       //检查牌当前牌是否出完，如果出完则本round结束,触发终结伤害效果

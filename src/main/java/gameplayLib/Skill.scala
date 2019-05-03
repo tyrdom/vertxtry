@@ -6,25 +6,33 @@ import gameplayLib.Position.Position
 import gameplayLib.Who.Who
 
 
-case class PlayerBuffNeed(needBuffEffect: BuffEffect, stack: Int) extends ExCondition
+case class PlayerBuffNeed(needBuffEffect: BuffEffect, stack: Int) extends CasterNeedCondition
 
-case class LifeBelow(lifeValue: Int) extends ExCondition
+case class LifeBelow(lifeValue: Int) extends CasterNeedCondition
 
 
-sealed trait ExCondition
+sealed trait CasterNeedCondition
 
-object ExCondition{
-  def conditionIsOk(exCondition: ExCondition,activePlayerStatus: OnePlayerStatus): Boolean = exCondition match {
+object CasterNeedCondition {
+  def casterConditionIsOk(condition: CasterNeedCondition, activePlayerStatus: OnePlayerStatus): Boolean = condition match {
     case PlayerBuffNeed(needBuffEffect, stack) => activePlayerStatus.buffs.map(x => x.buffEffect).count(y => y.getClass == needBuffEffect.getClass) >= stack
     case LifeBelow(lifeValue) => activePlayerStatus.HP < lifeValue
     case _ => false
   }
 }
 
-case class BaseCondition(phrase: Phrase, positions: Seq[Position], whoSTricks: Seq[Who])
+case class BaseNeedCondition(phrase: Phrase, positions: Seq[Position])
 
-case class CardSkill(baseCondition: BaseCondition, cond: Seq[ExCondition], effects: Seq[SkillEffect]) {
-  def checkConditionToEffects: Seq[SkillEffect] = ???
+
+case class CardSkill(baseCondition: BaseNeedCondition, cond: Seq[CasterNeedCondition], effects: Seq[SkillEffect]) {
+  def checkAllConditionIsOkThenGetEffect(phrase: Phrase, position: Position, onePlayerStatus: OnePlayerStatus): Seq[SkillEffect] = {
+    if (baseCondition.phrase == phrase
+      && baseCondition.positions.contains(position)
+      && cond.forall(aCasterNeedCond => CasterNeedCondition.casterConditionIsOk(aCasterNeedCond, onePlayerStatus))) {
+      effects
+    }
+    else Nil
+  }
 }
 
 
@@ -52,7 +60,8 @@ case class GiveCard(FromWho: Who, toWho: Who, fromMin: Boolean, Num: Int) extend
 
 case class DestroyCertainCard(toWho: Who, wheres: Seq[Position], cardId: Int) extends SkillEffect
 
-sealed  trait SkillEffect
-object SkillEffect{
-  def activeSkillEffect(skillEffect: SkillEffect,gamePlayGround: GamePlayGround, caster: String, obj: String): GamePlayGround = ???
+sealed trait SkillEffect
+
+object SkillEffect {
+  def activeSkillEffect(casterToSeqEffect:Map[String,Seq[SkillEffect]], gamePlayGround: GamePlayGround,): GamePlayGround = ???
 }
