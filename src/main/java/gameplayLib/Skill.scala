@@ -63,5 +63,7 @@ case class DestroyCertainCard(toWho: Who, wheres: Seq[Position], cardId: Int) ex
 sealed trait SkillEffect
 
 object SkillEffect {
-  def activeSkillEffect(casterToSeqEffect:Map[String,Seq[SkillEffect]], gamePlayGround: GamePlayGround,): GamePlayGround = ???
+  def activeSkillEffectToGamePlayGround(casterToSeqEffect: Map[String, Seq[SkillEffect]], gamePlayGround: GamePlayGround): GamePlayGround = ???
+
+  def activeSkillEffectToFormCard(casterToSeqEffect: Map[String, Seq[SkillEffect]],shapeNeedCounter: Shape, formCards: Seq[Card]): Seq[Card] = ???
 }

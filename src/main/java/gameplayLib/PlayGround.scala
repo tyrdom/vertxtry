@@ -236,11 +236,11 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       }
       else {
         val spawnCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的牌
-        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape) //shape检查，是否符合自己需要counter shape
-        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape) //shape检查，是否符合对方的counter shape
+        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape,thisPerOutStatus.buffs) //shape检查，是否符合自己需要counter shape
+        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape,thisPerOutStatus.buffs) //shape检查，是否符合对方的counter shape
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) { //说明普通出牌不能counter，会尝试炸弹counter
           val bombShape = Some(Shape(0, thisStatus.bombNeedNum, 0, 0, 0))
-          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape)
+          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape,thisPerOutStatus.buffs)
           if (newNeedBombShape.isEmpty) {
             genNormalAttackDamageToDamageSeq(attacker, defender, thisNeedCounterShape.get, false)
             //说明没有符合的牌打出，炸弹也不是，储存一个对当前玩家的伤害,并且牌没出完

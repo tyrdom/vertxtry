@@ -9,7 +9,7 @@ import scala.util.Random
 
 case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
 
-//卡牌的一般属性 id：牌的配置id genId 生成Id：nowPoint为当前点数，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
+//卡牌的一般属性 id：牌的配置id ，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
 case class Card(id: Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skills: Seq[CardSkill], var buffs: Seq[Buff] = Nil)
 
 
@@ -17,7 +17,12 @@ object Card {
 
   def activeCardSkillWhenSpawn(spawnCard: Seq[Card], caster: String, obj: String, oldGamePlayGround: GamePlayGround): GamePlayGround = ???
 
-  def activeCardSkillWhenForm(formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGround): Seq[Card] = ???
+  def activeCardSkillWhenForm(formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGround): Seq[Card] = { //form阶段不可改变游戏状态，只能改变将要Form的牌
+    val phrase = Phrase.FormCards
+    val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(nowGamePlayGround)
+
+    formCards
+  }
 
   def genMapCharIdToOwnPlayerAndLevel(playGround: GamePlayGround): Map[Int, Seq[(String, Int)]] = {
     val ownerAndCharLvTuple = playGround.playersStatus.flatMap(
@@ -44,13 +49,13 @@ object Card {
     val posD = Position.DrawDeck
     val stringToEffects1: Map[String, Seq[SkillEffect]] = getEffectsFromCards(oldGamePlayGround, phrase, posD, drawDeck, None, None, charId2OwnPlayerAndLevel)
 
-    val playGround1 = SkillEffect.activeSkillEffect(stringToEffects1, oldGamePlayGround)
+    val playGround1 = SkillEffect.activeSkillEffectToGamePlayGround(stringToEffects1, oldGamePlayGround)
 
     val dropDeck = oldGamePlayGround.drawDeck
     val posP = Position.DropDeck
     val stringToEffects2: Map[String, Seq[SkillEffect]] = getEffectsFromCards(oldGamePlayGround, phrase, posP, dropDeck, None, None, charId2OwnPlayerAndLevel)
 
-    val playGround2 = SkillEffect.activeSkillEffect(stringToEffects2, playGround1)
+    val playGround2 = SkillEffect.activeSkillEffectToGamePlayGround(stringToEffects2, playGround1)
 
     val stringToEffectsMaps3: immutable.Iterable[Map[String, Seq[SkillEffect]]] = oldGamePlayGround.playersStatus.map(x => {
       val holder = x._1
@@ -58,7 +63,7 @@ object Card {
       val pos = Position.HandCards
       getEffectsFromCards(oldGamePlayGround, phrase, pos, handCards, Some(holder), None, charId2OwnPlayerAndLevel)
     })
-    val playGround3 = stringToEffectsMaps3.foldLeft(playGround2)((playG, aMap) => SkillEffect.activeSkillEffect(aMap, playG))
+    val playGround3 = stringToEffectsMaps3.foldLeft(playGround2)((playG, aMap) => SkillEffect.activeSkillEffectToGamePlayGround(aMap, playG))
     playGround3
   }
 
@@ -106,7 +111,7 @@ object Card {
 
   def shuffleCard(Cards: Seq[Card]): Seq[Card] = Random.shuffle(Cards)
 
-  def genPointMapAndSpecial(Cards: Seq[Card]): (Seq[(Int, Int)], Int, Int) = {
+  def genPointMapAndSpecial(Cards: Seq[Card], buffs: Seq[Buff]): (Seq[(Int, Int)], Int, Int) = {
     val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.Point == i)) +: m)
     val dCardP = Config.minPoint - 1
     val xCardP = Config.maxPoint + 1
@@ -114,11 +119,12 @@ object Card {
     (map, Cards.count(x => x.Point <= dCardP), Cards.count(x => x.Point >= xCardP))
   }
 
+  def GetPoint(card: Card, buffs: Seq[Buff]): Int = card.Point //TODO buffsChangePoint
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌
-  def genAllShapes(cards: Seq[Card]): Seq[Shape] = {
+  def genAllAllowedShapes(cards: Seq[Card], buffs: Seq[Buff]): Seq[Shape] = {
     val cardNum = cards.size
-    val (pointSeq, d, x) = genPointMapAndSpecial(cards)
+    val (pointSeq, d, x): (Seq[(Int, Int)], Int, Int) = genPointMapAndSpecial(cards, buffs)
 
     val shapes = pointSeq.foldLeft(Nil: Seq[Shape])((seq, ii) => {
       val (point, _) = ii
@@ -139,9 +145,13 @@ object Card {
     shapes
   }
 
-  def genBiggestShape(cards: Seq[Card]): Option[Shape] = cards match {
+  def genBiggestShape(cards: Seq[Card], buffs: Seq[Buff], extraAllowNum: Int): Option[Shape] = cards match {
     case Nil => None
-    case _ => Some(genAllShapes(cards).maxBy(aShape => (aShape.height * aShape.length, aShape.keyPoint, aShape.height))) //获得一组牌最大的shape，
+    case _ => {
+      val bigShape = genAllAllowedShapes(cards, buffs: Seq[Buff]).filter(shape => shape.extraNum <= extraAllowNum).maxBy(aShape => (aShape.height * aShape.length, aShape.keyPoint, aShape.height)) //获得一组牌最大的shape，
+      val backShape = Shape(bigShape.keyPoint, bigShape.height, bigShape.length, 0, 0)
+      Some(backShape)
+    }
   }
 
   def sliceAPointSeq(point: Int, length: Int, pointSeq: Seq[(Int, Int)]): Seq[(Int, Int)] =
@@ -154,15 +164,16 @@ object Card {
 
   //判断一组牌是否可以针对对应的shape非炸弹出牌
 
-  def canShapeCounter(cards: Seq[Card], shape: Option[Shape]): Option[Shape] = shape match { //某手出牌可以压住对手牌，返回None为不可压制，其他shape 为可以压制
-    case None => genBiggestShape(cards)
+  def canShapeCounter(cards: Seq[Card], shape: Option[Shape], playerBuffs: Seq[Buff]): Option[Shape] = shape match { //某手出牌可以压住对手牌，返回None为不可压制，其他shape 为可以压制 传入BUff
+    case None => genBiggestShape(cards, playerBuffs, 0)
     case a_shape if a_shape.get.keyPoint == Config.maxPoint => None
+    case aShape if aShape.get.height < 0 => genBiggestShape(cards, playerBuffs, aShape.get.extraNum)
     case _ =>
       val cardNum = cards.size
       val h = shape.get.height
       val l = shape.get.length
       val ex = shape.get.extraNum
-      val (pointSeq, d, x) = genPointMapAndSpecial(cards)
+      val (pointSeq, d, x) = genPointMapAndSpecial(cards, playerBuffs)
       val tempShape =
         (Config.maxPoint to shape.get.keyPoint + 1).foldLeft(None: Option[Shape])((maybeShape, p) => {
           val tuples = sliceAPointSeq(p, l, pointSeq)
@@ -175,10 +186,20 @@ object Card {
       tempShape
   }
 
-  def fillAShape(cards: Seq[Card], shape: Shape): Set[Int] = { //通过一个Shape，挑选对应的牌打出，用于自动托管
-    //TODO 选牌逻辑
-    Set(1, 2, 3)
+  def canMultiShapeCounter(cards: Seq[Card], shapes: Seq[Option[Shape]], playerBuffs: Seq[Buff]): Option[Shape] = {
+    val results = shapes.map(aShape => canShapeCounter(cards, aShape, playerBuffs)).filter(_.isDefined)
+    results match {
+      case Nil => None
+      case rs => rs.maxBy(aShape => {
+        val shapeGet = aShape.get
+        (shapeGet.height * shapeGet.length, shapeGet.keyPoint, shapeGet.height)
+      })
+    }
+
+    def fillAShape(cards: Seq[Card], shape: Shape): Set[Int] = { //通过一个Shape，挑选对应的牌打出，用于自动托管
+      //TODO 选牌逻辑
+      Set(1, 2, 3)
+    }
+
+
   }
-
-
-}
