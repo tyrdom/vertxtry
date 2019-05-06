@@ -46,10 +46,19 @@ type Position = Value
   val OpponentSpawnCards: Position = Value
 }
 
+case class GamePlayGroundValuesWhatSkillEffectCanChange(drawDeck: Seq[Card], //抽牌堆，公共一个 ，如果没有牌，则
+                                                        dropDeck: Seq[Card], //弃牌堆，公共一个
+                                                        destroyedDeck: Seq[Card], //毁掉的牌，不再循环，现阶段无毁灭的牌重归牌库，无效果，只当备用
+                                                        playersStatus: Map[String, OnePlayerStatus], // 玩家id 座位号 玩家牌状态，可以用于多于两个人的情况
+                                                        nowTurnSeat: Int, //轮到座位几出牌
+                                                        nowTurnDamage: Seq[Damage], //在一轮伤害流程前，列出所有人会受到的伤害值序列，先不计算攻防因素
+                                                        seat2Player: Map[Int, String], //座位的玩家 情况, 每轮先出完牌抢占前面的座位
+                                                        summonPoint: (Int, Int) //召唤值，达到一定值时，双方召唤一个新角色
+                                                       )
 
 case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆，公共一个 ，如果没有牌，则
                           var dropDeck: Seq[Card] = Nil: Seq[Card], //弃牌堆，公共一个
-                          var destroyedDeck: Seq[Card] = Nil: Seq[Card], //毁掉的牌，不再循环
+                          var destroyedDeck: Seq[Card] = Nil: Seq[Card], //毁掉的牌，不再循环，现阶段无毁灭的牌重归牌库，无效果，只当备用
                           var playersStatus: Map[String, OnePlayerStatus] = Map(), // 玩家id 座位号 玩家牌状态，可以用于多于两个人的情况
                           var characterPool: Seq[Character] = Nil: Seq[Character],
                           var chosenPool: Seq[Character] = Nil: Seq[Character],
@@ -61,11 +70,36 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
                           var round: Int = 1, //轮，一方打完牌再弃牌重新抽牌为1轮
                           var nowTurnDamage: Seq[Damage] = Nil, //在一轮伤害流程前，列出所有人会受到的伤害值序列，先不计算攻防因素
                           var maxPlayerNum: Int = 0, // 最大的座位数
-                          var seat2Player: Map[Int, String] = Map(), //座位的玩家 情况
+                          var seat2Player: Map[Int, String] = Map(), //座位的玩家 情况, 每轮先出完牌抢占前面的座位
                           var nowPlayerNum: Int = 0, //当前玩家数量
                           var Outers: Seq[String] = Nil: Seq[String], //被淘汰的选手顺序约后面越先被淘汰
                           var summonPoint: (Int, Int) = (0, 0) //召唤值，达到一定值时，双方召唤一个新角色
                          ) { //每个房间需new1个新的playground
+
+  def genStatusForSkill: GamePlayGroundValuesWhatSkillEffectCanChange = GamePlayGroundValuesWhatSkillEffectCanChange(this.drawDeck,
+    this.dropDeck,
+    this.destroyedDeck,
+    this.playersStatus,
+    this.nowTurnSeat,
+    this.nowTurnDamage,
+    this.seat2Player,
+    this.summonPoint)
+
+  def copyValues(gamePlayGround: GamePlayGroundValuesWhatSkillEffectCanChange): Unit = {
+    this.drawDeck = gamePlayGround.drawDeck
+    this.dropDeck = gamePlayGround.dropDeck
+    this.destroyedDeck = gamePlayGround.destroyedDeck
+    this.playersStatus = gamePlayGround.playersStatus
+
+    this.nowTurnSeat = gamePlayGround.nowTurnSeat
+
+    this.nowTurnDamage = gamePlayGround.nowTurnDamage
+
+    this.seat2Player = gamePlayGround.seat2Player
+
+    this.summonPoint = gamePlayGround.summonPoint
+  }
+
 
   def initPlayGround(players: Array[String], charactersIds: Array[Int]): Unit = {
     val playerNum = players.length
@@ -109,10 +143,10 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
     rMap
   }
 
-  def getCIdFromChooseMap(chooses: Map[String, Int]): Map[String, Int] = //从选择号选出一个角色
-    chooses.map(aChoice => {
-      val id = aChoice._1
-      val idx = aChoice._2
+  def getCIdFromChooseMap(playerToChoosesIdx: Map[String, Int]): Map[String, Int] = //从选择号选出一个角色
+    playerToChoosesIdx.map(aChoice => {
+      val id = aChoice._1 //玩家id
+      val idx = aChoice._2 //选择的序号
       val choosePools: Seq[Int] = this.choosePoolsForCheck(id)
       id -> choosePools((idx - 1) % choosePools.length)
     })
@@ -216,11 +250,13 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
         thisPerOutStatus.spendCards(cardIdx).addBoomNum()
       else
         thisPerOutStatus.spendCards(cardIdx)
+      this.playersStatus += (who -> newThisStatusBeforeSkill) //先把正常流程的状态改变，再发动技能的状态改变
+      //出牌技能发动
+      val tuple = Card.activeCardSkillWhenSpawn(BeforeSkillOutCards, who, objPlayer, this.genStatusForSkill)
+      this.copyValues(tuple._1)
 
-      //TODO 出牌技能发动
-
-      this.playersStatus += (who -> newThisStatusBeforeSkill)
-
+      //发动技能后的出牌，加入弃牌堆
+      this.dropDeck = tuple._2 ++ this.dropDeck
 
       //检查牌当前牌是否出完，如果出完则本round结束,触发终结伤害效果
       val whetherEnd = newThisStatusBeforeSkill.handCards.isEmpty //  出牌技能做完后需要改为newThisStatusAfterSkill
@@ -236,11 +272,11 @@ case class GamePlayGround(var drawDeck: Seq[Card] = Nil: Seq[Card], //抽牌堆�
       }
       else {
         val spawnCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的牌
-        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape,thisPerOutStatus.buffs) //shape检查，是否符合自己需要counter shape
-        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape,thisPerOutStatus.buffs) //shape检查，是否符合对方的counter shape
+        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合自己需要counter shape
+        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合对方的counter shape
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) { //说明普通出牌不能counter，会尝试炸弹counter
           val bombShape = Some(Shape(0, thisStatus.bombNeedNum, 0, 0, 0))
-          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape,thisPerOutStatus.buffs)
+          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape, thisPerOutStatus.buffs)
           if (newNeedBombShape.isEmpty) {
             genNormalAttackDamageToDamageSeq(attacker, defender, thisNeedCounterShape.get, false)
             //说明没有符合的牌打出，炸弹也不是，储存一个对当前玩家的伤害,并且牌没出完

@@ -35,7 +35,6 @@ case class CardSkill(baseCondition: BaseNeedCondition, cond: Seq[CasterNeedCondi
   }
 }
 
-
 case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect
 
 case class DelBuffFromPlayer(toWho: Who, buff: Buff) extends SkillEffect
@@ -60,10 +59,18 @@ case class GiveCard(FromWho: Who, toWho: Who, fromMin: Boolean, Num: Int) extend
 
 case class DestroyCertainCard(toWho: Who, wheres: Seq[Position], cardId: Int) extends SkillEffect
 
+case class DestroyMaxCard(toWho: Who, where: Seq[Position], Num: Int) extends SkillEffect
+
 sealed trait SkillEffect
 
 object SkillEffect {
-  def activeSkillEffectToGamePlayGround(casterToSeqEffect: Map[String, Seq[SkillEffect]], gamePlayGround: GamePlayGround): GamePlayGround = ???
+  def activeSkillEffectToGamePlayGroundAndSpawnCards(casterToSeqEffect: Map[(String, Option[String]), Seq[SkillEffect]], gamePlayGround: GamePlayGroundValuesWhatSkillEffectCanChange, opponent:Option[String],spawningCard: Seq[Card]): (GamePlayGroundValuesWhatSkillEffectCanChange,Seq[Card]) = {
 
-  def activeSkillEffectToFormCard(casterToSeqEffect: Map[String, Seq[SkillEffect]],shapeNeedCounter: Shape, formCards: Seq[Card]): Seq[Card] = ???
+
+
+    (gamePlayGround,spawningCard)
+  }
+
+  def activeSkillEffectToFormCard(casterToSeqEffect: Map[(String, Option[String]), Seq[SkillEffect]], thisShapeNeedCounter: Option[Shape], opShapeNeedCounter: Option[Shape], formCards: Seq[Card]): (Seq[Option[Shape]], Seq[Option[Shape]], Seq[Card]) = ???
+
 }

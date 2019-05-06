@@ -17,7 +17,7 @@ case class DodgeDamage(dodgeRate: Float) extends BuffEffect
 
 case class DefenceAdd(addValue: Int) extends BuffEffect
 
-case class CounterCardDestroyMax(destroyNum: Int) extends BuffEffect
+case class CounterCardDestroyStack() extends BuffEffect
 
 case class DrainLife(drainPercent: Float) extends BuffEffect
 
