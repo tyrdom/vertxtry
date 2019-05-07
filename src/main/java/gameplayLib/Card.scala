@@ -15,21 +15,21 @@ case class Card(id: Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId
 
 object Card {
 
-  def activeCardSkillWhenSpawn(oldSpawnCard: Seq[Card], caster: String, obj: String, oldGamePlayGround: GamePlayGroundValuesWhatSkillEffectCanChange): (GamePlayGroundValuesWhatSkillEffectCanChange, Seq[Card]) = {
+  def activeCardSkillWhenSpawn(oldSpawnCard: Seq[Card], caster: String, obj: String, oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
     val phrase = Phrase.Spawn
     val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(oldGamePlayGround)
     val tupleToEffects = getEffectsFromCards(oldGamePlayGround, phrase, Position.SpawnCard, oldSpawnCard, Some(caster), Some(obj), charId2OwnPlayerAndLevel)
     SkillEffect.activeSkillEffectToGamePlayGroundAndSpawnCards(tupleToEffects, oldGamePlayGround, Some(obj), oldSpawnCard)
   }
 
-  def activeCardSkillWhenForm(thisNeedCounterShape: Option[Shape], obNeedCounterShape: Option[Shape], formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGroundValuesWhatSkillEffectCanChange): (Seq[Option[Shape]], Seq[Option[Shape]], Seq[Card]) = { //form阶段不可改变游戏状态，只能改变将要Form的牌
+  def activeCardSkillWhenForm(thisNeedCounterShape: Option[Shape], obNeedCounterShape: Option[Shape], formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (Seq[Option[Shape]], Seq[Option[Shape]], Seq[Card]) = { //form阶段不可改变游戏状态，只能改变将要Form的牌
     val phrase = Phrase.FormCards
     val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(nowGamePlayGround)
     val stringToEffects = getEffectsFromCards(nowGamePlayGround, phrase, Position.MyHandCards, formCards, None, None, charId2OwnPlayerAndLevel)
     SkillEffect.activeSkillEffectToFormCard(stringToEffects, thisNeedCounterShape, obNeedCounterShape, formCards)
   }
 
-  def genMapCharIdToOwnPlayerAndLevel(playGround: GamePlayGroundValuesWhatSkillEffectCanChange): Map[Int, Seq[(String, Int)]] = {
+  def genMapCharIdToOwnPlayerAndLevel(playGround: GamePlayGroundValuesThatSkillEffectCanChange): Map[Int, Seq[(String, Int)]] = {
     val ownerAndCharLvTuple = playGround.playersStatus.flatMap(
       x => {
         val owner = x._1
@@ -45,7 +45,7 @@ object Card {
     charIdToOwnPlayerAndLevel
   }
 
-  def activeCardSkillWhenCheck(oldGamePlayGround: GamePlayGroundValuesWhatSkillEffectCanChange): GamePlayGroundValuesWhatSkillEffectCanChange = {
+  def activeCardSkillWhenCheck(oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): GamePlayGroundValuesThatSkillEffectCanChange = {
     val phrase = Phrase.Check
     val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(oldGamePlayGround)
 
@@ -72,7 +72,7 @@ object Card {
     playGround3._1
   }
 
-  def getEffectsFromCards(gamePlayGround: GamePlayGroundValuesWhatSkillEffectCanChange, phrase: Phrase, position: Position, cards: Seq[Card], cardsOwner: Option[String], cardsObj: Option[String], charIdToOwnPlayerAndLevel: Map[Int, Seq[(String, Int)]]): Map[(String, Option[String]), Seq[SkillEffect]] = {
+  def getEffectsFromCards(gamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange, phrase: Phrase, position: Position, cards: Seq[Card], cardsOwner: Option[String], cardsObj: Option[String], charIdToOwnPlayerAndLevel: Map[Int, Seq[(String, Int)]]): Map[(String, Option[String]), Seq[SkillEffect]] = {
     val playersStatus = gamePlayGround.playersStatus
     val cardsCanEffect = cards.filter(_.ownerCharacterId.isDefined)
     val cardsCanEffectGroupByCharId = cardsCanEffect.groupBy(_.ownerCharacterId.get) //所有玩家角色按照角色ID分组

@@ -13,11 +13,11 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
   }
 
   def drawAPlayerCards(Cards: Seq[Card]): OnePlayerStatus = {
-    this.handCards = Card.sortHandCard(Cards ++ this.handCards,characters)
+    this.handCards = Card.sortHandCard(Cards ++ this.handCards, characters)
     this
   }
 
-  def addBoomNum(): OnePlayerStatus = {
+  def addBoomNum: OnePlayerStatus = {
     val newNum = this.bombNeedNum + 1
     this.bombNeedNum = newNum
     this
@@ -58,11 +58,18 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
     this.HP = newHP
     this
   }
+
+  def addBuff(buff: Buff): OnePlayerStatus = {
+    val newBuffSeq = buff +: this.buffs
+    this.buffs = newBuffSeq
+    this
+  }
 }
 
 case class SpawnedCard(who: String, cards: Seq[Card])
 
 case class NeedCounter(shape: Option[Shape],
                        counterHistorySpawn: Seq[SpawnedCard])
+
 //needCounterShape：需要对抗的牌型，如果有出牌权，那么就需要对抗此Shape
 //counterHistorySpawn：对抗的历史出牌，如果有需要对抗时对抗失败，则消灭这个needCounter，触发一些效果，对抗成功则把needCounter加入自己出的牌shape的点数，更新shape再转移给其他玩家
