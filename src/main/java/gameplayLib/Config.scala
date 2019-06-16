@@ -24,10 +24,10 @@ object Config {
   val initHitPoint = 1000
 
 
-  val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, false, None, Nil: Seq[CardSkill],Nil))
+  val normalCards: Seq[Card] = (1 to 11).map(i => Card(i, i, i, i, CardStandType.Original, None, Nil: Seq[CardSkill], Nil))
 
   def genTestCharCards(cid: Int): Seq[Card] = {
-    (1 to 10).map(i => Card(cid * 100 + i,i,  i, false, Some(cid), Nil,Nil))
+    (1 to 10).map(i => Card(cid * 100 + i, i, i, i, CardStandType.Original, Some(cid), Nil, Nil))
   }
 
   val standardCIds: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
@@ -45,5 +45,5 @@ object Config {
     3 -> (Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8), Seq(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8))
   )
 
-  val mapTest = attrMap.getOrElse(0,0)
+  val mapTest = attrMap.getOrElse(0, 0)
 }

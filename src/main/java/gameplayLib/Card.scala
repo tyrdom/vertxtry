@@ -1,25 +1,50 @@
 package gameplayLib
 
+import gameplayLib.CardStandType.CardStandType
 import gameplayLib.Phrase.Phrase
 import gameplayLib.Position.Position
 
-import scala.collection.immutable
 import scala.util.Random
 
 
-case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int)
+case class Shape(keyPoint: Int, height: Int, length: Int, extraNum: Int, fillBlankRestNum: Int) {
+  def notBiggerThan(maybeShape: Option[Shape]): Boolean = maybeShape match {
+    case None => false
+    case Some(aShape) =>
+      aShape.keyPoint >= this.keyPoint && aShape.height >= this.height && aShape.length >= this.length && aShape.extraNum == this.extraNum && aShape.fillBlankRestNum == 0
+  }
 
-//卡牌的一般属性 id：牌的配置id ，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌
-case class Card(id: Int, level: Int, Point: Int, copy: Boolean, ownerCharacterId: Option[Int], skills: Seq[CardSkill], var buffs: Seq[Buff] = Nil)
+
+}
+
+object CardStandType extends Enumeration { //位置分类
+type CardStandType = Value
+  val Original: CardStandType = Value
+  val TempCopy: CardStandType = Value
+
+}
+
+//卡牌的一般属性 id：牌的配置id ，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌 ,genId为本次比赛此卡唯一Id
+case class Card(id: Int, genId: Int, level: Int, Point: Int, standType: CardStandType, ownerCharacterId: Option[Int], skills: Seq[CardSkill], var buffs: Seq[Buff] = Nil) {
+  def addBuff(buff: Buff): Card = {
+    this.buffs = buff +: this.buffs
+    this
+  }
+
+  def delBuff(buffEffect: BuffEffect): Card = {
+    this.buffs = this.buffs.filter(buff => buff.buffEffect != buffEffect)
+    this
+  }
+}
 
 
 object Card {
 
-  def activeCardSkillWhenSpawn(oldSpawnCard: Seq[Card], caster: String, obj: String, oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+  def activeCardSkillWhenSpawn(oldSpawningCard: Seq[Card], caster: String, obj: String, oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
     val phrase = Phrase.Spawn
     val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(oldGamePlayGround)
-    val tupleToEffects = getEffectsFromCards(oldGamePlayGround, phrase, Position.SpawnCard, oldSpawnCard, Some(caster), Some(obj), charId2OwnPlayerAndLevel)
-    SkillEffect.activeSkillEffectToGamePlayGroundAndSpawnCards(tupleToEffects, oldGamePlayGround, Some(obj), oldSpawnCard)
+    val tupleToEffects = getEffectsFromCards(oldGamePlayGround, phrase, Position.SpawnCard, oldSpawningCard, Some(caster), Some(obj), charId2OwnPlayerAndLevel)
+    SkillEffect.activeSkillEffectToGamePlayGroundAndSpawnCards(tupleToEffects, oldGamePlayGround, Some(obj), oldSpawningCard)
   }
 
   def activeCardSkillWhenForm(thisNeedCounterShape: Option[Shape], obNeedCounterShape: Option[Shape], formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (Seq[Option[Shape]], Seq[Option[Shape]], Seq[Card]) = { //form阶段不可改变游戏状态，只能改变将要Form的牌
@@ -29,30 +54,15 @@ object Card {
     SkillEffect.activeSkillEffectToFormCard(stringToEffects, thisNeedCounterShape, obNeedCounterShape, formCards)
   }
 
-  def genMapCharIdToOwnPlayerAndLevel(playGround: GamePlayGroundValuesThatSkillEffectCanChange): Map[Int, Seq[(String, Int)]] = {
-    val ownerAndCharLvTuple = playGround.playersStatus.flatMap(
-      x => {
-        val owner = x._1
-        val chars = x._2.characters
-        chars.map(x => (x.id, owner, x.level))
-      }
-    )
-    var charIdToOwnPlayerAndLevel = Map(): Map[Int, Seq[(String, Int)]]
-    ownerAndCharLvTuple.foreach(x => {
-      val oldSeq = charIdToOwnPlayerAndLevel.getOrElse(x._1, Nil)
-      charIdToOwnPlayerAndLevel += (x._1 -> ((x._2, x._3) +: oldSeq))
-    })
-    charIdToOwnPlayerAndLevel
-  }
-
-  def activeCardSkillWhenCheck(oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): GamePlayGroundValuesThatSkillEffectCanChange = {
+  def activeCardSkillWhenCheck(oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): GamePlayGroundValuesThatSkillEffectCanChange = { //在check流程，发动牌组堆，手牌，弃牌堆的卡牌技能
     val phrase = Phrase.Check
     val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(oldGamePlayGround)
 
 
     val drawDeck = oldGamePlayGround.drawDeck
     val posD = Position.DrawDeck
-    val stringToEffects1 = getEffectsFromCards(oldGamePlayGround, phrase, posD, drawDeck, None, None, charId2OwnPlayerAndLevel)
+    val tupleToEffects: Map[(String, Option[String],Int), Seq[SkillEffect]] = getEffectsFromCards(oldGamePlayGround, phrase, posD, drawDeck, None, None, charId2OwnPlayerAndLevel)
+    val stringToEffects1 = tupleToEffects
 
     val playGround1 = SkillEffect.activeSkillEffectToGamePlayGroundAndSpawnCards(stringToEffects1, oldGamePlayGround, None, Nil)
 
@@ -72,27 +82,49 @@ object Card {
     playGround3._1
   }
 
-  def getEffectsFromCards(gamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange, phrase: Phrase, position: Position, cards: Seq[Card], cardsOwner: Option[String], cardsObj: Option[String], charIdToOwnPlayerAndLevel: Map[Int, Seq[(String, Int)]]): Map[(String, Option[String]), Seq[SkillEffect]] = {
+
+  def genMapCharIdToOwnPlayerAndLevel(playGround: GamePlayGroundValuesThatSkillEffectCanChange): Map[Int, Seq[(String, Int)]] = { //通过当期状态生成角色相关的玩家映射表，支持多个玩家拥有同样id的角色，等级不同
+    val ownerAndCharLvTuple = playGround.playersStatus.flatMap(
+      x => {
+        val owner = x._1
+        val chars = x._2.characters
+        chars.map(x => (x.id, owner, x.level))
+      }
+    )
+    var charIdToOwnPlayerAndLevel = Map(): Map[Int, Seq[(String, Int)]]
+    ownerAndCharLvTuple.foreach(x => {
+      val oldSeq = charIdToOwnPlayerAndLevel.getOrElse(x._1, Nil)
+      charIdToOwnPlayerAndLevel += (x._1 -> ((x._2, x._3) +: oldSeq))
+    })
+    charIdToOwnPlayerAndLevel
+  }
+
+
+  //通过映射表和卡来生成发动技能信息 谁对谁释放了什么技能
+  def getEffectsFromCards(gamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange, phrase: Phrase, position: Position, cards: Seq[Card], cardsOwner: Option[String], cardsObj: Option[String], charIdToOwnPlayerAndLevel: Map[Int, Seq[(String, Int)]]): Map[(String, Option[String],Int), Seq[SkillEffect]] = {
     val playersStatus = gamePlayGround.playersStatus
-    val cardsCanEffect = cards.filter(_.ownerCharacterId.isDefined)
-    val cardsCanEffectGroupByCharId = cardsCanEffect.groupBy(_.ownerCharacterId.get) //所有玩家角色按照角色ID分组
-    var caster2EffectMap = Map(): Map[(String, Option[String]), Seq[SkillEffect]] //玩家-释放效果队列
-    cardsCanEffectGroupByCharId.keys.foreach(charId => {
+    val cardsCanEffectGroupByCharId: Map[Int, Seq[Card]] = cards.groupBy(_.ownerCharacterId.getOrElse(-1)) //所有玩家角色按照角色ID分组,没有定义的设为-1
+    var caster2EffectMap = Map(): Map[(String, Option[String], Int), Seq[SkillEffect]] //玩家对玩家，通过哪张牌genId标识 - 释放效果队列
+    cardsCanEffectGroupByCharId.keys.foreach(charId => { //对于
       val cards = cardsCanEffectGroupByCharId(charId)
       val tuples = charIdToOwnPlayerAndLevel.getOrElse(charId, Nil)
       tuples.foreach(aTuple => {
         val caster = aTuple._1
         val level = aTuple._2
-        val skills = cards.flatMap(card => if (card.level < level) {
-          card.skills
-        } else Nil)
+
         val newPos = position match {
           case Position.HandCards => if (caster == cardsOwner.get) Position.MyHandCards else Position.OtherHandCards //手牌方位判断，如果
           case Position.SpawnCard => if (caster == cardsOwner.get) Position.MySpawnCards else if (caster == cardsObj.get) Position.OpponentSpawnCards else Position.OtherSpawnCards
           case _ => position
         }
-        val effects: Seq[SkillEffect] = skills.flatMap(_.checkAllConditionIsOkThenGetEffect(phrase, newPos, playersStatus(caster)))
-        caster2EffectMap += ((caster, cardsObj) -> (caster2EffectMap.getOrElse((caster, cardsObj), Nil: Seq[SkillEffect]) ++ effects))
+        cards.foreach(card => if (card.level <= level) {
+          val skills = card.skills.flatMap(_.checkAllConditionIsOkThenGetEffect(phrase, newPos, cards, playersStatus(caster)))
+
+          val gId = card.genId
+          caster2EffectMap += (caster, cardsObj, gId) -> skills
+        } else Nil)
+
+
       })
     })
     caster2EffectMap
@@ -110,7 +142,7 @@ object Card {
         exp
       }
 
-    def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && getCharacterExp(a) < getCharacterExp(b)) //genId为一局游戏中生成的id
+    def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && getCharacterExp(a) < getCharacterExp(b)) || (a.Point == b.Point && getCharacterExp(a) == getCharacterExp(b) && a.genId < b.genId) //genId为一局游戏中生成的id
     Cards.sortWith(compareCardLessThan) //  按点数排列卡牌，从小到大排列，某些技能用到此功能
   }
 
