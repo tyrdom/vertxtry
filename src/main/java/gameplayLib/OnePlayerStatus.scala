@@ -87,6 +87,35 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
     this.handCards = Card.sortHandCard(this.handCards ++ cards, this.characters)
     this
   }
+
+  def drawOutCardByGenId(gid: Int): (OnePlayerStatus, Option[Card]) = {
+    val cards = this.handCards
+    this.handCards = cards.filterNot(_.genId == gid)
+    val outCard = cards.find(_.genId == gid)
+    (this, outCard)
+  }
+
+  def dropACard(isMax: Boolean): (OnePlayerStatus, Card) = {
+    val cards = Card.sortHandCard(this.handCards, this.characters)
+    val cards2 = if (isMax) {
+      cards.reverse
+    } else cards
+    this.handCards = Card.sortHandCard(cards2.tail, this.characters)
+    val outCard = cards2.head
+    (this, outCard)
+  }
+
+  def dropCards(isMax: Boolean, num: Int): (OnePlayerStatus, Seq[Card]) = {
+    val cards = Card.sortHandCard(this.handCards, this.characters)
+    val cards2 = if (isMax) {
+      cards.reverse
+    } else cards
+
+    val tuple = cards2.splitAt(num)
+    this.handCards = Card.sortHandCard(tuple._2, this.characters)
+    val outCard = tuple._1
+    (this, outCard)
+  }
 }
 
 case class SpawnedCard(who: String, cards: Seq[Card])

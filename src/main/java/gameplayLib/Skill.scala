@@ -2,8 +2,10 @@ package gameplayLib
 
 
 import gameplayLib.CardStandType.CardStandType
+
 import gameplayLib.Phrase.Phrase
 import gameplayLib.Position.Position
+import gameplayLib.SkillEffect.FormSkillResult
 import gameplayLib.Who.{All, Opponent, Other, This, Who}
 
 sealed trait CasterAndCardsNeedCondition {
@@ -23,6 +25,7 @@ case class NotLessThanShape(shape: Shape) extends CasterAndCardsNeedCondition {
     val maybeShape: Option[Shape] = Card.genBiggestShape(cards, activePlayerStatus.buffs, 0)
     shape.notBiggerThan(maybeShape)
   }
+
 }
 
 
@@ -43,6 +46,8 @@ case class CardSkill(baseCondition: BaseNeedCondition, cond: Seq[CasterAndCardsN
 
 //////////////////////SkillEffectToActive////////////////////
 case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -80,6 +85,8 @@ case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect {
 
 
 case class DoDamageToPlayer(toWho: Who, damSeq: Seq[Int]) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -98,6 +105,8 @@ case class DoDamageToPlayer(toWho: Who, damSeq: Seq[Int]) extends SkillEffect {
 }
 
 case class DirectKillPlayer(toWho: Who) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -114,6 +123,8 @@ case class DirectKillPlayer(toWho: Who) extends SkillEffect {
 }
 
 case class AddBuffToCard(toWho: Who, wheres: Seq[Position], buff: Buff) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -140,6 +151,8 @@ case class AddBuffToCard(toWho: Who, wheres: Seq[Position], buff: Buff) extends 
 }
 
 case class DelBuffFromPlayer(toWho: Who, buffEffect: BuffEffect) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -155,6 +168,8 @@ case class DelBuffFromPlayer(toWho: Who, buffEffect: BuffEffect) extends SkillEf
 }
 
 case class DelBuffFromCard(toWho: Who, wheres: Seq[Position], buffEffect: BuffEffect) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -182,6 +197,8 @@ case class DelBuffFromCard(toWho: Who, wheres: Seq[Position], buffEffect: BuffEf
 
 
 case class AddExtraCard(toWho: Who, wheres: Seq[Position], cardIds: Seq[Int], cardStandType: CardStandType) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
@@ -214,56 +231,284 @@ case class AddExtraCard(toWho: Who, wheres: Seq[Position], cardIds: Seq[Int], ca
   }
 }
 
-case class MoveCard(cardId: Int, fromWheres: Seq[Position], fromWho: Who, toWhere: Position, toWho: Who, maxNum: Int) extends SkillEffect {
+case class MoveCastCard(cardId: Int, fromWheres: Seq[Position], fromWho: Who, toWhere: Position, toWho: Who, maxNum: Int) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+
+    val fromPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, fromWho, caster, obj)
+    val toThePlayer = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj).headOption
+    var theMoveCard: Option[Card] = None
+    var newSpawningCard = spawningCard
+    fromWheres.foreach(x => {
+      val aWhere = x
+      aWhere match {
+        case gameplayLib.Position.DrawDeck =>
+          val cards = gamePlayGroundValuesThatSkillEffectCanChange.drawDeck
+          gamePlayGroundValuesThatSkillEffectCanChange.drawDeck = cards.filterNot(_.genId == gId)
+          theMoveCard = cards.find(_.genId == gId)
+
+        case gameplayLib.Position.DropDeck =>
+          val cards = gamePlayGroundValuesThatSkillEffectCanChange.dropDeck
+          gamePlayGroundValuesThatSkillEffectCanChange.dropDeck = cards.filterNot(_.genId == gId)
+          theMoveCard = cards.find(_.genId == gId)
+        case theWhere if theWhere == gameplayLib.Position.HandCards || theWhere == gameplayLib.Position.MyHandCards || theWhere == gameplayLib.Position.OtherHandCards || theWhere == gameplayLib.Position.OpponentHandCards => {
+          fromPlayers.foreach(who => {
+            val tuple = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).drawOutCardByGenId(gId)
+            val newOneStatus = tuple._1
+            gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+            theMoveCard =
+              tuple._2 match {
+                case None => theMoveCard
+                case _ => tuple._2
+              }
+          })
+        }
+        case theWhere if theWhere == gameplayLib.Position.SpawnCard || theWhere == gameplayLib.Position.MySpawnCards || theWhere == gameplayLib.Position.OtherSpawnCards || theWhere == gameplayLib.Position.OpponentSpawnCards =>
+          newSpawningCard = spawningCard.filterNot(_.genId == gId)
+          theMoveCard = spawningCard.find(_.genId == gId)
+      }
+    })
+
+    toWhere match {
+      case gameplayLib.Position.DrawDeck =>
+        val cards = gamePlayGroundValuesThatSkillEffectCanChange.drawDeck
+
+        gamePlayGroundValuesThatSkillEffectCanChange.drawDeck = Card.randAddACard(cards, theMoveCard)
+
+
+      case gameplayLib.Position.DropDeck =>
+        val cards = gamePlayGroundValuesThatSkillEffectCanChange.dropDeck
+        gamePlayGroundValuesThatSkillEffectCanChange.dropDeck = Card.randAddACard(cards, theMoveCard)
+      case theWhere if theWhere == gameplayLib.Position.HandCards || theWhere == gameplayLib.Position.MyHandCards || theWhere == gameplayLib.Position.OtherHandCards || theWhere == gameplayLib.Position.OpponentHandCards => {
+        if (toThePlayer.isDefined) {
+          val newOneStatus = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(toThePlayer.get).addHandCard(theMoveCard.toSeq)
+          gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += toThePlayer.get -> newOneStatus
+        }
+      }
+
+      case theWhere if theWhere == gameplayLib.Position.SpawnCard || theWhere == gameplayLib.Position.MySpawnCards || theWhere == gameplayLib.Position.OtherSpawnCards || theWhere == gameplayLib.Position.OpponentSpawnCards =>
+        newSpawningCard = Card.randAddACard(spawningCard, theMoveCard)
+    }
+    (gamePlayGroundValuesThatSkillEffectCanChange, newSpawningCard)
+  }
+
 }
 
-case class DropMinCard(toWho: Who, Num: Int) extends SkillEffect {
+case class DropMinHandCard(toWho: Who, num: Int) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val dropPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj)
+    dropPlayers.foreach(who => {
+      val tuple: (OnePlayerStatus, Seq[Card]) = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).dropCards(false, num)
+      val newOneStatus = tuple._1
+      gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+      gamePlayGroundValuesThatSkillEffectCanChange.dropDeck = tuple._2 ++ gamePlayGroundValuesThatSkillEffectCanChange.dropDeck
+    })
+    (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
+  }
+
 }
 
-case class DropMaxCard(toWho: Who, Num: Int) extends SkillEffect {
+case class DropMaxHandCard(toWho: Who, num: Int) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val dropPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj)
+    dropPlayers.foreach(who => {
+      val tuple: (OnePlayerStatus, Seq[Card]) = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).dropCards(false, num)
+      val newOneStatus = tuple._1
+      gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+      gamePlayGroundValuesThatSkillEffectCanChange.dropDeck = tuple._2 ++ gamePlayGroundValuesThatSkillEffectCanChange.dropDeck
+    })
+    (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
+  }
 }
 
-case class DrawCard(toWho: Who, Num: Int) extends SkillEffect {
+case class ExtraDrawCard(toWho: Who, num: Int) extends SkillEffect {
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val drawPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj)
+
+    drawPlayers.foreach(
+      who => {
+        val beforeDrawDeck = gamePlayGroundValuesThatSkillEffectCanChange.drawDeck
+        val beforeDropDeck = gamePlayGroundValuesThatSkillEffectCanChange.dropDeck
+        num match {
+          case n if n <= beforeDrawDeck.length =>
+            val cardsTuple = beforeDrawDeck.splitAt(n)
+            val newOneStatus = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).addHandCard(cardsTuple._1)
+            gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+            gamePlayGroundValuesThatSkillEffectCanChange.drawDeck = cardsTuple._2
+
+          case n if n >= beforeDrawDeck.length + beforeDropDeck.length =>
+            val newOneStatus = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).addHandCard(beforeDrawDeck ++ beforeDropDeck)
+            gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+            gamePlayGroundValuesThatSkillEffectCanChange.drawDeck = Nil
+            gamePlayGroundValuesThatSkillEffectCanChange.dropDeck = Nil
+          case n if n < beforeDrawDeck.length + beforeDropDeck.length && n > beforeDrawDeck.length =>
+            val cardsTuple = (beforeDrawDeck ++ Card.shuffleCard(beforeDropDeck)).splitAt(n)
+            val newOneStatus = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).addHandCard(cardsTuple._1)
+            gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+            gamePlayGroundValuesThatSkillEffectCanChange.drawDeck = cardsTuple._2
+        }
+      }
+    )
+    (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
+  }
 }
 
-case class GiveCard(FromWho: Who, toWho: Who, fromMin: Boolean, Num: Int) extends SkillEffect {
+
+case class GiveHandCard(FromWho: Who, toWho: Who, fromMax: Boolean, num: Int) extends SkillEffect {
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val fromPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, FromWho, caster, obj)
+    val toThePlayer = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj).head
+    var theGiveCards = Nil: Seq[Card]
+    fromPlayers.foreach(who => {
+      val tuple: (OnePlayerStatus, Seq[Card]) = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).dropCards(fromMax, num)
+      val newOneStatus = tuple._1
+      gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+      theGiveCards = tuple._2 ++ theGiveCards
+    })
+    val status: OnePlayerStatus = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(toThePlayer).addHandCard(theGiveCards)
+    gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += toThePlayer -> status
+    (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
+  }
+
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
 }
 
-case class DestroyCertainCard(toWho: Who, wheres: Seq[Position], cardId: Int) extends SkillEffect {
+case class DestroyTheSelfCard(toWho: Who, wheres: Seq[Position], cardId: Int) extends SkillEffect {
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val toPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj)
+    var newSpawningCard = spawningCard
+
+    wheres.foreach(x => {
+      val aWhere = x
+      aWhere match {
+        case gameplayLib.Position.DrawDeck =>
+          val cards = gamePlayGroundValuesThatSkillEffectCanChange.drawDeck
+          gamePlayGroundValuesThatSkillEffectCanChange.drawDeck = cards.filterNot(_.genId == gId)
+          val maybeCard: Option[Card] = cards.find(_.genId == gId)
+          gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck = maybeCard.get +: gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck
+
+        case gameplayLib.Position.DropDeck =>
+          val cards = gamePlayGroundValuesThatSkillEffectCanChange.dropDeck
+          gamePlayGroundValuesThatSkillEffectCanChange.dropDeck = cards.filterNot(_.genId == gId)
+          val maybeCard: Option[Card] = cards.find(_.genId == gId)
+          gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck = maybeCard.get +: gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck
+
+
+        case theWhere if theWhere == gameplayLib.Position.HandCards || theWhere == gameplayLib.Position.MyHandCards || theWhere == gameplayLib.Position.OtherHandCards || theWhere == gameplayLib.Position.OpponentHandCards => {
+          toPlayers.foreach(who => {
+            val tuple = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).drawOutCardByGenId(gId)
+            val newOneStatus = tuple._1
+            gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+            val maybeCard: Option[Card] = tuple._2
+            gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck = maybeCard.get +: gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck
+          }
+          )
+        }
+        case theWhere if theWhere == gameplayLib.Position.SpawnCard || theWhere == gameplayLib.Position.MySpawnCards || theWhere == gameplayLib.Position.OtherSpawnCards || theWhere == gameplayLib.Position.OpponentSpawnCards =>
+          newSpawningCard = spawningCard.filterNot(_.genId == gId)
+          val maybeCard: Option[Card] = spawningCard.find(_.genId == gId)
+          gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck = maybeCard.get +: gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck
+      }
+    })
+    (gamePlayGroundValuesThatSkillEffectCanChange, newSpawningCard)
+  }
+
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
 }
 
-case class DestroyMaxCard(toWho: Who, where: Seq[Position], Num: Int) extends SkillEffect {
+case class DestroyMaxOrMinCard(isMax: Boolean, toWho: Who, wheres: Seq[Position], num: Int) extends SkillEffect {
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val toPlayers = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj)
+    var newSpawningCard = spawningCard
+    wheres.foreach(x => {
+      val aWhere = x
+      aWhere match {
+
+
+        case theWhere if theWhere == gameplayLib.Position.HandCards || theWhere == gameplayLib.Position.MyHandCards || theWhere == gameplayLib.Position.OtherHandCards || theWhere == gameplayLib.Position.OpponentHandCards => {
+          toPlayers.foreach(who => {
+            val tuple = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(who).dropCards(isMax, num)
+            val newOneStatus = tuple._1
+            gamePlayGroundValuesThatSkillEffectCanChange.playersStatus += who -> newOneStatus
+            val cards = tuple._2
+            gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck = cards ++ gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck
+          }
+          )
+        }
+        case theWhere if theWhere == gameplayLib.Position.SpawnCard || theWhere == gameplayLib.Position.MySpawnCards || theWhere == gameplayLib.Position.OtherSpawnCards || theWhere == gameplayLib.Position.OpponentSpawnCards =>
+          val characters = gamePlayGroundValuesThatSkillEffectCanChange.playersStatus(caster).characters
+          val sCards = Card.sortHandCard(spawningCard, characters)
+          val sCards2 = if (isMax) sCards.reverse else sCards
+          val tuple = sCards2.splitAt(num)
+          newSpawningCard = tuple._2
+
+          gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck = tuple._1 ++ gamePlayGroundValuesThatSkillEffectCanChange.destroyedDeck
+
+        case _ => print("不可配置位置")
+      }
+    })
+    (gamePlayGroundValuesThatSkillEffectCanChange, newSpawningCard)
+  }
+
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
 }
 
 case object FirstSeatNextRound extends SkillEffect {
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
 }
+
+case class FormEffect_CopyCard(num: Int) extends SkillEffect {
+  override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
+                            gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
+
+
+  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = {
+    val formCardsSeq = lastResult.formSeq
+    val newForms = formCardsSeq.map(formCards => {
+      val copyCard = formCards.find(card => card.genId == gid && card.standType != CardStandType.TempCopy)
+      copyCard match {
+        case None => formCards
+        case Some(x) => formCards ++ x.formCopy(num)
+      }
+    })
+    val resForm = formCardsSeq ++ newForms
+    FormSkillResult(lastResult.thisShapeSeq, lastResult.opShapeSeq, resForm)
+  }
+
+
+}
+
 
 sealed trait SkillEffect {
   def activeEffect(gid: Int, caster: String, obj: Option[String], spawningCard: Seq[Card], gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange): (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card])
+
+  def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult
 }
 
 object SkillEffect {
@@ -294,14 +539,28 @@ object SkillEffect {
     }
   }
 
-  def activeSkillEffectToFormCard(casterToSeqEffect: Map[(String, Option[String], Int), Seq[SkillEffect]], thisShapeNeedCounter: Option[Shape], opShapeNeedCounter: Option[Shape], formCards: Seq[Card]): (Seq[Option[Shape]], Seq[Option[Shape]], Seq[Card]) = ???
+  case class FormSkillResult(thisShapeSeq: Seq[Option[Shape]], opShapeSeq: Seq[Option[Shape]], formSeq: Seq[Seq[Card]])
 
+  def activeSkillEffectToFormCard(caster: String, casterToSeqEffect: Map[(String, Option[String], Int), Seq[SkillEffect]], thisShapeNeedCounter: Option[Shape], opShapeNeedCounter: Option[Shape], formCards: Seq[Card]): FormSkillResult
+
+  = {
+    val thisShapeSeq = Seq(thisShapeNeedCounter)
+    val opShapeSeq = Seq(opShapeNeedCounter)
+    val formSeq = Seq(formCards)
+    val oResult = FormSkillResult(thisShapeSeq, opShapeSeq, formSeq)
+    casterToSeqEffect.foldLeft(oResult)(
+      (res, aKv) => if (caster == aKv._1._1) {
+        val effects = aKv._2
+        val gid = aKv._1._3
+        effects.foldLeft(res)(
+          (fRes, aSkillEffect) =>
+            aSkillEffect match {
+              case FormEffect_CopyCard(_) => aSkillEffect.activeFormEffect(gid, fRes)
+              case _ => fRes
+            }
+        )
+      } else res
+    )
+  }
 }
 
-sealed trait FormCardSkillEffect {
-
-  case class FormSkillResult(thisShapeCounterAfterSkill: Option[Shape], opShapeCounterAfterSkill: Option[Shape], formCardsAfterSkill: Seq[Card])
-
-  def activeSkillEffectToFormCard(casterToSeqEffect: Map[(String, Option[String], Int), Seq[SkillEffect]], gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange, thisShapeNeedCounter: Option[Shape], opShapeNeedCounter: Option[Shape], formCards: Seq[Card]):
-  FormSkillResult = ???
-}

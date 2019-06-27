@@ -29,6 +29,7 @@ type Phrase = Value
   val FormCards: Phrase = Value
   val Spawn: Phrase = Value
   val Damage: Phrase = Value
+  val EndRound: Phrase = Value
 }
 
 
@@ -253,8 +254,9 @@ case class GamePlayGround(
     //TODO FormCards的时候可以发动的技能
     //无论是否成功counter 自己的status的needCounter一般都需要清理掉，如果counter成功，新的needCounter会给对手,输出先清掉出牌方的NeedCounter，所以先处理成PerOut
     val thisPerOutStatus = thisStatus.clearNeedCounter()
-    case class SpendResult(whetherEnd: Boolean, spendCard: Seq[Card], newShape: Shape)
 
+    case class SpendResult(whetherEnd: Boolean, spendCard: Seq[Card], newShape: Shape)
+/////////////////////
     def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean, oldShape: Shape): SpendResult = { //  出牌过程
       this.nowPhrase = Phrase.Spawn
       val BeforeSkillOutCards = cardIdx.map(x => handCards(x - 1))
@@ -277,7 +279,7 @@ case class GamePlayGround(
 
       SpendResult(whetherEnd, BeforeSkillOutCards, oldShape)
     }
-
+//////////////////////
 
     if (whoSpawn == this.seat2Player(this.nowTurnSeat)) {
       if (cardIdx.isEmpty) { //是空组当作是PASS操作，触发通常伤害,出牌方收到伤害，出牌记录中最近一个出牌方为攻击者
@@ -285,14 +287,14 @@ case class GamePlayGround(
         SpawnResult(true, false, true, Nil: Seq[Card])
       }
       else {
-        val spawnCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的牌
+        val formCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的牌
 
 
-        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, thisNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合自己需要counter shape
-        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, obNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合对方的counter shape
+        val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(formCardsAfterFormSkill, thisNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合自己需要counter shape
+        val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(formCardsAfterFormSkill, obNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合对方的counter shape
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) { //说明普通出牌不能counter，会尝试炸弹counter
           val bombShape = Some(Shape(0, thisStatus.bombNeedNum, 0, 0, 0))
-          val newNeedBombShape = gameplayLib.Card.canShapeCounter(spawnCardsAfterFormSkill, bombShape, thisPerOutStatus.buffs)
+          val newNeedBombShape = gameplayLib.Card.canShapeCounter(formCardsAfterFormSkill, bombShape, thisPerOutStatus.buffs)
           if (newNeedBombShape.isEmpty) {
             genNormalAttackDamageToDamageSeq(attacker, defender, thisNeedCounterShape.get, false)
             //说明没有符合的牌打出，炸弹也不是，储存一个对当前玩家的伤害,并且牌没出完
@@ -360,6 +362,7 @@ case class GamePlayGround(
   }
 
   def endTurn(spawnResult: SpawnResult): Unit = {
+
     if (spawnResult.battleEnd) {
       //TODO 对抗计数的BUFF持续减少和删除
     }
@@ -367,6 +370,11 @@ case class GamePlayGround(
       this.round = this.round + 1
       this.turn = 1
       //TODO 轮数round计数的BUFF持续减少和删除
+
+      this.nowPhrase = Phrase.EndRound
+      //TODO 一轮结束发动技能
+
+
     }
     else {
       this.turn = this.turn + 1
@@ -374,6 +382,7 @@ case class GamePlayGround(
     this.totalTurn = this.totalTurn + 1
     //TODO 回合数计数的BUFF持续减少和删除
   }
+
 
   def sliceToPieces[X](piecesNum: Int, pieceMaxRoom: Int, pool: Seq[X]): (Seq[Seq[X]], Seq[X]) = {
     val total = pieceMaxRoom * piecesNum

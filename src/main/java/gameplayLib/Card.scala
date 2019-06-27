@@ -3,6 +3,7 @@ package gameplayLib
 import gameplayLib.CardStandType.CardStandType
 import gameplayLib.Phrase.Phrase
 import gameplayLib.Position.Position
+import gameplayLib.SkillEffect.FormSkillResult
 
 import scala.util.Random
 
@@ -25,7 +26,7 @@ type CardStandType = Value
 }
 
 //卡牌的一般属性 id：牌的配置id ，大于10点可以当作任意点数，小于1点只能当作单独牌出，copy为此牌是否为复制牌 ,genId为本次比赛此卡唯一Id
-case class Card(id: Int, genId: Int, level: Int, Point: Int, standType: CardStandType, ownerCharacterId: Option[Int], skills: Seq[CardSkill], var buffs: Seq[Buff] = Nil) {
+case class Card(id: Int, genId: Int, level: Int, point: Int, standType: CardStandType, ownerCharacterId: Option[Int], skills: Seq[CardSkill], var buffs: Seq[Buff] = Nil) {
   def addBuff(buff: Buff): Card = {
     this.buffs = buff +: this.buffs
     this
@@ -35,10 +36,25 @@ case class Card(id: Int, genId: Int, level: Int, Point: Int, standType: CardStan
     this.buffs = this.buffs.filter(buff => buff.buffEffect != buffEffect)
     this
   }
+
+  def formCopy(num: Int): Seq[Card] = {
+    val copyCard = Card(id, genId, level, point, standType = CardStandType.TempCopy, ownerCharacterId, Nil, Nil)
+    (1 to num).foldLeft(Nil: Seq[Card])((res, _) => copyCard +: res)
+  }
 }
 
 
 object Card {
+
+
+
+  def randAddACard(cards: Seq[Card], card: Option[Card]): Seq[Card] = {
+    val (a, b) = cards.splitAt(Random.nextInt(cards.length + 1))
+    card match {
+      case None => cards
+      case Some(x) => a ++ (x +: b)
+    }
+  }
 
   def activeCardSkillWhenSpawn(oldSpawningCard: Seq[Card], caster: String, obj: String, oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
     val phrase = Phrase.Spawn
@@ -47,11 +63,11 @@ object Card {
     SkillEffect.activeSkillEffectToGamePlayGroundAndSpawnCards(tupleToEffects, oldGamePlayGround, Some(obj), oldSpawningCard)
   }
 
-  def activeCardSkillWhenForm(thisNeedCounterShape: Option[Shape], obNeedCounterShape: Option[Shape], formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): (Seq[Option[Shape]], Seq[Option[Shape]], Seq[Card]) = { //form阶段不可改变游戏状态，只能改变将要Form的牌
+  def activeCardSkillWhenForm(thisNeedCounterShape: Option[Shape], obNeedCounterShape: Option[Shape], formCards: Seq[Card], caster: String, obj: String, nowGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): FormSkillResult = { //form阶段不可改变游戏状态，只能改变将要Form的牌
     val phrase = Phrase.FormCards
     val charId2OwnPlayerAndLevel = genMapCharIdToOwnPlayerAndLevel(nowGamePlayGround)
     val stringToEffects = getEffectsFromCards(nowGamePlayGround, phrase, Position.MyHandCards, formCards, None, None, charId2OwnPlayerAndLevel)
-    SkillEffect.activeSkillEffectToFormCard(stringToEffects, thisNeedCounterShape, obNeedCounterShape, formCards)
+    SkillEffect.activeSkillEffectToFormCard(caster, stringToEffects, thisNeedCounterShape, obNeedCounterShape, formCards)
   }
 
   def activeCardSkillWhenCheck(oldGamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange): GamePlayGroundValuesThatSkillEffectCanChange = { //在check流程，发动牌组堆，手牌，弃牌堆的卡牌技能
@@ -61,7 +77,7 @@ object Card {
 
     val drawDeck = oldGamePlayGround.drawDeck
     val posD = Position.DrawDeck
-    val tupleToEffects: Map[(String, Option[String],Int), Seq[SkillEffect]] = getEffectsFromCards(oldGamePlayGround, phrase, posD, drawDeck, None, None, charId2OwnPlayerAndLevel)
+    val tupleToEffects: Map[(String, Option[String], Int), Seq[SkillEffect]] = getEffectsFromCards(oldGamePlayGround, phrase, posD, drawDeck, None, None, charId2OwnPlayerAndLevel)
     val stringToEffects1 = tupleToEffects
 
     val playGround1 = SkillEffect.activeSkillEffectToGamePlayGroundAndSpawnCards(stringToEffects1, oldGamePlayGround, None, Nil)
@@ -101,7 +117,7 @@ object Card {
 
 
   //通过映射表和卡来生成发动技能信息 谁对谁释放了什么技能
-  def getEffectsFromCards(gamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange, phrase: Phrase, position: Position, cards: Seq[Card], cardsOwner: Option[String], cardsObj: Option[String], charIdToOwnPlayerAndLevel: Map[Int, Seq[(String, Int)]]): Map[(String, Option[String],Int), Seq[SkillEffect]] = {
+  def getEffectsFromCards(gamePlayGround: GamePlayGroundValuesThatSkillEffectCanChange, phrase: Phrase, position: Position, cards: Seq[Card], cardsOwner: Option[String], cardsObj: Option[String], charIdToOwnPlayerAndLevel: Map[Int, Seq[(String, Int)]]): Map[(String, Option[String], Int), Seq[SkillEffect]] = {
     val playersStatus = gamePlayGround.playersStatus
     val cardsCanEffectGroupByCharId: Map[Int, Seq[Card]] = cards.groupBy(_.ownerCharacterId.getOrElse(-1)) //所有玩家角色按照角色ID分组,没有定义的设为-1
     var caster2EffectMap = Map(): Map[(String, Option[String], Int), Seq[SkillEffect]] //玩家对玩家，通过哪张牌genId标识 - 释放效果队列
@@ -142,21 +158,21 @@ object Card {
         exp
       }
 
-    def compareCardLessThan(a: Card, b: Card): Boolean = a.Point < b.Point || (a.Point == b.Point && getCharacterExp(a) < getCharacterExp(b)) || (a.Point == b.Point && getCharacterExp(a) == getCharacterExp(b) && a.genId < b.genId) //genId为一局游戏中生成的id
+    def compareCardLessThan(a: Card, b: Card): Boolean = a.point < b.point || (a.point == b.point && getCharacterExp(a) < getCharacterExp(b)) || (a.point == b.point && getCharacterExp(a) == getCharacterExp(b) && a.genId < b.genId) //genId为一局游戏中生成的id
     Cards.sortWith(compareCardLessThan) //  按点数排列卡牌，从小到大排列，某些技能用到此功能
   }
 
   def shuffleCard(Cards: Seq[Card]): Seq[Card] = Random.shuffle(Cards)
 
   def genPointMapAndSpecial(Cards: Seq[Card], buffs: Seq[Buff]): (Seq[(Int, Int)], Int, Int) = {
-    val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.Point == i)) +: m)
+    val map: Seq[(Int, Int)] = (Config.maxPoint to Config.minPoint).foldLeft(Nil: Seq[(Int, Int)])((m, i) => (i, Cards.count(c => c.point == i)) +: m)
     val dCardP = Config.minPoint - 1
     val xCardP = Config.maxPoint + 1
 
-    (map, Cards.count(x => x.Point <= dCardP), Cards.count(x => x.Point >= xCardP))
+    (map, Cards.count(x => x.point <= dCardP), Cards.count(x => x.point >= xCardP))
   }
 
-  def GetPoint(card: Card, buffs: Seq[Buff]): Int = card.Point //TODO buffsChangePoint
+  def GetPoint(card: Card, buffs: Seq[Buff]): Int = card.point //TODO buffsChangePoint
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌
   def genAllAllowedShapes(cards: Seq[Card], buffs: Seq[Buff]): Seq[Shape] = {

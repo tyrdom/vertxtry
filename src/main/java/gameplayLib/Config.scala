@@ -46,4 +46,6 @@ object Config {
   )
 
   val mapTest = attrMap.getOrElse(0, 0)
+
+  val splitAtTest = Seq(1,2,3,4,5,6,7,8).splitAt(10)
 }
