@@ -53,7 +53,8 @@ case class GamePlayGroundValuesThatSkillEffectCanChange(var drawDeck: Seq[Card],
                                                         var playersStatus: Map[String, OnePlayerStatus], // 玩家id 座位号 玩家牌状态，可以用于多于两个人的情况
                                                         var nowTurnSeat: Int, //轮到座位几出牌
                                                         var nowTurnDamage: Seq[Damage], //在一轮伤害流程前，列出所有人会受到的伤害值序列，先不计算攻防因素
-                                                        var seat2Player: Map[Int, String], //座位的玩家 情况, 每轮先出完牌抢占前面的座位，每轮开始从
+                                                        var nowRoundOrder: Seq[String], //座位的玩家 情况, 每轮先出完牌抢占前面的座位，每轮开始从
+                                                        var nextRoundOrder: Seq[String], //下一轮的顺序
                                                         var summonPoint: (Int, Int), //召唤值，达到一定值时，双方召唤一个新角色
                                                         var genIdForCard: Int
                                                        )
@@ -80,10 +81,11 @@ case class GamePlayGround(
                            var round: Int = 1, //轮，一方打完牌再弃牌重新抽牌为1轮
                            var nowTurnDamage: Seq[Damage] = Nil, //在一轮伤害流程前，列出所有人会受到的伤害值序列，先不计算攻防因素
                            var maxPlayerNum: Int = 0, // 最大的座位数
-                           var seat2Player: Map[Int, String] = Map(), //座位的玩家 情况, 每轮先出完牌抢占前面的座位
-                           var nowPlayerNum: Int = 0, //当前玩家数量
+                           var nowRoundOrder: Seq[String] = Nil, //座位的玩家 情况, 每轮先出完牌抢占前面的座位
+                           var nextRoundOrder: Seq[String] = Nil, //下一轮的顺序，
+                           var nowPlayerNum: Int = 0, //当前没死亡的玩家数量
                            var Outers: Seq[String] = Nil: Seq[String], //被淘汰的选手顺序约后面越先被淘汰
-                           var summonPoint: (Int, Int) = (0, 0), //召唤值，达到一定值时，双方召唤一个新角色
+                           var summonPoint: (Int, Int) = (0, 0), //召唤值，达到一定值时，双方召唤一个新角色  等级,当前召唤值
                            var genIdForCardNow: Int = 0) { //当前卡的生成Id
   //每个房间需new1个新的playground
 
@@ -93,7 +95,8 @@ case class GamePlayGround(
     this.playersStatus,
     this.nowTurnSeat,
     this.nowTurnDamage,
-    this.seat2Player,
+    this.nextRoundOrder,
+    this.nextRoundOrder,
     this.summonPoint,
     this.genIdForCardNow)
 
@@ -107,7 +110,8 @@ case class GamePlayGround(
 
     this.nowTurnDamage = gamePlayGround.nowTurnDamage
 
-    this.seat2Player = gamePlayGround.seat2Player
+    this.nowRoundOrder = gamePlayGround.nowRoundOrder
+    this.nextRoundOrder = gamePlayGround.nextRoundOrder
 
     this.summonPoint = gamePlayGround.summonPoint
     this.genIdForCardNow = gamePlayGround.genIdForCard
@@ -118,8 +122,8 @@ case class GamePlayGround(
     val playerNum = players.length
     this.maxPlayerNum = playerNum
     this.nowPlayerNum = playerNum
-    val pairs: immutable.IndexedSeq[(Int, String)] = (1 to playerNum) zip players
-    this.seat2Player = pairs.toMap
+    this.nowRoundOrder = players.toSeq
+    this.nextRoundOrder = players.toSeq
     val pool: Seq[Character] = charactersIds.map(id => Character.initCharacter(id))
     this.drawDeck = Config.normalCards ++ Config.normalCards ++ this.drawDeck
     this.characterPool = pool
@@ -196,18 +200,21 @@ case class GamePlayGround(
 
     val nowDrawNum = this.drawDeck.length
     val nowDropDeckNum = this.dropDeck.length
+    this.nowRoundOrder = this.nextRoundOrder
     maxCards * this.nowPlayerNum match {
       case cardsNum
         if cardsNum <= nowDrawNum =>
         val (draws, rest) = sliceToPieces(this.nowPlayerNum, maxCards, this.drawDeck)
         this.drawDeck = rest
-        val player2Card: immutable.IndexedSeq[(String, Seq[Card])] = this.seat2Player.toIndexedSeq.sortBy(a => a._1).map(x => x._2) zip draws
+        val player2Card: immutable.IndexedSeq[(String, Seq[Card])] = this.nowRoundOrder.toIndexedSeq zip draws
         player2Card.foreach(t => {
           val id = t._1
           val addCard = t._2
           val newStatus = this.playersStatus(id).drawAPlayerCards(addCard)
           this.playersStatus += (id -> newStatus)
         })
+
+        this.nextRoundOrder = Nil
         true
 
       case cardsNum
@@ -225,8 +232,8 @@ case class GamePlayGround(
     val bNum = playersBid.length
     bNum match {
       case bn if bn == this.nowPlayerNum =>
-        val nSeat = 1 to nowPlayerNum zip playersBid.sortBy(x => x._2).map(x => x._1)
-        this.seat2Player = nSeat.toMap
+        val nSeat = playersBid.sortBy(x => x._2).map(_._1).toSeq
+        this.nowRoundOrder = nSeat
         true
       case _ => false
     }
@@ -256,7 +263,7 @@ case class GamePlayGround(
     val thisPerOutStatus = thisStatus.clearNeedCounter()
 
     case class SpendResult(whetherEnd: Boolean, spendCard: Seq[Card], newShape: Shape)
-/////////////////////
+    /////////////////////
     def spendHandCardsProcess(thisPerOutStatus: OnePlayerStatus, handCards: Seq[Card], cardIdx: Array[Int], who: String, Bomb: Boolean, oldShape: Shape): SpendResult = { //  出牌过程
       this.nowPhrase = Phrase.Spawn
       val BeforeSkillOutCards = cardIdx.map(x => handCards(x - 1))
@@ -276,20 +283,23 @@ case class GamePlayGround(
 
       //检查牌当前牌是否出完，如果出完则本round结束,触发终结伤害效果
       val whetherEnd = newThisStatusBeforeSkill.handCards.isEmpty //  出牌技能做完后需要改为newThisStatusAfterSkill
+      if (whetherEnd) { //如果出完牌则标记为本轮结束
 
+        this.nextRoundOrder = this.nextRoundOrder :+ who
+      }
       SpendResult(whetherEnd, BeforeSkillOutCards, oldShape)
     }
-//////////////////////
+    //////////////////////
 
-    if (whoSpawn == this.seat2Player(this.nowTurnSeat)) {
-      if (cardIdx.isEmpty) { //是空组当作是PASS操作，触发通常伤害,出牌方收到伤害，出牌记录中最近一个出牌方为攻击者
+    if (whoSpawn == this.nowRoundOrder(this.nowTurnSeat)) {
+      if (cardIdx.isEmpty) {
+        //是空组当作是PASS操作，触发通常伤害,出牌方收到伤害，出牌记录中最近一个出牌方为攻击者
         genNormalAttackDamageToDamageSeq(attacker, defender, thisNeedCounterShape.get, false)
         SpawnResult(true, false, true, Nil: Seq[Card])
       }
       else {
+
         val formCardsAfterFormSkill = cardIdx.map(i => handCards(i - 1)) // TODO 更换为form技能后的牌
-
-
         val newNeedCounterShape1 = gameplayLib.Card.canShapeCounter(formCardsAfterFormSkill, thisNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合自己需要counter shape
         val newNeedCounterShape2 = gameplayLib.Card.canShapeCounter(formCardsAfterFormSkill, obNeedCounterShape, thisPerOutStatus.buffs) //shape检查，是否符合对方的counter shape
         if (newNeedCounterShape1.isEmpty || newNeedCounterShape2.isEmpty) { //说明普通出牌不能counter，会尝试炸弹counter
@@ -300,10 +310,12 @@ case class GamePlayGround(
             //说明没有符合的牌打出，炸弹也不是，储存一个对当前玩家的伤害,并且牌没出完
             SpawnResult(true, false, true, Nil: Seq[Card])
           }
-          else { //说明可以是炸弹牌打出
+          else {
+            //说明可以是炸弹牌打出
             //出炸弹的过程
             val spendResult = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, true, newNeedBombShape.get)
-            if (spendResult.whetherEnd) {
+            if (spendResult.whetherEnd) { //说明出完牌
+              this.nextRoundOrder = if (this.nextRoundOrder.contains(whoSpawn)) this.nextRoundOrder else whoSpawn +: this.nextRoundOrder
               genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedBombShape.get, true)
             }
             else {
@@ -320,9 +332,10 @@ case class GamePlayGround(
         else {
           //正常出牌过程
           val spendResult = spendHandCardsProcess(thisPerOutStatus, handCards, cardIdx, whoSpawn, false, newNeedCounterShape1.get)
-          if (spendResult.whetherEnd)
+          if (spendResult.whetherEnd) {
+            this.nextRoundOrder = if (this.nextRoundOrder.contains(whoSpawn)) this.nextRoundOrder else whoSpawn +: this.nextRoundOrder
             genNormalAttackDamageToDamageSeq(whoSpawn, objPlayer, newNeedCounterShape1.get, true)
-          else {
+          } else {
             val newHistorySpawnedCard = SpawnedCard(whoSpawn, spendResult.spendCard) +: lastSpawnedCard
             val newNeedCounter = NeedCounter(Some(spendResult.newShape), newHistorySpawnedCard)
             val newObStatus = this.playersStatus(objPlayer).putNeedCounter(newNeedCounter)
@@ -362,18 +375,20 @@ case class GamePlayGround(
   }
 
   def endTurn(spawnResult: SpawnResult): Unit = {
-
     if (spawnResult.battleEnd) {
+
       //TODO 对抗计数的BUFF持续减少和删除
     }
     if (spawnResult.roundEnd) {
-      this.round = this.round + 1
+      val finNum = this.nextRoundOrder.length
+      if (finNum < this.nowPlayerNum - 1) {
+        this.round = this.round + 1
+      }
       this.turn = 1
       //TODO 轮数round计数的BUFF持续减少和删除
 
       this.nowPhrase = Phrase.EndRound
       //TODO 一轮结束发动技能
-
 
     }
     else {
@@ -381,6 +396,8 @@ case class GamePlayGround(
     }
     this.totalTurn = this.totalTurn + 1
     //TODO 回合数计数的BUFF持续减少和删除
+
+    this.nowTurnSeat = if (this.nowTurnSeat + 1 > nowPlayerNum) 1 else nowPlayerNum + 1
   }
 
 

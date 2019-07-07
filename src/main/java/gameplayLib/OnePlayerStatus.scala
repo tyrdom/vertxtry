@@ -1,6 +1,7 @@
 package gameplayLib
 
-case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
+case class OnePlayerStatus(var defeat: Boolean = false,
+                           var bombNeedNum: Int = Config.startBombNeedNum,
                            var handCards: Seq[Card] = Nil: Seq[Card], //handCards ：手上的牌
                            var HP: Int = Config.initHitPoint, //最初的属性
                            var buffs: Seq[Buff] = Nil: Seq[Buff],
@@ -40,6 +41,7 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
     this
   }
 
+
   def getAtk: Int = {
     val characters = this.characters
     characters.foldLeft(0)((sum, character) => sum + character.attack)
@@ -54,6 +56,10 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
   = {
     val newHP = this.HP - DamageSeq.sum
     this.HP = newHP
+    if (newHP <= 0)
+      this.defeat = true
+    else
+      this.defeat = false
     this
   }
 
@@ -65,6 +71,7 @@ case class OnePlayerStatus(var bombNeedNum: Int = Config.startBombNeedNum,
 
   def kill: OnePlayerStatus = {
     this.HP = -999
+    this.defeat = true
     this
   }
 

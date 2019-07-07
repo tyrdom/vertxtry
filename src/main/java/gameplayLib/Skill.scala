@@ -474,10 +474,16 @@ case class DestroyMaxOrMinCard(isMax: Boolean, toWho: Who, wheres: Seq[Position]
   override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
 }
 
-case object FirstSeatNextRound extends SkillEffect {
+case class FirstSeatNextRound(toWho: Who) extends SkillEffect {
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
+
   (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
+
+  //  {
+  //    val toThePlayer = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj).head
+  //    val}
+
 
   override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
 }
