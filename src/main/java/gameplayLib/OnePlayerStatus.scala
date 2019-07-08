@@ -13,6 +13,7 @@ case class OnePlayerStatus(var defeat: Boolean = false,
     this
   }
 
+
   def drawAPlayerCards(Cards: Seq[Card]): OnePlayerStatus = {
     this.handCards = Card.sortHandCard(Cards ++ this.handCards, characters)
     this
@@ -44,22 +45,40 @@ case class OnePlayerStatus(var defeat: Boolean = false,
 
   def getAtk: Int = {
     val characters = this.characters
-    characters.foldLeft(0)((sum, character) => sum + character.attack)
+    characters.map(_.attack).sum + this.buffs.map(_.buffEffect.getAttack).sum
+
   }
 
   def getDefence: Int = {
     val characters = this.characters
-    characters.foldLeft(0)((sum, character) => sum + character.defence)
+    characters.map(_.defence).sum
   }
 
-  def takeHPDamage(DamageSeq: Seq[Int]): OnePlayerStatus
+  def takeDamage(damage: Int): OnePlayerStatus
   = {
-    val newHP = this.HP - DamageSeq.sum
-    this.HP = newHP
+    val defenderUseShield = this.buffs.foldLeft((Nil: Seq[Buff], damage))((aTuple, aBuff) => {
+      val leftDamage = aTuple._2
+      val tuple: (BuffEffect, Int) = aBuff.buffEffect.useShield(leftDamage)
+      val aNewBuff = aBuff.changeEffect(tuple._1)
+      val newLeft = tuple._2
+      val newBuffs = aTuple._1 :+ aNewBuff
+      (newBuffs, newLeft)
+    })
+    val newBuffsAfterShieldUse = defenderUseShield._1.filterNot(_.buffEffect.emptyShield)
+    val damageFromAtkAfterShield = defenderUseShield._2
+    this.buffs = newBuffsAfterShieldUse
+
+    val newHP = this.HP - damageFromAtkAfterShield
     if (newHP <= 0)
       this.defeat = true
     else
       this.defeat = false
+    this
+  }
+
+  def takeHeal(heal: Int): OnePlayerStatus = {
+    val newHP = this.HP + heal
+    this.HP = newHP
     this
   }
 

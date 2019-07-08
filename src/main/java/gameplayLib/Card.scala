@@ -47,7 +47,6 @@ case class Card(id: Int, genId: Int, level: Int, point: Int, standType: CardStan
 object Card {
 
 
-
   def randAddACard(cards: Seq[Card], card: Option[Card]): Seq[Card] = {
     val (a, b) = cards.splitAt(Random.nextInt(cards.length + 1))
     card match {
@@ -133,7 +132,7 @@ object Card {
           case Position.SpawnCard => if (caster == cardsOwner.get) Position.MySpawnCards else if (caster == cardsObj.get) Position.OpponentSpawnCards else Position.OtherSpawnCards
           case _ => position
         }
-        cards.foreach(card => if (card.level <= level) {
+        cards.foreach(card => if (card.level <= level && card.buffs.forall(!_.buffEffect.beSilence)) {
           val skills = card.skills.flatMap(_.checkAllConditionIsOkThenGetEffect(phrase, newPos, cards, playersStatus(caster)))
 
           val gId = card.genId
@@ -172,7 +171,12 @@ object Card {
     (map, Cards.count(x => x.point <= dCardP), Cards.count(x => x.point >= xCardP))
   }
 
-  def GetPoint(card: Card, buffs: Seq[Buff]): Int = card.point //TODO buffsChangePoint
+  def GetPoint(card: Card, buffs: Seq[Buff]): Int = {
+    val point = card.point
+    val setPoint = buffs.foldLeft(point)((p, b) => b.buffEffect.setPoint(p))
+    val addPoint = buffs.foldLeft(setPoint)((p, b) => b.buffEffect.addPoint(p))
+    addPoint
+  }
 
   //输入一个牌组，获得此牌组所有的可能的shape形式，并得知余下多少牌和x牌
   def genAllAllowedShapes(cards: Seq[Card], buffs: Seq[Buff]): Seq[Shape] = {

@@ -25,7 +25,6 @@ case class NotLessThanShape(shape: Shape) extends CasterAndCardsNeedCondition {
     val maybeShape: Option[Shape] = Card.genBiggestShape(cards, activePlayerStatus.buffs, 0)
     shape.notBiggerThan(maybeShape)
   }
-
 }
 
 
@@ -46,7 +45,7 @@ case class CardSkill(baseCondition: BaseNeedCondition, cond: Seq[CasterAndCardsN
 
 //////////////////////SkillEffectToActive////////////////////
 case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -85,7 +84,7 @@ case class AddBuffToPlayer(toWho: Who, buff: Buff) extends SkillEffect {
 
 
 case class DoDamageToPlayer(toWho: Who, damSeq: Seq[Int]) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -105,7 +104,7 @@ case class DoDamageToPlayer(toWho: Who, damSeq: Seq[Int]) extends SkillEffect {
 }
 
 case class DirectKillPlayer(toWho: Who) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -123,7 +122,7 @@ case class DirectKillPlayer(toWho: Who) extends SkillEffect {
 }
 
 case class AddBuffToCard(toWho: Who, wheres: Seq[Position], buff: Buff) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -151,7 +150,7 @@ case class AddBuffToCard(toWho: Who, wheres: Seq[Position], buff: Buff) extends 
 }
 
 case class DelBuffFromPlayer(toWho: Who, buffEffect: BuffEffect) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -168,7 +167,7 @@ case class DelBuffFromPlayer(toWho: Who, buffEffect: BuffEffect) extends SkillEf
 }
 
 case class DelBuffFromCard(toWho: Who, wheres: Seq[Position], buffEffect: BuffEffect) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -197,7 +196,7 @@ case class DelBuffFromCard(toWho: Who, wheres: Seq[Position], buffEffect: BuffEf
 
 
 case class AddExtraCard(toWho: Who, wheres: Seq[Position], cardIds: Seq[Int], cardStandType: CardStandType) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -232,7 +231,7 @@ case class AddExtraCard(toWho: Who, wheres: Seq[Position], cardIds: Seq[Int], ca
 }
 
 case class MoveCastCard(cardId: Int, fromWheres: Seq[Position], fromWho: Who, toWhere: Position, toWho: Who, maxNum: Int) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -298,7 +297,7 @@ case class MoveCastCard(cardId: Int, fromWheres: Seq[Position], fromWho: Who, to
 }
 
 case class DropMinHandCard(toWho: Who, num: Int) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -316,7 +315,7 @@ case class DropMinHandCard(toWho: Who, num: Int) extends SkillEffect {
 }
 
 case class DropMaxHandCard(toWho: Who, num: Int) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -333,7 +332,7 @@ case class DropMaxHandCard(toWho: Who, num: Int) extends SkillEffect {
 }
 
 case class ExtraDrawCard(toWho: Who, num: Int) extends SkillEffect {
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
@@ -387,7 +386,7 @@ case class GiveHandCard(FromWho: Who, toWho: Who, fromMax: Boolean, num: Int) ex
     (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
   }
 
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 }
 
 case class DestroyTheSelfCard(toWho: Who, wheres: Seq[Position], cardId: Int) extends SkillEffect {
@@ -432,7 +431,7 @@ case class DestroyTheSelfCard(toWho: Who, wheres: Seq[Position], cardId: Int) ex
     (gamePlayGroundValuesThatSkillEffectCanChange, newSpawningCard)
   }
 
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 }
 
 case class DestroyMaxOrMinCard(isMax: Boolean, toWho: Who, wheres: Seq[Position], num: Int) extends SkillEffect {
@@ -471,27 +470,22 @@ case class DestroyMaxOrMinCard(isMax: Boolean, toWho: Who, wheres: Seq[Position]
     (gamePlayGroundValuesThatSkillEffectCanChange, newSpawningCard)
   }
 
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
 }
 
 case class FirstSeatNextRound(toWho: Who) extends SkillEffect {
   override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
                             gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
 
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = ???
-
-  //  {
-  //    val toThePlayer = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj).head
-  //    val}
-
-
-  override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = {
+    val toThePlayer = SkillEffect.getTheNamesWhoToEffect(gamePlayGroundValuesThatSkillEffectCanChange, toWho, caster, obj).head
+    gamePlayGroundValuesThatSkillEffectCanChange.nextRoundOrder = toThePlayer +: gamePlayGroundValuesThatSkillEffectCanChange.nextRoundOrder.filterNot(_ == toThePlayer)
+    (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
+  }
 }
 
+
 case class FormEffect_CopyCard(num: Int) extends SkillEffect {
-  override def activeEffect(gId: Int, caster: String, obj: Option[String], spawningCard: Seq[Card],
-                            gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange):
-  (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card]) = (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
 
 
   override def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = {
@@ -506,15 +500,18 @@ case class FormEffect_CopyCard(num: Int) extends SkillEffect {
     val resForm = formCardsSeq ++ newForms
     FormSkillResult(lastResult.thisShapeSeq, lastResult.opShapeSeq, resForm)
   }
-
-
 }
+
+
 
 
 sealed trait SkillEffect {
   def activeEffect(gid: Int, caster: String, obj: Option[String], spawningCard: Seq[Card], gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange): (GamePlayGroundValuesThatSkillEffectCanChange, Seq[Card])
+  = (gamePlayGroundValuesThatSkillEffectCanChange, spawningCard)
 
-  def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult
+  def activeFormEffect(gid: Int, lastResult: FormSkillResult): FormSkillResult = lastResult
+
+  def cardMessageEffect(caster: String, gamePlayGroundValuesThatSkillEffectCanChange: GamePlayGroundValuesThatSkillEffectCanChange): Map[String, Seq[Card]] = Map()
 }
 
 object SkillEffect {
