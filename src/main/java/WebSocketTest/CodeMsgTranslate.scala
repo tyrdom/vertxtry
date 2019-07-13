@@ -13,8 +13,9 @@ object CodeMsgTranslate {
   def encode(head: Head, body: JSONObject): Array[Byte] = (head, body) match {
     case (Head.Login_Response, somebody) =>
       val ok = somebody.getBoolean("ok")
+      val reason = somebody.getString("reason")
       println("encode:" + ok)
-      val bodyBuilder = LoginResponse.newBuilder().setOk(ok)
+      val bodyBuilder = LoginResponse.newBuilder().setOk(ok).setReason(reason)
       val msgBuilder = AMsg.newBuilder().setHead(head).setLoginResponse(bodyBuilder)
       val code = msgBuilder.build().toByteArray
       code
@@ -66,7 +67,7 @@ object CodeMsgTranslate {
         // println(uid)
         val password = someMsg.getLoginRequest.getPassword
 
-        theJsonObj.put("userId", uid)
+        theJsonObj.put("accountId", uid)
         theJsonObj.put("password", password)
         (head, theJsonObj)
       //TODO 其他的请求decode在这里加

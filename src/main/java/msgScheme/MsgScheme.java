@@ -6,17 +6,17 @@ package msgScheme;
 public final class MsgScheme {
   private MsgScheme() {}
   public static void registerAllExtensions(
-          com.google.protobuf.ExtensionRegistryLite registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
 
   public static void registerAllExtensions(
-          com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistry registry) {
     registerAllExtensions(
-            (com.google.protobuf.ExtensionRegistryLite) registry);
+        (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface AMsgOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.AMsg)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.AMsg)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>optional .msgScheme.AMsg.Head head = 1;</code>
@@ -25,125 +25,134 @@ public final class MsgScheme {
     /**
      * <code>optional .msgScheme.AMsg.Head head = 1;</code>
      */
-    msgScheme.MsgScheme.AMsg.Head getHead();
+    MsgScheme.AMsg.Head getHead();
 
     /**
      * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
      */
-    msgScheme.MsgScheme.ErrorResponse getErrorResponse();
+    MsgScheme.ErrorResponse getErrorResponse();
     /**
      * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
      */
-    msgScheme.MsgScheme.ErrorResponseOrBuilder getErrorResponseOrBuilder();
+    MsgScheme.ErrorResponseOrBuilder getErrorResponseOrBuilder();
 
     /**
      * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
      */
-    msgScheme.MsgScheme.LoginRequest getLoginRequest();
+    MsgScheme.LoginRequest getLoginRequest();
     /**
      * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
      */
-    msgScheme.MsgScheme.LoginRequestOrBuilder getLoginRequestOrBuilder();
+    MsgScheme.LoginRequestOrBuilder getLoginRequestOrBuilder();
 
     /**
      * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
      */
-    msgScheme.MsgScheme.LoginResponse getLoginResponse();
+    MsgScheme.LoginResponse getLoginResponse();
     /**
      * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
      */
-    msgScheme.MsgScheme.LoginResponseOrBuilder getLoginResponseOrBuilder();
+    MsgScheme.LoginResponseOrBuilder getLoginResponseOrBuilder();
 
     /**
      * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
      */
-    msgScheme.MsgScheme.UndefinedMsg getUndefinedMsg();
+    MsgScheme.UndefinedMsg getUndefinedMsg();
     /**
      * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
      */
-    msgScheme.MsgScheme.UndefinedMsgOrBuilder getUndefinedMsgOrBuilder();
+    MsgScheme.UndefinedMsgOrBuilder getUndefinedMsgOrBuilder();
 
     /**
      * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
      */
-    msgScheme.MsgScheme.UndefinedRequest getUndefinedRequest();
+    MsgScheme.UndefinedRequest getUndefinedRequest();
     /**
      * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
      */
-    msgScheme.MsgScheme.UndefinedRequestOrBuilder getUndefinedRequestOrBuilder();
+    MsgScheme.UndefinedRequestOrBuilder getUndefinedRequestOrBuilder();
 
     /**
      * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
      */
-    msgScheme.MsgScheme.UndefinedResponse getUndefinedResponse();
+    MsgScheme.UndefinedResponse getUndefinedResponse();
     /**
      * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
      */
-    msgScheme.MsgScheme.UndefinedResponseOrBuilder getUndefinedResponseOrBuilder();
+    MsgScheme.UndefinedResponseOrBuilder getUndefinedResponseOrBuilder();
 
     /**
      * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
      */
-    msgScheme.MsgScheme.CreateRoomRequest getCreateRoomRequest();
+    MsgScheme.CreateRoomRequest getCreateRoomRequest();
     /**
      * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
      */
-    msgScheme.MsgScheme.CreateRoomRequestOrBuilder getCreateRoomRequestOrBuilder();
+    MsgScheme.CreateRoomRequestOrBuilder getCreateRoomRequestOrBuilder();
 
     /**
      * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
      */
-    msgScheme.MsgScheme.CreateRoomResponse getCreateRoomResponse();
+    MsgScheme.CreateRoomResponse getCreateRoomResponse();
     /**
      * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
      */
-    msgScheme.MsgScheme.CreateRoomResponseOrBuilder getCreateRoomResponseOrBuilder();
+    MsgScheme.CreateRoomResponseOrBuilder getCreateRoomResponseOrBuilder();
 
     /**
      * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
      */
-    msgScheme.MsgScheme.JoinRoomRequest getJoinRoomRequest();
+    MsgScheme.JoinRoomRequest getJoinRoomRequest();
     /**
      * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
      */
-    msgScheme.MsgScheme.JoinRoomRequestOrBuilder getJoinRoomRequestOrBuilder();
+    MsgScheme.JoinRoomRequestOrBuilder getJoinRoomRequestOrBuilder();
 
     /**
      * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
      */
-    msgScheme.MsgScheme.JoinRoomResponse getJoinRoomResponse();
+    MsgScheme.JoinRoomResponse getJoinRoomResponse();
     /**
      * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
      */
-    msgScheme.MsgScheme.JoinRoomResponseOrBuilder getJoinRoomResponseOrBuilder();
+    MsgScheme.JoinRoomResponseOrBuilder getJoinRoomResponseOrBuilder();
 
     /**
      * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
      */
-    msgScheme.MsgScheme.QuitRoomRequest getQuitRoomRequest();
+    MsgScheme.QuitRoomRequest getQuitRoomRequest();
     /**
      * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
      */
-    msgScheme.MsgScheme.QuitRoomRequestOrBuilder getQuitRoomRequestOrBuilder();
+    MsgScheme.QuitRoomRequestOrBuilder getQuitRoomRequestOrBuilder();
 
     /**
      * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
      */
-    msgScheme.MsgScheme.QuitRoomResponse getQuitRoomResponse();
+    MsgScheme.QuitRoomResponse getQuitRoomResponse();
     /**
      * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
      */
-    msgScheme.MsgScheme.QuitRoomResponseOrBuilder getQuitRoomResponseOrBuilder();
+    MsgScheme.QuitRoomResponseOrBuilder getQuitRoomResponseOrBuilder();
 
-    public msgScheme.MsgScheme.AMsg.BodyCase getBodyCase();
+    /**
+     * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+     */
+    MsgScheme.CreateAccountRequest getCreateAccountRequest();
+    /**
+     * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+     */
+    MsgScheme.CreateAccountRequestOrBuilder getCreateAccountRequestOrBuilder();
+
+    public MsgScheme.AMsg.BodyCase getBodyCase();
   }
   /**
    * Protobuf type {@code msgScheme.AMsg}
    */
   public  static final class AMsg extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.AMsg)
-          AMsgOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.AMsg)
+      AMsgOrBuilder {
     // Use AMsg.newBuilder() to construct.
     private AMsg(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -152,15 +161,15 @@ public final class MsgScheme {
       head_ = 0;
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private AMsg(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -184,168 +193,182 @@ public final class MsgScheme {
               break;
             }
             case 18: {
-              msgScheme.MsgScheme.LoginRequest.Builder subBuilder = null;
+              MsgScheme.LoginRequest.Builder subBuilder = null;
               if (bodyCase_ == 2) {
-                subBuilder = ((msgScheme.MsgScheme.LoginRequest) body_).toBuilder();
+                subBuilder = ((MsgScheme.LoginRequest) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.LoginRequest.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.LoginRequest.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.LoginRequest) body_);
+                subBuilder.mergeFrom((MsgScheme.LoginRequest) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 2;
               break;
             }
             case 26: {
-              msgScheme.MsgScheme.LoginResponse.Builder subBuilder = null;
+              MsgScheme.LoginResponse.Builder subBuilder = null;
               if (bodyCase_ == 3) {
-                subBuilder = ((msgScheme.MsgScheme.LoginResponse) body_).toBuilder();
+                subBuilder = ((MsgScheme.LoginResponse) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.LoginResponse.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.LoginResponse.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.LoginResponse) body_);
+                subBuilder.mergeFrom((MsgScheme.LoginResponse) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 3;
               break;
             }
             case 34: {
-              msgScheme.MsgScheme.UndefinedMsg.Builder subBuilder = null;
+              MsgScheme.UndefinedMsg.Builder subBuilder = null;
               if (bodyCase_ == 4) {
-                subBuilder = ((msgScheme.MsgScheme.UndefinedMsg) body_).toBuilder();
+                subBuilder = ((MsgScheme.UndefinedMsg) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.UndefinedMsg.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.UndefinedMsg.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.UndefinedMsg) body_);
+                subBuilder.mergeFrom((MsgScheme.UndefinedMsg) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 4;
               break;
             }
             case 42: {
-              msgScheme.MsgScheme.UndefinedRequest.Builder subBuilder = null;
+              MsgScheme.UndefinedRequest.Builder subBuilder = null;
               if (bodyCase_ == 5) {
-                subBuilder = ((msgScheme.MsgScheme.UndefinedRequest) body_).toBuilder();
+                subBuilder = ((MsgScheme.UndefinedRequest) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.UndefinedRequest.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.UndefinedRequest.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.UndefinedRequest) body_);
+                subBuilder.mergeFrom((MsgScheme.UndefinedRequest) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 5;
               break;
             }
             case 50: {
-              msgScheme.MsgScheme.UndefinedResponse.Builder subBuilder = null;
+              MsgScheme.UndefinedResponse.Builder subBuilder = null;
               if (bodyCase_ == 6) {
-                subBuilder = ((msgScheme.MsgScheme.UndefinedResponse) body_).toBuilder();
+                subBuilder = ((MsgScheme.UndefinedResponse) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.UndefinedResponse.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.UndefinedResponse.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.UndefinedResponse) body_);
+                subBuilder.mergeFrom((MsgScheme.UndefinedResponse) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 6;
               break;
             }
             case 58: {
-              msgScheme.MsgScheme.CreateRoomRequest.Builder subBuilder = null;
+              MsgScheme.CreateRoomRequest.Builder subBuilder = null;
               if (bodyCase_ == 7) {
-                subBuilder = ((msgScheme.MsgScheme.CreateRoomRequest) body_).toBuilder();
+                subBuilder = ((MsgScheme.CreateRoomRequest) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.CreateRoomRequest.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.CreateRoomRequest.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.CreateRoomRequest) body_);
+                subBuilder.mergeFrom((MsgScheme.CreateRoomRequest) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 7;
               break;
             }
             case 66: {
-              msgScheme.MsgScheme.CreateRoomResponse.Builder subBuilder = null;
+              MsgScheme.CreateRoomResponse.Builder subBuilder = null;
               if (bodyCase_ == 8) {
-                subBuilder = ((msgScheme.MsgScheme.CreateRoomResponse) body_).toBuilder();
+                subBuilder = ((MsgScheme.CreateRoomResponse) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.CreateRoomResponse.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.CreateRoomResponse.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.CreateRoomResponse) body_);
+                subBuilder.mergeFrom((MsgScheme.CreateRoomResponse) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 8;
               break;
             }
             case 74: {
-              msgScheme.MsgScheme.JoinRoomRequest.Builder subBuilder = null;
+              MsgScheme.JoinRoomRequest.Builder subBuilder = null;
               if (bodyCase_ == 9) {
-                subBuilder = ((msgScheme.MsgScheme.JoinRoomRequest) body_).toBuilder();
+                subBuilder = ((MsgScheme.JoinRoomRequest) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.JoinRoomRequest.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.JoinRoomRequest.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.JoinRoomRequest) body_);
+                subBuilder.mergeFrom((MsgScheme.JoinRoomRequest) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 9;
               break;
             }
             case 82: {
-              msgScheme.MsgScheme.JoinRoomResponse.Builder subBuilder = null;
+              MsgScheme.JoinRoomResponse.Builder subBuilder = null;
               if (bodyCase_ == 10) {
-                subBuilder = ((msgScheme.MsgScheme.JoinRoomResponse) body_).toBuilder();
+                subBuilder = ((MsgScheme.JoinRoomResponse) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.JoinRoomResponse.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.JoinRoomResponse.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.JoinRoomResponse) body_);
+                subBuilder.mergeFrom((MsgScheme.JoinRoomResponse) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 10;
               break;
             }
             case 90: {
-              msgScheme.MsgScheme.QuitRoomRequest.Builder subBuilder = null;
+              MsgScheme.QuitRoomRequest.Builder subBuilder = null;
               if (bodyCase_ == 11) {
-                subBuilder = ((msgScheme.MsgScheme.QuitRoomRequest) body_).toBuilder();
+                subBuilder = ((MsgScheme.QuitRoomRequest) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.QuitRoomRequest.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.QuitRoomRequest.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.QuitRoomRequest) body_);
+                subBuilder.mergeFrom((MsgScheme.QuitRoomRequest) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 11;
               break;
             }
             case 98: {
-              msgScheme.MsgScheme.QuitRoomResponse.Builder subBuilder = null;
+              MsgScheme.QuitRoomResponse.Builder subBuilder = null;
               if (bodyCase_ == 12) {
-                subBuilder = ((msgScheme.MsgScheme.QuitRoomResponse) body_).toBuilder();
+                subBuilder = ((MsgScheme.QuitRoomResponse) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.QuitRoomResponse.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.QuitRoomResponse.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.QuitRoomResponse) body_);
+                subBuilder.mergeFrom((MsgScheme.QuitRoomResponse) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 12;
               break;
             }
-            case 114: {
-              msgScheme.MsgScheme.ErrorResponse.Builder subBuilder = null;
-              if (bodyCase_ == 14) {
-                subBuilder = ((msgScheme.MsgScheme.ErrorResponse) body_).toBuilder();
+            case 106: {
+              MsgScheme.CreateAccountRequest.Builder subBuilder = null;
+              if (bodyCase_ == 13) {
+                subBuilder = ((MsgScheme.CreateAccountRequest) body_).toBuilder();
               }
               body_ =
-                      input.readMessage(msgScheme.MsgScheme.ErrorResponse.parser(), extensionRegistry);
+                  input.readMessage(MsgScheme.CreateAccountRequest.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((msgScheme.MsgScheme.ErrorResponse) body_);
+                subBuilder.mergeFrom((MsgScheme.CreateAccountRequest) body_);
+                body_ = subBuilder.buildPartial();
+              }
+              bodyCase_ = 13;
+              break;
+            }
+            case 114: {
+              MsgScheme.ErrorResponse.Builder subBuilder = null;
+              if (bodyCase_ == 14) {
+                subBuilder = ((MsgScheme.ErrorResponse) body_).toBuilder();
+              }
+              body_ =
+                  input.readMessage(MsgScheme.ErrorResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((MsgScheme.ErrorResponse) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 14;
@@ -357,28 +380,28 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_AMsg_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_AMsg_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_AMsg_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.AMsg.class, msgScheme.MsgScheme.AMsg.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_AMsg_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.AMsg.class, MsgScheme.AMsg.Builder.class);
     }
 
     /**
      * Protobuf enum {@code msgScheme.AMsg.Head}
      */
     public enum Head
-            implements com.google.protobuf.ProtocolMessageEnum {
+        implements com.google.protobuf.ProtocolMessageEnum {
       /**
        * <code>Undefined_Msg = 0;</code>
        */
@@ -427,6 +450,14 @@ public final class MsgScheme {
        * <code>QuitRoom_Response = 100008;</code>
        */
       QuitRoom_Response(100008),
+      /**
+       * <code>CreateAccount_Request = 100009;</code>
+       */
+      CreateAccount_Request(100009),
+      /**
+       * <code>CreateAccount_Response = 100010;</code>
+       */
+      CreateAccount_Response(100010),
       UNRECOGNIZED(-1),
       ;
 
@@ -478,12 +509,20 @@ public final class MsgScheme {
        * <code>QuitRoom_Response = 100008;</code>
        */
       public static final int QuitRoom_Response_VALUE = 100008;
+      /**
+       * <code>CreateAccount_Request = 100009;</code>
+       */
+      public static final int CreateAccount_Request_VALUE = 100009;
+      /**
+       * <code>CreateAccount_Response = 100010;</code>
+       */
+      public static final int CreateAccount_Response_VALUE = 100010;
 
 
       public final int getNumber() {
         if (this == UNRECOGNIZED) {
-          throw new java.lang.IllegalArgumentException(
-                  "Can't get the number of an unknown enum value.");
+          throw new IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
         }
         return value;
       }
@@ -491,7 +530,7 @@ public final class MsgScheme {
       /**
        * @deprecated Use {@link #forNumber(int)} instead.
        */
-      @java.lang.Deprecated
+      @Deprecated
       public static Head valueOf(int value) {
         return forNumber(value);
       }
@@ -510,42 +549,44 @@ public final class MsgScheme {
           case 100006: return JoinRoom_Response;
           case 100007: return QuitRoom_Request;
           case 100008: return QuitRoom_Response;
+          case 100009: return CreateAccount_Request;
+          case 100010: return CreateAccount_Response;
           default: return null;
         }
       }
 
       public static com.google.protobuf.Internal.EnumLiteMap<Head>
-      internalGetValueMap() {
+          internalGetValueMap() {
         return internalValueMap;
       }
       private static final com.google.protobuf.Internal.EnumLiteMap<
-              Head> internalValueMap =
-              new com.google.protobuf.Internal.EnumLiteMap<Head>() {
-                public Head findValueByNumber(int number) {
-                  return Head.forNumber(number);
-                }
-              };
+          Head> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Head>() {
+              public Head findValueByNumber(int number) {
+                return Head.forNumber(number);
+              }
+            };
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
-      getValueDescriptor() {
+          getValueDescriptor() {
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
-      getDescriptorForType() {
+          getDescriptorForType() {
         return getDescriptor();
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.AMsg.getDescriptor().getEnumTypes().get(0);
+          getDescriptor() {
+        return MsgScheme.AMsg.getDescriptor().getEnumTypes().get(0);
       }
 
       private static final Head[] VALUES = values();
 
       public static Head valueOf(
-              com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-                  "EnumValueDescriptor is not for this type.");
+          throw new IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
         }
         if (desc.getIndex() == -1) {
           return UNRECOGNIZED;
@@ -563,9 +604,9 @@ public final class MsgScheme {
     }
 
     private int bodyCase_ = 0;
-    private java.lang.Object body_;
+    private Object body_;
     public enum BodyCase
-            implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite {
       ERRORRESPONSE(14),
       LOGINREQUEST(2),
       LOGINRESPONSE(3),
@@ -578,6 +619,7 @@ public final class MsgScheme {
       JOINROOMRESPONSE(10),
       QUITROOMREQUEST(11),
       QUITROOMRESPONSE(12),
+      CREATEACCOUNTREQUEST(13),
       BODY_NOT_SET(0);
       private final int value;
       private BodyCase(int value) {
@@ -586,7 +628,7 @@ public final class MsgScheme {
       /**
        * @deprecated Use {@link #forNumber(int)} instead.
        */
-      @java.lang.Deprecated
+      @Deprecated
       public static BodyCase valueOf(int value) {
         return forNumber(value);
       }
@@ -605,6 +647,7 @@ public final class MsgScheme {
           case 10: return JOINROOMRESPONSE;
           case 11: return QUITROOMREQUEST;
           case 12: return QUITROOMRESPONSE;
+          case 13: return CREATEACCOUNTREQUEST;
           case 0: return BODY_NOT_SET;
           default: return null;
         }
@@ -617,7 +660,7 @@ public final class MsgScheme {
     public BodyCase
     getBodyCase() {
       return BodyCase.forNumber(
-              bodyCase_);
+          bodyCase_);
     }
 
     public static final int HEAD_FIELD_NUMBER = 1;
@@ -631,249 +674,269 @@ public final class MsgScheme {
     /**
      * <code>optional .msgScheme.AMsg.Head head = 1;</code>
      */
-    public msgScheme.MsgScheme.AMsg.Head getHead() {
-      msgScheme.MsgScheme.AMsg.Head result = msgScheme.MsgScheme.AMsg.Head.valueOf(head_);
-      return result == null ? msgScheme.MsgScheme.AMsg.Head.UNRECOGNIZED : result;
+    public MsgScheme.AMsg.Head getHead() {
+      MsgScheme.AMsg.Head result = MsgScheme.AMsg.Head.valueOf(head_);
+      return result == null ? MsgScheme.AMsg.Head.UNRECOGNIZED : result;
     }
 
     public static final int ERRORRESPONSE_FIELD_NUMBER = 14;
     /**
      * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
      */
-    public msgScheme.MsgScheme.ErrorResponse getErrorResponse() {
+    public MsgScheme.ErrorResponse getErrorResponse() {
       if (bodyCase_ == 14) {
-        return (msgScheme.MsgScheme.ErrorResponse) body_;
+         return (MsgScheme.ErrorResponse) body_;
       }
-      return msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+      return MsgScheme.ErrorResponse.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
      */
-    public msgScheme.MsgScheme.ErrorResponseOrBuilder getErrorResponseOrBuilder() {
+    public MsgScheme.ErrorResponseOrBuilder getErrorResponseOrBuilder() {
       if (bodyCase_ == 14) {
-        return (msgScheme.MsgScheme.ErrorResponse) body_;
+         return (MsgScheme.ErrorResponse) body_;
       }
-      return msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+      return MsgScheme.ErrorResponse.getDefaultInstance();
     }
 
     public static final int LOGINREQUEST_FIELD_NUMBER = 2;
     /**
      * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
      */
-    public msgScheme.MsgScheme.LoginRequest getLoginRequest() {
+    public MsgScheme.LoginRequest getLoginRequest() {
       if (bodyCase_ == 2) {
-        return (msgScheme.MsgScheme.LoginRequest) body_;
+         return (MsgScheme.LoginRequest) body_;
       }
-      return msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+      return MsgScheme.LoginRequest.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
      */
-    public msgScheme.MsgScheme.LoginRequestOrBuilder getLoginRequestOrBuilder() {
+    public MsgScheme.LoginRequestOrBuilder getLoginRequestOrBuilder() {
       if (bodyCase_ == 2) {
-        return (msgScheme.MsgScheme.LoginRequest) body_;
+         return (MsgScheme.LoginRequest) body_;
       }
-      return msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+      return MsgScheme.LoginRequest.getDefaultInstance();
     }
 
     public static final int LOGINRESPONSE_FIELD_NUMBER = 3;
     /**
      * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
      */
-    public msgScheme.MsgScheme.LoginResponse getLoginResponse() {
+    public MsgScheme.LoginResponse getLoginResponse() {
       if (bodyCase_ == 3) {
-        return (msgScheme.MsgScheme.LoginResponse) body_;
+         return (MsgScheme.LoginResponse) body_;
       }
-      return msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+      return MsgScheme.LoginResponse.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
      */
-    public msgScheme.MsgScheme.LoginResponseOrBuilder getLoginResponseOrBuilder() {
+    public MsgScheme.LoginResponseOrBuilder getLoginResponseOrBuilder() {
       if (bodyCase_ == 3) {
-        return (msgScheme.MsgScheme.LoginResponse) body_;
+         return (MsgScheme.LoginResponse) body_;
       }
-      return msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+      return MsgScheme.LoginResponse.getDefaultInstance();
     }
 
     public static final int UNDEFINEDMSG_FIELD_NUMBER = 4;
     /**
      * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
      */
-    public msgScheme.MsgScheme.UndefinedMsg getUndefinedMsg() {
+    public MsgScheme.UndefinedMsg getUndefinedMsg() {
       if (bodyCase_ == 4) {
-        return (msgScheme.MsgScheme.UndefinedMsg) body_;
+         return (MsgScheme.UndefinedMsg) body_;
       }
-      return msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+      return MsgScheme.UndefinedMsg.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
      */
-    public msgScheme.MsgScheme.UndefinedMsgOrBuilder getUndefinedMsgOrBuilder() {
+    public MsgScheme.UndefinedMsgOrBuilder getUndefinedMsgOrBuilder() {
       if (bodyCase_ == 4) {
-        return (msgScheme.MsgScheme.UndefinedMsg) body_;
+         return (MsgScheme.UndefinedMsg) body_;
       }
-      return msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+      return MsgScheme.UndefinedMsg.getDefaultInstance();
     }
 
     public static final int UNDEFINEDREQUEST_FIELD_NUMBER = 5;
     /**
      * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
      */
-    public msgScheme.MsgScheme.UndefinedRequest getUndefinedRequest() {
+    public MsgScheme.UndefinedRequest getUndefinedRequest() {
       if (bodyCase_ == 5) {
-        return (msgScheme.MsgScheme.UndefinedRequest) body_;
+         return (MsgScheme.UndefinedRequest) body_;
       }
-      return msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+      return MsgScheme.UndefinedRequest.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
      */
-    public msgScheme.MsgScheme.UndefinedRequestOrBuilder getUndefinedRequestOrBuilder() {
+    public MsgScheme.UndefinedRequestOrBuilder getUndefinedRequestOrBuilder() {
       if (bodyCase_ == 5) {
-        return (msgScheme.MsgScheme.UndefinedRequest) body_;
+         return (MsgScheme.UndefinedRequest) body_;
       }
-      return msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+      return MsgScheme.UndefinedRequest.getDefaultInstance();
     }
 
     public static final int UNDEFINEDRESPONSE_FIELD_NUMBER = 6;
     /**
      * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
      */
-    public msgScheme.MsgScheme.UndefinedResponse getUndefinedResponse() {
+    public MsgScheme.UndefinedResponse getUndefinedResponse() {
       if (bodyCase_ == 6) {
-        return (msgScheme.MsgScheme.UndefinedResponse) body_;
+         return (MsgScheme.UndefinedResponse) body_;
       }
-      return msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+      return MsgScheme.UndefinedResponse.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
      */
-    public msgScheme.MsgScheme.UndefinedResponseOrBuilder getUndefinedResponseOrBuilder() {
+    public MsgScheme.UndefinedResponseOrBuilder getUndefinedResponseOrBuilder() {
       if (bodyCase_ == 6) {
-        return (msgScheme.MsgScheme.UndefinedResponse) body_;
+         return (MsgScheme.UndefinedResponse) body_;
       }
-      return msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+      return MsgScheme.UndefinedResponse.getDefaultInstance();
     }
 
     public static final int CREATEROOMREQUEST_FIELD_NUMBER = 7;
     /**
      * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
      */
-    public msgScheme.MsgScheme.CreateRoomRequest getCreateRoomRequest() {
+    public MsgScheme.CreateRoomRequest getCreateRoomRequest() {
       if (bodyCase_ == 7) {
-        return (msgScheme.MsgScheme.CreateRoomRequest) body_;
+         return (MsgScheme.CreateRoomRequest) body_;
       }
-      return msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+      return MsgScheme.CreateRoomRequest.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
      */
-    public msgScheme.MsgScheme.CreateRoomRequestOrBuilder getCreateRoomRequestOrBuilder() {
+    public MsgScheme.CreateRoomRequestOrBuilder getCreateRoomRequestOrBuilder() {
       if (bodyCase_ == 7) {
-        return (msgScheme.MsgScheme.CreateRoomRequest) body_;
+         return (MsgScheme.CreateRoomRequest) body_;
       }
-      return msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+      return MsgScheme.CreateRoomRequest.getDefaultInstance();
     }
 
     public static final int CREATEROOMRESPONSE_FIELD_NUMBER = 8;
     /**
      * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
      */
-    public msgScheme.MsgScheme.CreateRoomResponse getCreateRoomResponse() {
+    public MsgScheme.CreateRoomResponse getCreateRoomResponse() {
       if (bodyCase_ == 8) {
-        return (msgScheme.MsgScheme.CreateRoomResponse) body_;
+         return (MsgScheme.CreateRoomResponse) body_;
       }
-      return msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+      return MsgScheme.CreateRoomResponse.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
      */
-    public msgScheme.MsgScheme.CreateRoomResponseOrBuilder getCreateRoomResponseOrBuilder() {
+    public MsgScheme.CreateRoomResponseOrBuilder getCreateRoomResponseOrBuilder() {
       if (bodyCase_ == 8) {
-        return (msgScheme.MsgScheme.CreateRoomResponse) body_;
+         return (MsgScheme.CreateRoomResponse) body_;
       }
-      return msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+      return MsgScheme.CreateRoomResponse.getDefaultInstance();
     }
 
     public static final int JOINROOMREQUEST_FIELD_NUMBER = 9;
     /**
      * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
      */
-    public msgScheme.MsgScheme.JoinRoomRequest getJoinRoomRequest() {
+    public MsgScheme.JoinRoomRequest getJoinRoomRequest() {
       if (bodyCase_ == 9) {
-        return (msgScheme.MsgScheme.JoinRoomRequest) body_;
+         return (MsgScheme.JoinRoomRequest) body_;
       }
-      return msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+      return MsgScheme.JoinRoomRequest.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
      */
-    public msgScheme.MsgScheme.JoinRoomRequestOrBuilder getJoinRoomRequestOrBuilder() {
+    public MsgScheme.JoinRoomRequestOrBuilder getJoinRoomRequestOrBuilder() {
       if (bodyCase_ == 9) {
-        return (msgScheme.MsgScheme.JoinRoomRequest) body_;
+         return (MsgScheme.JoinRoomRequest) body_;
       }
-      return msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+      return MsgScheme.JoinRoomRequest.getDefaultInstance();
     }
 
     public static final int JOINROOMRESPONSE_FIELD_NUMBER = 10;
     /**
      * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
      */
-    public msgScheme.MsgScheme.JoinRoomResponse getJoinRoomResponse() {
+    public MsgScheme.JoinRoomResponse getJoinRoomResponse() {
       if (bodyCase_ == 10) {
-        return (msgScheme.MsgScheme.JoinRoomResponse) body_;
+         return (MsgScheme.JoinRoomResponse) body_;
       }
-      return msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+      return MsgScheme.JoinRoomResponse.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
      */
-    public msgScheme.MsgScheme.JoinRoomResponseOrBuilder getJoinRoomResponseOrBuilder() {
+    public MsgScheme.JoinRoomResponseOrBuilder getJoinRoomResponseOrBuilder() {
       if (bodyCase_ == 10) {
-        return (msgScheme.MsgScheme.JoinRoomResponse) body_;
+         return (MsgScheme.JoinRoomResponse) body_;
       }
-      return msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+      return MsgScheme.JoinRoomResponse.getDefaultInstance();
     }
 
     public static final int QUITROOMREQUEST_FIELD_NUMBER = 11;
     /**
      * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
      */
-    public msgScheme.MsgScheme.QuitRoomRequest getQuitRoomRequest() {
+    public MsgScheme.QuitRoomRequest getQuitRoomRequest() {
       if (bodyCase_ == 11) {
-        return (msgScheme.MsgScheme.QuitRoomRequest) body_;
+         return (MsgScheme.QuitRoomRequest) body_;
       }
-      return msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+      return MsgScheme.QuitRoomRequest.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
      */
-    public msgScheme.MsgScheme.QuitRoomRequestOrBuilder getQuitRoomRequestOrBuilder() {
+    public MsgScheme.QuitRoomRequestOrBuilder getQuitRoomRequestOrBuilder() {
       if (bodyCase_ == 11) {
-        return (msgScheme.MsgScheme.QuitRoomRequest) body_;
+         return (MsgScheme.QuitRoomRequest) body_;
       }
-      return msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+      return MsgScheme.QuitRoomRequest.getDefaultInstance();
     }
 
     public static final int QUITROOMRESPONSE_FIELD_NUMBER = 12;
     /**
      * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
      */
-    public msgScheme.MsgScheme.QuitRoomResponse getQuitRoomResponse() {
+    public MsgScheme.QuitRoomResponse getQuitRoomResponse() {
       if (bodyCase_ == 12) {
-        return (msgScheme.MsgScheme.QuitRoomResponse) body_;
+         return (MsgScheme.QuitRoomResponse) body_;
       }
-      return msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+      return MsgScheme.QuitRoomResponse.getDefaultInstance();
     }
     /**
      * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
      */
-    public msgScheme.MsgScheme.QuitRoomResponseOrBuilder getQuitRoomResponseOrBuilder() {
+    public MsgScheme.QuitRoomResponseOrBuilder getQuitRoomResponseOrBuilder() {
       if (bodyCase_ == 12) {
-        return (msgScheme.MsgScheme.QuitRoomResponse) body_;
+         return (MsgScheme.QuitRoomResponse) body_;
       }
-      return msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+      return MsgScheme.QuitRoomResponse.getDefaultInstance();
+    }
+
+    public static final int CREATEACCOUNTREQUEST_FIELD_NUMBER = 13;
+    /**
+     * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+     */
+    public MsgScheme.CreateAccountRequest getCreateAccountRequest() {
+      if (bodyCase_ == 13) {
+         return (MsgScheme.CreateAccountRequest) body_;
+      }
+      return MsgScheme.CreateAccountRequest.getDefaultInstance();
+    }
+    /**
+     * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+     */
+    public MsgScheme.CreateAccountRequestOrBuilder getCreateAccountRequestOrBuilder() {
+      if (bodyCase_ == 13) {
+         return (MsgScheme.CreateAccountRequest) body_;
+      }
+      return MsgScheme.CreateAccountRequest.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -887,45 +950,48 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      if (head_ != msgScheme.MsgScheme.AMsg.Head.Undefined_Msg.getNumber()) {
+                        throws java.io.IOException {
+      if (head_ != MsgScheme.AMsg.Head.Undefined_Msg.getNumber()) {
         output.writeEnum(1, head_);
       }
       if (bodyCase_ == 2) {
-        output.writeMessage(2, (msgScheme.MsgScheme.LoginRequest) body_);
+        output.writeMessage(2, (MsgScheme.LoginRequest) body_);
       }
       if (bodyCase_ == 3) {
-        output.writeMessage(3, (msgScheme.MsgScheme.LoginResponse) body_);
+        output.writeMessage(3, (MsgScheme.LoginResponse) body_);
       }
       if (bodyCase_ == 4) {
-        output.writeMessage(4, (msgScheme.MsgScheme.UndefinedMsg) body_);
+        output.writeMessage(4, (MsgScheme.UndefinedMsg) body_);
       }
       if (bodyCase_ == 5) {
-        output.writeMessage(5, (msgScheme.MsgScheme.UndefinedRequest) body_);
+        output.writeMessage(5, (MsgScheme.UndefinedRequest) body_);
       }
       if (bodyCase_ == 6) {
-        output.writeMessage(6, (msgScheme.MsgScheme.UndefinedResponse) body_);
+        output.writeMessage(6, (MsgScheme.UndefinedResponse) body_);
       }
       if (bodyCase_ == 7) {
-        output.writeMessage(7, (msgScheme.MsgScheme.CreateRoomRequest) body_);
+        output.writeMessage(7, (MsgScheme.CreateRoomRequest) body_);
       }
       if (bodyCase_ == 8) {
-        output.writeMessage(8, (msgScheme.MsgScheme.CreateRoomResponse) body_);
+        output.writeMessage(8, (MsgScheme.CreateRoomResponse) body_);
       }
       if (bodyCase_ == 9) {
-        output.writeMessage(9, (msgScheme.MsgScheme.JoinRoomRequest) body_);
+        output.writeMessage(9, (MsgScheme.JoinRoomRequest) body_);
       }
       if (bodyCase_ == 10) {
-        output.writeMessage(10, (msgScheme.MsgScheme.JoinRoomResponse) body_);
+        output.writeMessage(10, (MsgScheme.JoinRoomResponse) body_);
       }
       if (bodyCase_ == 11) {
-        output.writeMessage(11, (msgScheme.MsgScheme.QuitRoomRequest) body_);
+        output.writeMessage(11, (MsgScheme.QuitRoomRequest) body_);
       }
       if (bodyCase_ == 12) {
-        output.writeMessage(12, (msgScheme.MsgScheme.QuitRoomResponse) body_);
+        output.writeMessage(12, (MsgScheme.QuitRoomResponse) body_);
+      }
+      if (bodyCase_ == 13) {
+        output.writeMessage(13, (MsgScheme.CreateAccountRequest) body_);
       }
       if (bodyCase_ == 14) {
-        output.writeMessage(14, (msgScheme.MsgScheme.ErrorResponse) body_);
+        output.writeMessage(14, (MsgScheme.ErrorResponse) body_);
       }
     }
 
@@ -934,126 +1000,134 @@ public final class MsgScheme {
       if (size != -1) return size;
 
       size = 0;
-      if (head_ != msgScheme.MsgScheme.AMsg.Head.Undefined_Msg.getNumber()) {
+      if (head_ != MsgScheme.AMsg.Head.Undefined_Msg.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-                .computeEnumSize(1, head_);
+          .computeEnumSize(1, head_);
       }
       if (bodyCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(2, (msgScheme.MsgScheme.LoginRequest) body_);
+          .computeMessageSize(2, (MsgScheme.LoginRequest) body_);
       }
       if (bodyCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(3, (msgScheme.MsgScheme.LoginResponse) body_);
+          .computeMessageSize(3, (MsgScheme.LoginResponse) body_);
       }
       if (bodyCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(4, (msgScheme.MsgScheme.UndefinedMsg) body_);
+          .computeMessageSize(4, (MsgScheme.UndefinedMsg) body_);
       }
       if (bodyCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(5, (msgScheme.MsgScheme.UndefinedRequest) body_);
+          .computeMessageSize(5, (MsgScheme.UndefinedRequest) body_);
       }
       if (bodyCase_ == 6) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(6, (msgScheme.MsgScheme.UndefinedResponse) body_);
+          .computeMessageSize(6, (MsgScheme.UndefinedResponse) body_);
       }
       if (bodyCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(7, (msgScheme.MsgScheme.CreateRoomRequest) body_);
+          .computeMessageSize(7, (MsgScheme.CreateRoomRequest) body_);
       }
       if (bodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(8, (msgScheme.MsgScheme.CreateRoomResponse) body_);
+          .computeMessageSize(8, (MsgScheme.CreateRoomResponse) body_);
       }
       if (bodyCase_ == 9) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(9, (msgScheme.MsgScheme.JoinRoomRequest) body_);
+          .computeMessageSize(9, (MsgScheme.JoinRoomRequest) body_);
       }
       if (bodyCase_ == 10) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(10, (msgScheme.MsgScheme.JoinRoomResponse) body_);
+          .computeMessageSize(10, (MsgScheme.JoinRoomResponse) body_);
       }
       if (bodyCase_ == 11) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(11, (msgScheme.MsgScheme.QuitRoomRequest) body_);
+          .computeMessageSize(11, (MsgScheme.QuitRoomRequest) body_);
       }
       if (bodyCase_ == 12) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(12, (msgScheme.MsgScheme.QuitRoomResponse) body_);
+          .computeMessageSize(12, (MsgScheme.QuitRoomResponse) body_);
+      }
+      if (bodyCase_ == 13) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(13, (MsgScheme.CreateAccountRequest) body_);
       }
       if (bodyCase_ == 14) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(14, (msgScheme.MsgScheme.ErrorResponse) body_);
+          .computeMessageSize(14, (MsgScheme.ErrorResponse) body_);
       }
       memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.AMsg)) {
+      if (!(obj instanceof MsgScheme.AMsg)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.AMsg other = (msgScheme.MsgScheme.AMsg) obj;
+      MsgScheme.AMsg other = (MsgScheme.AMsg) obj;
 
       boolean result = true;
       result = result && head_ == other.head_;
       result = result && getBodyCase().equals(
-              other.getBodyCase());
+          other.getBodyCase());
       if (!result) return false;
       switch (bodyCase_) {
         case 14:
           result = result && getErrorResponse()
-                  .equals(other.getErrorResponse());
+              .equals(other.getErrorResponse());
           break;
         case 2:
           result = result && getLoginRequest()
-                  .equals(other.getLoginRequest());
+              .equals(other.getLoginRequest());
           break;
         case 3:
           result = result && getLoginResponse()
-                  .equals(other.getLoginResponse());
+              .equals(other.getLoginResponse());
           break;
         case 4:
           result = result && getUndefinedMsg()
-                  .equals(other.getUndefinedMsg());
+              .equals(other.getUndefinedMsg());
           break;
         case 5:
           result = result && getUndefinedRequest()
-                  .equals(other.getUndefinedRequest());
+              .equals(other.getUndefinedRequest());
           break;
         case 6:
           result = result && getUndefinedResponse()
-                  .equals(other.getUndefinedResponse());
+              .equals(other.getUndefinedResponse());
           break;
         case 7:
           result = result && getCreateRoomRequest()
-                  .equals(other.getCreateRoomRequest());
+              .equals(other.getCreateRoomRequest());
           break;
         case 8:
           result = result && getCreateRoomResponse()
-                  .equals(other.getCreateRoomResponse());
+              .equals(other.getCreateRoomResponse());
           break;
         case 9:
           result = result && getJoinRoomRequest()
-                  .equals(other.getJoinRoomRequest());
+              .equals(other.getJoinRoomRequest());
           break;
         case 10:
           result = result && getJoinRoomResponse()
-                  .equals(other.getJoinRoomResponse());
+              .equals(other.getJoinRoomResponse());
           break;
         case 11:
           result = result && getQuitRoomRequest()
-                  .equals(other.getQuitRoomRequest());
+              .equals(other.getQuitRoomRequest());
           break;
         case 12:
           result = result && getQuitRoomResponse()
-                  .equals(other.getQuitRoomResponse());
+              .equals(other.getQuitRoomResponse());
+          break;
+        case 13:
+          result = result && getCreateAccountRequest()
+              .equals(other.getCreateAccountRequest());
           break;
         case 0:
         default:
@@ -1061,7 +1135,7 @@ public final class MsgScheme {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -1119,6 +1193,10 @@ public final class MsgScheme {
           hash = (37 * hash) + QUITROOMRESPONSE_FIELD_NUMBER;
           hash = (53 * hash) + getQuitRoomResponse().hashCode();
           break;
+        case 13:
+          hash = (37 * hash) + CREATEACCOUNTREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getCreateAccountRequest().hashCode();
+          break;
         case 0:
         default:
       }
@@ -1127,80 +1205,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.AMsg parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.AMsg parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.AMsg parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.AMsg parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.AMsg parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.AMsg parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.AMsg parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.AMsg parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.AMsg parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.AMsg parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.AMsg parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.AMsg parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.AMsg parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.AMsg parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.AMsg prototype) {
+    public static Builder newBuilder(MsgScheme.AMsg prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1208,19 +1286,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.AMsg}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.AMsg)
-            msgScheme.MsgScheme.AMsgOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.AMsg)
+        MsgScheme.AMsgOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_AMsg_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_AMsg_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_AMsg_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.AMsg.class, msgScheme.MsgScheme.AMsg.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_AMsg_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.AMsg.class, MsgScheme.AMsg.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.AMsg.newBuilder()
@@ -1229,7 +1307,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1248,24 +1326,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_AMsg_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_AMsg_descriptor;
       }
 
-      public msgScheme.MsgScheme.AMsg getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.AMsg.getDefaultInstance();
+      public MsgScheme.AMsg getDefaultInstanceForType() {
+        return MsgScheme.AMsg.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.AMsg build() {
-        msgScheme.MsgScheme.AMsg result = buildPartial();
+      public MsgScheme.AMsg build() {
+        MsgScheme.AMsg result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.AMsg buildPartial() {
-        msgScheme.MsgScheme.AMsg result = new msgScheme.MsgScheme.AMsg(this);
+      public MsgScheme.AMsg buildPartial() {
+        MsgScheme.AMsg result = new MsgScheme.AMsg(this);
         result.head_ = head_;
         if (bodyCase_ == 14) {
           if (errorResponseBuilder_ == null) {
@@ -1351,6 +1429,13 @@ public final class MsgScheme {
             result.body_ = quitRoomResponseBuilder_.build();
           }
         }
+        if (bodyCase_ == 13) {
+          if (createAccountRequestBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = createAccountRequestBuilder_.build();
+          }
+        }
         result.bodyCase_ = bodyCase_;
         onBuilt();
         return result;
@@ -1360,39 +1445,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.AMsg) {
-          return mergeFrom((msgScheme.MsgScheme.AMsg)other);
+        if (other instanceof MsgScheme.AMsg) {
+          return mergeFrom((MsgScheme.AMsg)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.AMsg other) {
-        if (other == msgScheme.MsgScheme.AMsg.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.AMsg other) {
+        if (other == MsgScheme.AMsg.getDefaultInstance()) return this;
         if (other.head_ != 0) {
           setHeadValue(other.getHeadValue());
         }
@@ -1445,6 +1530,10 @@ public final class MsgScheme {
             mergeQuitRoomResponse(other.getQuitRoomResponse());
             break;
           }
+          case CREATEACCOUNTREQUEST: {
+            mergeCreateAccountRequest(other.getCreateAccountRequest());
+            break;
+          }
           case BODY_NOT_SET: {
             break;
           }
@@ -1458,14 +1547,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.AMsg parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.AMsg parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.AMsg) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.AMsg) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1475,11 +1564,11 @@ public final class MsgScheme {
         return this;
       }
       private int bodyCase_ = 0;
-      private java.lang.Object body_;
+      private Object body_;
       public BodyCase
-      getBodyCase() {
+          getBodyCase() {
         return BodyCase.forNumber(
-                bodyCase_);
+            bodyCase_);
       }
 
       public Builder clearBody() {
@@ -1508,14 +1597,14 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.AMsg.Head head = 1;</code>
        */
-      public msgScheme.MsgScheme.AMsg.Head getHead() {
-        msgScheme.MsgScheme.AMsg.Head result = msgScheme.MsgScheme.AMsg.Head.valueOf(head_);
-        return result == null ? msgScheme.MsgScheme.AMsg.Head.UNRECOGNIZED : result;
+      public MsgScheme.AMsg.Head getHead() {
+        MsgScheme.AMsg.Head result = MsgScheme.AMsg.Head.valueOf(head_);
+        return result == null ? MsgScheme.AMsg.Head.UNRECOGNIZED : result;
       }
       /**
        * <code>optional .msgScheme.AMsg.Head head = 1;</code>
        */
-      public Builder setHead(msgScheme.MsgScheme.AMsg.Head value) {
+      public Builder setHead(MsgScheme.AMsg.Head value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -1535,27 +1624,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.ErrorResponse, msgScheme.MsgScheme.ErrorResponse.Builder, msgScheme.MsgScheme.ErrorResponseOrBuilder> errorResponseBuilder_;
+          ErrorResponse, ErrorResponse.Builder, ErrorResponseOrBuilder> errorResponseBuilder_;
       /**
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
-      public msgScheme.MsgScheme.ErrorResponse getErrorResponse() {
+      public MsgScheme.ErrorResponse getErrorResponse() {
         if (errorResponseBuilder_ == null) {
           if (bodyCase_ == 14) {
-            return (msgScheme.MsgScheme.ErrorResponse) body_;
+            return (MsgScheme.ErrorResponse) body_;
           }
-          return msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+          return MsgScheme.ErrorResponse.getDefaultInstance();
         } else {
           if (bodyCase_ == 14) {
             return errorResponseBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+          return MsgScheme.ErrorResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
-      public Builder setErrorResponse(msgScheme.MsgScheme.ErrorResponse value) {
+      public Builder setErrorResponse(MsgScheme.ErrorResponse value) {
         if (errorResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1572,7 +1661,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
       public Builder setErrorResponse(
-              msgScheme.MsgScheme.ErrorResponse.Builder builderForValue) {
+          MsgScheme.ErrorResponse.Builder builderForValue) {
         if (errorResponseBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1585,12 +1674,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
-      public Builder mergeErrorResponse(msgScheme.MsgScheme.ErrorResponse value) {
+      public Builder mergeErrorResponse(MsgScheme.ErrorResponse value) {
         if (errorResponseBuilder_ == null) {
           if (bodyCase_ == 14 &&
-                  body_ != msgScheme.MsgScheme.ErrorResponse.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.ErrorResponse.newBuilder((msgScheme.MsgScheme.ErrorResponse) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.ErrorResponse.getDefaultInstance()) {
+            body_ = MsgScheme.ErrorResponse.newBuilder((MsgScheme.ErrorResponse) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -1626,35 +1715,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
-      public msgScheme.MsgScheme.ErrorResponse.Builder getErrorResponseBuilder() {
+      public MsgScheme.ErrorResponse.Builder getErrorResponseBuilder() {
         return getErrorResponseFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
-      public msgScheme.MsgScheme.ErrorResponseOrBuilder getErrorResponseOrBuilder() {
+      public MsgScheme.ErrorResponseOrBuilder getErrorResponseOrBuilder() {
         if ((bodyCase_ == 14) && (errorResponseBuilder_ != null)) {
           return errorResponseBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 14) {
-            return (msgScheme.MsgScheme.ErrorResponse) body_;
+            return (MsgScheme.ErrorResponse) body_;
           }
-          return msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+          return MsgScheme.ErrorResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.ErrorResponse errorResponse = 14;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.ErrorResponse, msgScheme.MsgScheme.ErrorResponse.Builder, msgScheme.MsgScheme.ErrorResponseOrBuilder>
-      getErrorResponseFieldBuilder() {
+          ErrorResponse, ErrorResponse.Builder, ErrorResponseOrBuilder>
+          getErrorResponseFieldBuilder() {
         if (errorResponseBuilder_ == null) {
           if (!(bodyCase_ == 14)) {
-            body_ = msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+            body_ = MsgScheme.ErrorResponse.getDefaultInstance();
           }
           errorResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.ErrorResponse, msgScheme.MsgScheme.ErrorResponse.Builder, msgScheme.MsgScheme.ErrorResponseOrBuilder>(
-                  (msgScheme.MsgScheme.ErrorResponse) body_,
+              ErrorResponse, ErrorResponse.Builder, ErrorResponseOrBuilder>(
+                  (MsgScheme.ErrorResponse) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1665,27 +1754,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.LoginRequest, msgScheme.MsgScheme.LoginRequest.Builder, msgScheme.MsgScheme.LoginRequestOrBuilder> loginRequestBuilder_;
+          LoginRequest, LoginRequest.Builder, LoginRequestOrBuilder> loginRequestBuilder_;
       /**
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
-      public msgScheme.MsgScheme.LoginRequest getLoginRequest() {
+      public MsgScheme.LoginRequest getLoginRequest() {
         if (loginRequestBuilder_ == null) {
           if (bodyCase_ == 2) {
-            return (msgScheme.MsgScheme.LoginRequest) body_;
+            return (MsgScheme.LoginRequest) body_;
           }
-          return msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+          return MsgScheme.LoginRequest.getDefaultInstance();
         } else {
           if (bodyCase_ == 2) {
             return loginRequestBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+          return MsgScheme.LoginRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
-      public Builder setLoginRequest(msgScheme.MsgScheme.LoginRequest value) {
+      public Builder setLoginRequest(MsgScheme.LoginRequest value) {
         if (loginRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1702,7 +1791,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
       public Builder setLoginRequest(
-              msgScheme.MsgScheme.LoginRequest.Builder builderForValue) {
+          MsgScheme.LoginRequest.Builder builderForValue) {
         if (loginRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1715,12 +1804,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
-      public Builder mergeLoginRequest(msgScheme.MsgScheme.LoginRequest value) {
+      public Builder mergeLoginRequest(MsgScheme.LoginRequest value) {
         if (loginRequestBuilder_ == null) {
           if (bodyCase_ == 2 &&
-                  body_ != msgScheme.MsgScheme.LoginRequest.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.LoginRequest.newBuilder((msgScheme.MsgScheme.LoginRequest) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.LoginRequest.getDefaultInstance()) {
+            body_ = MsgScheme.LoginRequest.newBuilder((MsgScheme.LoginRequest) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -1756,35 +1845,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
-      public msgScheme.MsgScheme.LoginRequest.Builder getLoginRequestBuilder() {
+      public MsgScheme.LoginRequest.Builder getLoginRequestBuilder() {
         return getLoginRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
-      public msgScheme.MsgScheme.LoginRequestOrBuilder getLoginRequestOrBuilder() {
+      public MsgScheme.LoginRequestOrBuilder getLoginRequestOrBuilder() {
         if ((bodyCase_ == 2) && (loginRequestBuilder_ != null)) {
           return loginRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 2) {
-            return (msgScheme.MsgScheme.LoginRequest) body_;
+            return (MsgScheme.LoginRequest) body_;
           }
-          return msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+          return MsgScheme.LoginRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.LoginRequest loginRequest = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.LoginRequest, msgScheme.MsgScheme.LoginRequest.Builder, msgScheme.MsgScheme.LoginRequestOrBuilder>
-      getLoginRequestFieldBuilder() {
+          LoginRequest, LoginRequest.Builder, LoginRequestOrBuilder>
+          getLoginRequestFieldBuilder() {
         if (loginRequestBuilder_ == null) {
           if (!(bodyCase_ == 2)) {
-            body_ = msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+            body_ = MsgScheme.LoginRequest.getDefaultInstance();
           }
           loginRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.LoginRequest, msgScheme.MsgScheme.LoginRequest.Builder, msgScheme.MsgScheme.LoginRequestOrBuilder>(
-                  (msgScheme.MsgScheme.LoginRequest) body_,
+              LoginRequest, LoginRequest.Builder, LoginRequestOrBuilder>(
+                  (MsgScheme.LoginRequest) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1795,27 +1884,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.LoginResponse, msgScheme.MsgScheme.LoginResponse.Builder, msgScheme.MsgScheme.LoginResponseOrBuilder> loginResponseBuilder_;
+          LoginResponse, LoginResponse.Builder, LoginResponseOrBuilder> loginResponseBuilder_;
       /**
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
-      public msgScheme.MsgScheme.LoginResponse getLoginResponse() {
+      public MsgScheme.LoginResponse getLoginResponse() {
         if (loginResponseBuilder_ == null) {
           if (bodyCase_ == 3) {
-            return (msgScheme.MsgScheme.LoginResponse) body_;
+            return (MsgScheme.LoginResponse) body_;
           }
-          return msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+          return MsgScheme.LoginResponse.getDefaultInstance();
         } else {
           if (bodyCase_ == 3) {
             return loginResponseBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+          return MsgScheme.LoginResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
-      public Builder setLoginResponse(msgScheme.MsgScheme.LoginResponse value) {
+      public Builder setLoginResponse(MsgScheme.LoginResponse value) {
         if (loginResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1832,7 +1921,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
       public Builder setLoginResponse(
-              msgScheme.MsgScheme.LoginResponse.Builder builderForValue) {
+          MsgScheme.LoginResponse.Builder builderForValue) {
         if (loginResponseBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1845,12 +1934,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
-      public Builder mergeLoginResponse(msgScheme.MsgScheme.LoginResponse value) {
+      public Builder mergeLoginResponse(MsgScheme.LoginResponse value) {
         if (loginResponseBuilder_ == null) {
           if (bodyCase_ == 3 &&
-                  body_ != msgScheme.MsgScheme.LoginResponse.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.LoginResponse.newBuilder((msgScheme.MsgScheme.LoginResponse) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.LoginResponse.getDefaultInstance()) {
+            body_ = MsgScheme.LoginResponse.newBuilder((MsgScheme.LoginResponse) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -1886,35 +1975,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
-      public msgScheme.MsgScheme.LoginResponse.Builder getLoginResponseBuilder() {
+      public MsgScheme.LoginResponse.Builder getLoginResponseBuilder() {
         return getLoginResponseFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
-      public msgScheme.MsgScheme.LoginResponseOrBuilder getLoginResponseOrBuilder() {
+      public MsgScheme.LoginResponseOrBuilder getLoginResponseOrBuilder() {
         if ((bodyCase_ == 3) && (loginResponseBuilder_ != null)) {
           return loginResponseBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 3) {
-            return (msgScheme.MsgScheme.LoginResponse) body_;
+            return (MsgScheme.LoginResponse) body_;
           }
-          return msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+          return MsgScheme.LoginResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.LoginResponse loginResponse = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.LoginResponse, msgScheme.MsgScheme.LoginResponse.Builder, msgScheme.MsgScheme.LoginResponseOrBuilder>
-      getLoginResponseFieldBuilder() {
+          LoginResponse, LoginResponse.Builder, LoginResponseOrBuilder>
+          getLoginResponseFieldBuilder() {
         if (loginResponseBuilder_ == null) {
           if (!(bodyCase_ == 3)) {
-            body_ = msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+            body_ = MsgScheme.LoginResponse.getDefaultInstance();
           }
           loginResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.LoginResponse, msgScheme.MsgScheme.LoginResponse.Builder, msgScheme.MsgScheme.LoginResponseOrBuilder>(
-                  (msgScheme.MsgScheme.LoginResponse) body_,
+              LoginResponse, LoginResponse.Builder, LoginResponseOrBuilder>(
+                  (MsgScheme.LoginResponse) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1925,27 +2014,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.UndefinedMsg, msgScheme.MsgScheme.UndefinedMsg.Builder, msgScheme.MsgScheme.UndefinedMsgOrBuilder> undefinedMsgBuilder_;
+          UndefinedMsg, UndefinedMsg.Builder, UndefinedMsgOrBuilder> undefinedMsgBuilder_;
       /**
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
-      public msgScheme.MsgScheme.UndefinedMsg getUndefinedMsg() {
+      public MsgScheme.UndefinedMsg getUndefinedMsg() {
         if (undefinedMsgBuilder_ == null) {
           if (bodyCase_ == 4) {
-            return (msgScheme.MsgScheme.UndefinedMsg) body_;
+            return (MsgScheme.UndefinedMsg) body_;
           }
-          return msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+          return MsgScheme.UndefinedMsg.getDefaultInstance();
         } else {
           if (bodyCase_ == 4) {
             return undefinedMsgBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+          return MsgScheme.UndefinedMsg.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
-      public Builder setUndefinedMsg(msgScheme.MsgScheme.UndefinedMsg value) {
+      public Builder setUndefinedMsg(MsgScheme.UndefinedMsg value) {
         if (undefinedMsgBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1962,7 +2051,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
       public Builder setUndefinedMsg(
-              msgScheme.MsgScheme.UndefinedMsg.Builder builderForValue) {
+          MsgScheme.UndefinedMsg.Builder builderForValue) {
         if (undefinedMsgBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1975,12 +2064,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
-      public Builder mergeUndefinedMsg(msgScheme.MsgScheme.UndefinedMsg value) {
+      public Builder mergeUndefinedMsg(MsgScheme.UndefinedMsg value) {
         if (undefinedMsgBuilder_ == null) {
           if (bodyCase_ == 4 &&
-                  body_ != msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.UndefinedMsg.newBuilder((msgScheme.MsgScheme.UndefinedMsg) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.UndefinedMsg.getDefaultInstance()) {
+            body_ = MsgScheme.UndefinedMsg.newBuilder((MsgScheme.UndefinedMsg) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2016,35 +2105,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
-      public msgScheme.MsgScheme.UndefinedMsg.Builder getUndefinedMsgBuilder() {
+      public MsgScheme.UndefinedMsg.Builder getUndefinedMsgBuilder() {
         return getUndefinedMsgFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
-      public msgScheme.MsgScheme.UndefinedMsgOrBuilder getUndefinedMsgOrBuilder() {
+      public MsgScheme.UndefinedMsgOrBuilder getUndefinedMsgOrBuilder() {
         if ((bodyCase_ == 4) && (undefinedMsgBuilder_ != null)) {
           return undefinedMsgBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 4) {
-            return (msgScheme.MsgScheme.UndefinedMsg) body_;
+            return (MsgScheme.UndefinedMsg) body_;
           }
-          return msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+          return MsgScheme.UndefinedMsg.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.UndefinedMsg undefinedMsg = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.UndefinedMsg, msgScheme.MsgScheme.UndefinedMsg.Builder, msgScheme.MsgScheme.UndefinedMsgOrBuilder>
-      getUndefinedMsgFieldBuilder() {
+          UndefinedMsg, UndefinedMsg.Builder, UndefinedMsgOrBuilder>
+          getUndefinedMsgFieldBuilder() {
         if (undefinedMsgBuilder_ == null) {
           if (!(bodyCase_ == 4)) {
-            body_ = msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+            body_ = MsgScheme.UndefinedMsg.getDefaultInstance();
           }
           undefinedMsgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.UndefinedMsg, msgScheme.MsgScheme.UndefinedMsg.Builder, msgScheme.MsgScheme.UndefinedMsgOrBuilder>(
-                  (msgScheme.MsgScheme.UndefinedMsg) body_,
+              UndefinedMsg, UndefinedMsg.Builder, UndefinedMsgOrBuilder>(
+                  (MsgScheme.UndefinedMsg) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2055,27 +2144,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.UndefinedRequest, msgScheme.MsgScheme.UndefinedRequest.Builder, msgScheme.MsgScheme.UndefinedRequestOrBuilder> undefinedRequestBuilder_;
+          UndefinedRequest, UndefinedRequest.Builder, UndefinedRequestOrBuilder> undefinedRequestBuilder_;
       /**
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
-      public msgScheme.MsgScheme.UndefinedRequest getUndefinedRequest() {
+      public MsgScheme.UndefinedRequest getUndefinedRequest() {
         if (undefinedRequestBuilder_ == null) {
           if (bodyCase_ == 5) {
-            return (msgScheme.MsgScheme.UndefinedRequest) body_;
+            return (MsgScheme.UndefinedRequest) body_;
           }
-          return msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+          return MsgScheme.UndefinedRequest.getDefaultInstance();
         } else {
           if (bodyCase_ == 5) {
             return undefinedRequestBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+          return MsgScheme.UndefinedRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
-      public Builder setUndefinedRequest(msgScheme.MsgScheme.UndefinedRequest value) {
+      public Builder setUndefinedRequest(MsgScheme.UndefinedRequest value) {
         if (undefinedRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2092,7 +2181,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
       public Builder setUndefinedRequest(
-              msgScheme.MsgScheme.UndefinedRequest.Builder builderForValue) {
+          MsgScheme.UndefinedRequest.Builder builderForValue) {
         if (undefinedRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2105,12 +2194,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
-      public Builder mergeUndefinedRequest(msgScheme.MsgScheme.UndefinedRequest value) {
+      public Builder mergeUndefinedRequest(MsgScheme.UndefinedRequest value) {
         if (undefinedRequestBuilder_ == null) {
           if (bodyCase_ == 5 &&
-                  body_ != msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.UndefinedRequest.newBuilder((msgScheme.MsgScheme.UndefinedRequest) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.UndefinedRequest.getDefaultInstance()) {
+            body_ = MsgScheme.UndefinedRequest.newBuilder((MsgScheme.UndefinedRequest) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2146,35 +2235,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
-      public msgScheme.MsgScheme.UndefinedRequest.Builder getUndefinedRequestBuilder() {
+      public MsgScheme.UndefinedRequest.Builder getUndefinedRequestBuilder() {
         return getUndefinedRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
-      public msgScheme.MsgScheme.UndefinedRequestOrBuilder getUndefinedRequestOrBuilder() {
+      public MsgScheme.UndefinedRequestOrBuilder getUndefinedRequestOrBuilder() {
         if ((bodyCase_ == 5) && (undefinedRequestBuilder_ != null)) {
           return undefinedRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 5) {
-            return (msgScheme.MsgScheme.UndefinedRequest) body_;
+            return (MsgScheme.UndefinedRequest) body_;
           }
-          return msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+          return MsgScheme.UndefinedRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.UndefinedRequest undefinedRequest = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.UndefinedRequest, msgScheme.MsgScheme.UndefinedRequest.Builder, msgScheme.MsgScheme.UndefinedRequestOrBuilder>
-      getUndefinedRequestFieldBuilder() {
+          UndefinedRequest, UndefinedRequest.Builder, UndefinedRequestOrBuilder>
+          getUndefinedRequestFieldBuilder() {
         if (undefinedRequestBuilder_ == null) {
           if (!(bodyCase_ == 5)) {
-            body_ = msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+            body_ = MsgScheme.UndefinedRequest.getDefaultInstance();
           }
           undefinedRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.UndefinedRequest, msgScheme.MsgScheme.UndefinedRequest.Builder, msgScheme.MsgScheme.UndefinedRequestOrBuilder>(
-                  (msgScheme.MsgScheme.UndefinedRequest) body_,
+              UndefinedRequest, UndefinedRequest.Builder, UndefinedRequestOrBuilder>(
+                  (MsgScheme.UndefinedRequest) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2185,27 +2274,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.UndefinedResponse, msgScheme.MsgScheme.UndefinedResponse.Builder, msgScheme.MsgScheme.UndefinedResponseOrBuilder> undefinedResponseBuilder_;
+          UndefinedResponse, UndefinedResponse.Builder, UndefinedResponseOrBuilder> undefinedResponseBuilder_;
       /**
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
-      public msgScheme.MsgScheme.UndefinedResponse getUndefinedResponse() {
+      public MsgScheme.UndefinedResponse getUndefinedResponse() {
         if (undefinedResponseBuilder_ == null) {
           if (bodyCase_ == 6) {
-            return (msgScheme.MsgScheme.UndefinedResponse) body_;
+            return (MsgScheme.UndefinedResponse) body_;
           }
-          return msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+          return MsgScheme.UndefinedResponse.getDefaultInstance();
         } else {
           if (bodyCase_ == 6) {
             return undefinedResponseBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+          return MsgScheme.UndefinedResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
-      public Builder setUndefinedResponse(msgScheme.MsgScheme.UndefinedResponse value) {
+      public Builder setUndefinedResponse(MsgScheme.UndefinedResponse value) {
         if (undefinedResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2222,7 +2311,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
       public Builder setUndefinedResponse(
-              msgScheme.MsgScheme.UndefinedResponse.Builder builderForValue) {
+          MsgScheme.UndefinedResponse.Builder builderForValue) {
         if (undefinedResponseBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2235,12 +2324,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
-      public Builder mergeUndefinedResponse(msgScheme.MsgScheme.UndefinedResponse value) {
+      public Builder mergeUndefinedResponse(MsgScheme.UndefinedResponse value) {
         if (undefinedResponseBuilder_ == null) {
           if (bodyCase_ == 6 &&
-                  body_ != msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.UndefinedResponse.newBuilder((msgScheme.MsgScheme.UndefinedResponse) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.UndefinedResponse.getDefaultInstance()) {
+            body_ = MsgScheme.UndefinedResponse.newBuilder((MsgScheme.UndefinedResponse) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2276,35 +2365,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
-      public msgScheme.MsgScheme.UndefinedResponse.Builder getUndefinedResponseBuilder() {
+      public MsgScheme.UndefinedResponse.Builder getUndefinedResponseBuilder() {
         return getUndefinedResponseFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
-      public msgScheme.MsgScheme.UndefinedResponseOrBuilder getUndefinedResponseOrBuilder() {
+      public MsgScheme.UndefinedResponseOrBuilder getUndefinedResponseOrBuilder() {
         if ((bodyCase_ == 6) && (undefinedResponseBuilder_ != null)) {
           return undefinedResponseBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 6) {
-            return (msgScheme.MsgScheme.UndefinedResponse) body_;
+            return (MsgScheme.UndefinedResponse) body_;
           }
-          return msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+          return MsgScheme.UndefinedResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.UndefinedResponse undefinedResponse = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.UndefinedResponse, msgScheme.MsgScheme.UndefinedResponse.Builder, msgScheme.MsgScheme.UndefinedResponseOrBuilder>
-      getUndefinedResponseFieldBuilder() {
+          UndefinedResponse, UndefinedResponse.Builder, UndefinedResponseOrBuilder>
+          getUndefinedResponseFieldBuilder() {
         if (undefinedResponseBuilder_ == null) {
           if (!(bodyCase_ == 6)) {
-            body_ = msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+            body_ = MsgScheme.UndefinedResponse.getDefaultInstance();
           }
           undefinedResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.UndefinedResponse, msgScheme.MsgScheme.UndefinedResponse.Builder, msgScheme.MsgScheme.UndefinedResponseOrBuilder>(
-                  (msgScheme.MsgScheme.UndefinedResponse) body_,
+              UndefinedResponse, UndefinedResponse.Builder, UndefinedResponseOrBuilder>(
+                  (MsgScheme.UndefinedResponse) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2315,27 +2404,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.CreateRoomRequest, msgScheme.MsgScheme.CreateRoomRequest.Builder, msgScheme.MsgScheme.CreateRoomRequestOrBuilder> createRoomRequestBuilder_;
+          CreateRoomRequest, CreateRoomRequest.Builder, CreateRoomRequestOrBuilder> createRoomRequestBuilder_;
       /**
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
-      public msgScheme.MsgScheme.CreateRoomRequest getCreateRoomRequest() {
+      public MsgScheme.CreateRoomRequest getCreateRoomRequest() {
         if (createRoomRequestBuilder_ == null) {
           if (bodyCase_ == 7) {
-            return (msgScheme.MsgScheme.CreateRoomRequest) body_;
+            return (MsgScheme.CreateRoomRequest) body_;
           }
-          return msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+          return MsgScheme.CreateRoomRequest.getDefaultInstance();
         } else {
           if (bodyCase_ == 7) {
             return createRoomRequestBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+          return MsgScheme.CreateRoomRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
-      public Builder setCreateRoomRequest(msgScheme.MsgScheme.CreateRoomRequest value) {
+      public Builder setCreateRoomRequest(MsgScheme.CreateRoomRequest value) {
         if (createRoomRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2352,7 +2441,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
       public Builder setCreateRoomRequest(
-              msgScheme.MsgScheme.CreateRoomRequest.Builder builderForValue) {
+          MsgScheme.CreateRoomRequest.Builder builderForValue) {
         if (createRoomRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2365,12 +2454,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
-      public Builder mergeCreateRoomRequest(msgScheme.MsgScheme.CreateRoomRequest value) {
+      public Builder mergeCreateRoomRequest(MsgScheme.CreateRoomRequest value) {
         if (createRoomRequestBuilder_ == null) {
           if (bodyCase_ == 7 &&
-                  body_ != msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.CreateRoomRequest.newBuilder((msgScheme.MsgScheme.CreateRoomRequest) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.CreateRoomRequest.getDefaultInstance()) {
+            body_ = MsgScheme.CreateRoomRequest.newBuilder((MsgScheme.CreateRoomRequest) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2406,35 +2495,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
-      public msgScheme.MsgScheme.CreateRoomRequest.Builder getCreateRoomRequestBuilder() {
+      public MsgScheme.CreateRoomRequest.Builder getCreateRoomRequestBuilder() {
         return getCreateRoomRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
-      public msgScheme.MsgScheme.CreateRoomRequestOrBuilder getCreateRoomRequestOrBuilder() {
+      public MsgScheme.CreateRoomRequestOrBuilder getCreateRoomRequestOrBuilder() {
         if ((bodyCase_ == 7) && (createRoomRequestBuilder_ != null)) {
           return createRoomRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 7) {
-            return (msgScheme.MsgScheme.CreateRoomRequest) body_;
+            return (MsgScheme.CreateRoomRequest) body_;
           }
-          return msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+          return MsgScheme.CreateRoomRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.CreateRoomRequest createRoomRequest = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.CreateRoomRequest, msgScheme.MsgScheme.CreateRoomRequest.Builder, msgScheme.MsgScheme.CreateRoomRequestOrBuilder>
-      getCreateRoomRequestFieldBuilder() {
+          CreateRoomRequest, CreateRoomRequest.Builder, CreateRoomRequestOrBuilder>
+          getCreateRoomRequestFieldBuilder() {
         if (createRoomRequestBuilder_ == null) {
           if (!(bodyCase_ == 7)) {
-            body_ = msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+            body_ = MsgScheme.CreateRoomRequest.getDefaultInstance();
           }
           createRoomRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.CreateRoomRequest, msgScheme.MsgScheme.CreateRoomRequest.Builder, msgScheme.MsgScheme.CreateRoomRequestOrBuilder>(
-                  (msgScheme.MsgScheme.CreateRoomRequest) body_,
+              CreateRoomRequest, CreateRoomRequest.Builder, CreateRoomRequestOrBuilder>(
+                  (MsgScheme.CreateRoomRequest) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2445,27 +2534,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.CreateRoomResponse, msgScheme.MsgScheme.CreateRoomResponse.Builder, msgScheme.MsgScheme.CreateRoomResponseOrBuilder> createRoomResponseBuilder_;
+          CreateRoomResponse, CreateRoomResponse.Builder, CreateRoomResponseOrBuilder> createRoomResponseBuilder_;
       /**
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
-      public msgScheme.MsgScheme.CreateRoomResponse getCreateRoomResponse() {
+      public MsgScheme.CreateRoomResponse getCreateRoomResponse() {
         if (createRoomResponseBuilder_ == null) {
           if (bodyCase_ == 8) {
-            return (msgScheme.MsgScheme.CreateRoomResponse) body_;
+            return (MsgScheme.CreateRoomResponse) body_;
           }
-          return msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+          return MsgScheme.CreateRoomResponse.getDefaultInstance();
         } else {
           if (bodyCase_ == 8) {
             return createRoomResponseBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+          return MsgScheme.CreateRoomResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
-      public Builder setCreateRoomResponse(msgScheme.MsgScheme.CreateRoomResponse value) {
+      public Builder setCreateRoomResponse(MsgScheme.CreateRoomResponse value) {
         if (createRoomResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2482,7 +2571,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
       public Builder setCreateRoomResponse(
-              msgScheme.MsgScheme.CreateRoomResponse.Builder builderForValue) {
+          MsgScheme.CreateRoomResponse.Builder builderForValue) {
         if (createRoomResponseBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2495,12 +2584,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
-      public Builder mergeCreateRoomResponse(msgScheme.MsgScheme.CreateRoomResponse value) {
+      public Builder mergeCreateRoomResponse(MsgScheme.CreateRoomResponse value) {
         if (createRoomResponseBuilder_ == null) {
           if (bodyCase_ == 8 &&
-                  body_ != msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.CreateRoomResponse.newBuilder((msgScheme.MsgScheme.CreateRoomResponse) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.CreateRoomResponse.getDefaultInstance()) {
+            body_ = MsgScheme.CreateRoomResponse.newBuilder((MsgScheme.CreateRoomResponse) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2536,35 +2625,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
-      public msgScheme.MsgScheme.CreateRoomResponse.Builder getCreateRoomResponseBuilder() {
+      public MsgScheme.CreateRoomResponse.Builder getCreateRoomResponseBuilder() {
         return getCreateRoomResponseFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
-      public msgScheme.MsgScheme.CreateRoomResponseOrBuilder getCreateRoomResponseOrBuilder() {
+      public MsgScheme.CreateRoomResponseOrBuilder getCreateRoomResponseOrBuilder() {
         if ((bodyCase_ == 8) && (createRoomResponseBuilder_ != null)) {
           return createRoomResponseBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 8) {
-            return (msgScheme.MsgScheme.CreateRoomResponse) body_;
+            return (MsgScheme.CreateRoomResponse) body_;
           }
-          return msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+          return MsgScheme.CreateRoomResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.CreateRoomResponse createRoomResponse = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.CreateRoomResponse, msgScheme.MsgScheme.CreateRoomResponse.Builder, msgScheme.MsgScheme.CreateRoomResponseOrBuilder>
-      getCreateRoomResponseFieldBuilder() {
+          CreateRoomResponse, CreateRoomResponse.Builder, CreateRoomResponseOrBuilder>
+          getCreateRoomResponseFieldBuilder() {
         if (createRoomResponseBuilder_ == null) {
           if (!(bodyCase_ == 8)) {
-            body_ = msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+            body_ = MsgScheme.CreateRoomResponse.getDefaultInstance();
           }
           createRoomResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.CreateRoomResponse, msgScheme.MsgScheme.CreateRoomResponse.Builder, msgScheme.MsgScheme.CreateRoomResponseOrBuilder>(
-                  (msgScheme.MsgScheme.CreateRoomResponse) body_,
+              CreateRoomResponse, CreateRoomResponse.Builder, CreateRoomResponseOrBuilder>(
+                  (MsgScheme.CreateRoomResponse) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2575,27 +2664,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.JoinRoomRequest, msgScheme.MsgScheme.JoinRoomRequest.Builder, msgScheme.MsgScheme.JoinRoomRequestOrBuilder> joinRoomRequestBuilder_;
+          JoinRoomRequest, JoinRoomRequest.Builder, JoinRoomRequestOrBuilder> joinRoomRequestBuilder_;
       /**
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
-      public msgScheme.MsgScheme.JoinRoomRequest getJoinRoomRequest() {
+      public MsgScheme.JoinRoomRequest getJoinRoomRequest() {
         if (joinRoomRequestBuilder_ == null) {
           if (bodyCase_ == 9) {
-            return (msgScheme.MsgScheme.JoinRoomRequest) body_;
+            return (MsgScheme.JoinRoomRequest) body_;
           }
-          return msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+          return MsgScheme.JoinRoomRequest.getDefaultInstance();
         } else {
           if (bodyCase_ == 9) {
             return joinRoomRequestBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+          return MsgScheme.JoinRoomRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
-      public Builder setJoinRoomRequest(msgScheme.MsgScheme.JoinRoomRequest value) {
+      public Builder setJoinRoomRequest(MsgScheme.JoinRoomRequest value) {
         if (joinRoomRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2612,7 +2701,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
       public Builder setJoinRoomRequest(
-              msgScheme.MsgScheme.JoinRoomRequest.Builder builderForValue) {
+          MsgScheme.JoinRoomRequest.Builder builderForValue) {
         if (joinRoomRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2625,12 +2714,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
-      public Builder mergeJoinRoomRequest(msgScheme.MsgScheme.JoinRoomRequest value) {
+      public Builder mergeJoinRoomRequest(MsgScheme.JoinRoomRequest value) {
         if (joinRoomRequestBuilder_ == null) {
           if (bodyCase_ == 9 &&
-                  body_ != msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.JoinRoomRequest.newBuilder((msgScheme.MsgScheme.JoinRoomRequest) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.JoinRoomRequest.getDefaultInstance()) {
+            body_ = MsgScheme.JoinRoomRequest.newBuilder((MsgScheme.JoinRoomRequest) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2666,35 +2755,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
-      public msgScheme.MsgScheme.JoinRoomRequest.Builder getJoinRoomRequestBuilder() {
+      public MsgScheme.JoinRoomRequest.Builder getJoinRoomRequestBuilder() {
         return getJoinRoomRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
-      public msgScheme.MsgScheme.JoinRoomRequestOrBuilder getJoinRoomRequestOrBuilder() {
+      public MsgScheme.JoinRoomRequestOrBuilder getJoinRoomRequestOrBuilder() {
         if ((bodyCase_ == 9) && (joinRoomRequestBuilder_ != null)) {
           return joinRoomRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 9) {
-            return (msgScheme.MsgScheme.JoinRoomRequest) body_;
+            return (MsgScheme.JoinRoomRequest) body_;
           }
-          return msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+          return MsgScheme.JoinRoomRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.JoinRoomRequest joinRoomRequest = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.JoinRoomRequest, msgScheme.MsgScheme.JoinRoomRequest.Builder, msgScheme.MsgScheme.JoinRoomRequestOrBuilder>
-      getJoinRoomRequestFieldBuilder() {
+          JoinRoomRequest, JoinRoomRequest.Builder, JoinRoomRequestOrBuilder>
+          getJoinRoomRequestFieldBuilder() {
         if (joinRoomRequestBuilder_ == null) {
           if (!(bodyCase_ == 9)) {
-            body_ = msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+            body_ = MsgScheme.JoinRoomRequest.getDefaultInstance();
           }
           joinRoomRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.JoinRoomRequest, msgScheme.MsgScheme.JoinRoomRequest.Builder, msgScheme.MsgScheme.JoinRoomRequestOrBuilder>(
-                  (msgScheme.MsgScheme.JoinRoomRequest) body_,
+              JoinRoomRequest, JoinRoomRequest.Builder, JoinRoomRequestOrBuilder>(
+                  (MsgScheme.JoinRoomRequest) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2705,27 +2794,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.JoinRoomResponse, msgScheme.MsgScheme.JoinRoomResponse.Builder, msgScheme.MsgScheme.JoinRoomResponseOrBuilder> joinRoomResponseBuilder_;
+          JoinRoomResponse, JoinRoomResponse.Builder, JoinRoomResponseOrBuilder> joinRoomResponseBuilder_;
       /**
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
-      public msgScheme.MsgScheme.JoinRoomResponse getJoinRoomResponse() {
+      public MsgScheme.JoinRoomResponse getJoinRoomResponse() {
         if (joinRoomResponseBuilder_ == null) {
           if (bodyCase_ == 10) {
-            return (msgScheme.MsgScheme.JoinRoomResponse) body_;
+            return (MsgScheme.JoinRoomResponse) body_;
           }
-          return msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+          return MsgScheme.JoinRoomResponse.getDefaultInstance();
         } else {
           if (bodyCase_ == 10) {
             return joinRoomResponseBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+          return MsgScheme.JoinRoomResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
-      public Builder setJoinRoomResponse(msgScheme.MsgScheme.JoinRoomResponse value) {
+      public Builder setJoinRoomResponse(MsgScheme.JoinRoomResponse value) {
         if (joinRoomResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2742,7 +2831,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
       public Builder setJoinRoomResponse(
-              msgScheme.MsgScheme.JoinRoomResponse.Builder builderForValue) {
+          MsgScheme.JoinRoomResponse.Builder builderForValue) {
         if (joinRoomResponseBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2755,12 +2844,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
-      public Builder mergeJoinRoomResponse(msgScheme.MsgScheme.JoinRoomResponse value) {
+      public Builder mergeJoinRoomResponse(MsgScheme.JoinRoomResponse value) {
         if (joinRoomResponseBuilder_ == null) {
           if (bodyCase_ == 10 &&
-                  body_ != msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.JoinRoomResponse.newBuilder((msgScheme.MsgScheme.JoinRoomResponse) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.JoinRoomResponse.getDefaultInstance()) {
+            body_ = MsgScheme.JoinRoomResponse.newBuilder((MsgScheme.JoinRoomResponse) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2796,35 +2885,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
-      public msgScheme.MsgScheme.JoinRoomResponse.Builder getJoinRoomResponseBuilder() {
+      public MsgScheme.JoinRoomResponse.Builder getJoinRoomResponseBuilder() {
         return getJoinRoomResponseFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
-      public msgScheme.MsgScheme.JoinRoomResponseOrBuilder getJoinRoomResponseOrBuilder() {
+      public MsgScheme.JoinRoomResponseOrBuilder getJoinRoomResponseOrBuilder() {
         if ((bodyCase_ == 10) && (joinRoomResponseBuilder_ != null)) {
           return joinRoomResponseBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 10) {
-            return (msgScheme.MsgScheme.JoinRoomResponse) body_;
+            return (MsgScheme.JoinRoomResponse) body_;
           }
-          return msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+          return MsgScheme.JoinRoomResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.JoinRoomResponse joinRoomResponse = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.JoinRoomResponse, msgScheme.MsgScheme.JoinRoomResponse.Builder, msgScheme.MsgScheme.JoinRoomResponseOrBuilder>
-      getJoinRoomResponseFieldBuilder() {
+          JoinRoomResponse, JoinRoomResponse.Builder, JoinRoomResponseOrBuilder>
+          getJoinRoomResponseFieldBuilder() {
         if (joinRoomResponseBuilder_ == null) {
           if (!(bodyCase_ == 10)) {
-            body_ = msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+            body_ = MsgScheme.JoinRoomResponse.getDefaultInstance();
           }
           joinRoomResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.JoinRoomResponse, msgScheme.MsgScheme.JoinRoomResponse.Builder, msgScheme.MsgScheme.JoinRoomResponseOrBuilder>(
-                  (msgScheme.MsgScheme.JoinRoomResponse) body_,
+              JoinRoomResponse, JoinRoomResponse.Builder, JoinRoomResponseOrBuilder>(
+                  (MsgScheme.JoinRoomResponse) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2835,27 +2924,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.QuitRoomRequest, msgScheme.MsgScheme.QuitRoomRequest.Builder, msgScheme.MsgScheme.QuitRoomRequestOrBuilder> quitRoomRequestBuilder_;
+          QuitRoomRequest, QuitRoomRequest.Builder, QuitRoomRequestOrBuilder> quitRoomRequestBuilder_;
       /**
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
-      public msgScheme.MsgScheme.QuitRoomRequest getQuitRoomRequest() {
+      public MsgScheme.QuitRoomRequest getQuitRoomRequest() {
         if (quitRoomRequestBuilder_ == null) {
           if (bodyCase_ == 11) {
-            return (msgScheme.MsgScheme.QuitRoomRequest) body_;
+            return (MsgScheme.QuitRoomRequest) body_;
           }
-          return msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+          return MsgScheme.QuitRoomRequest.getDefaultInstance();
         } else {
           if (bodyCase_ == 11) {
             return quitRoomRequestBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+          return MsgScheme.QuitRoomRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
-      public Builder setQuitRoomRequest(msgScheme.MsgScheme.QuitRoomRequest value) {
+      public Builder setQuitRoomRequest(MsgScheme.QuitRoomRequest value) {
         if (quitRoomRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2872,7 +2961,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
       public Builder setQuitRoomRequest(
-              msgScheme.MsgScheme.QuitRoomRequest.Builder builderForValue) {
+          MsgScheme.QuitRoomRequest.Builder builderForValue) {
         if (quitRoomRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2885,12 +2974,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
-      public Builder mergeQuitRoomRequest(msgScheme.MsgScheme.QuitRoomRequest value) {
+      public Builder mergeQuitRoomRequest(MsgScheme.QuitRoomRequest value) {
         if (quitRoomRequestBuilder_ == null) {
           if (bodyCase_ == 11 &&
-                  body_ != msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.QuitRoomRequest.newBuilder((msgScheme.MsgScheme.QuitRoomRequest) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.QuitRoomRequest.getDefaultInstance()) {
+            body_ = MsgScheme.QuitRoomRequest.newBuilder((MsgScheme.QuitRoomRequest) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -2926,35 +3015,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
-      public msgScheme.MsgScheme.QuitRoomRequest.Builder getQuitRoomRequestBuilder() {
+      public MsgScheme.QuitRoomRequest.Builder getQuitRoomRequestBuilder() {
         return getQuitRoomRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
-      public msgScheme.MsgScheme.QuitRoomRequestOrBuilder getQuitRoomRequestOrBuilder() {
+      public MsgScheme.QuitRoomRequestOrBuilder getQuitRoomRequestOrBuilder() {
         if ((bodyCase_ == 11) && (quitRoomRequestBuilder_ != null)) {
           return quitRoomRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 11) {
-            return (msgScheme.MsgScheme.QuitRoomRequest) body_;
+            return (MsgScheme.QuitRoomRequest) body_;
           }
-          return msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+          return MsgScheme.QuitRoomRequest.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.QuitRoomRequest quitRoomRequest = 11;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.QuitRoomRequest, msgScheme.MsgScheme.QuitRoomRequest.Builder, msgScheme.MsgScheme.QuitRoomRequestOrBuilder>
-      getQuitRoomRequestFieldBuilder() {
+          QuitRoomRequest, QuitRoomRequest.Builder, QuitRoomRequestOrBuilder>
+          getQuitRoomRequestFieldBuilder() {
         if (quitRoomRequestBuilder_ == null) {
           if (!(bodyCase_ == 11)) {
-            body_ = msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+            body_ = MsgScheme.QuitRoomRequest.getDefaultInstance();
           }
           quitRoomRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.QuitRoomRequest, msgScheme.MsgScheme.QuitRoomRequest.Builder, msgScheme.MsgScheme.QuitRoomRequestOrBuilder>(
-                  (msgScheme.MsgScheme.QuitRoomRequest) body_,
+              QuitRoomRequest, QuitRoomRequest.Builder, QuitRoomRequestOrBuilder>(
+                  (MsgScheme.QuitRoomRequest) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2965,27 +3054,27 @@ public final class MsgScheme {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.QuitRoomResponse, msgScheme.MsgScheme.QuitRoomResponse.Builder, msgScheme.MsgScheme.QuitRoomResponseOrBuilder> quitRoomResponseBuilder_;
+          QuitRoomResponse, QuitRoomResponse.Builder, QuitRoomResponseOrBuilder> quitRoomResponseBuilder_;
       /**
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
-      public msgScheme.MsgScheme.QuitRoomResponse getQuitRoomResponse() {
+      public MsgScheme.QuitRoomResponse getQuitRoomResponse() {
         if (quitRoomResponseBuilder_ == null) {
           if (bodyCase_ == 12) {
-            return (msgScheme.MsgScheme.QuitRoomResponse) body_;
+            return (MsgScheme.QuitRoomResponse) body_;
           }
-          return msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+          return MsgScheme.QuitRoomResponse.getDefaultInstance();
         } else {
           if (bodyCase_ == 12) {
             return quitRoomResponseBuilder_.getMessage();
           }
-          return msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+          return MsgScheme.QuitRoomResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
-      public Builder setQuitRoomResponse(msgScheme.MsgScheme.QuitRoomResponse value) {
+      public Builder setQuitRoomResponse(MsgScheme.QuitRoomResponse value) {
         if (quitRoomResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3002,7 +3091,7 @@ public final class MsgScheme {
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
       public Builder setQuitRoomResponse(
-              msgScheme.MsgScheme.QuitRoomResponse.Builder builderForValue) {
+          MsgScheme.QuitRoomResponse.Builder builderForValue) {
         if (quitRoomResponseBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -3015,12 +3104,12 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
-      public Builder mergeQuitRoomResponse(msgScheme.MsgScheme.QuitRoomResponse value) {
+      public Builder mergeQuitRoomResponse(MsgScheme.QuitRoomResponse value) {
         if (quitRoomResponseBuilder_ == null) {
           if (bodyCase_ == 12 &&
-                  body_ != msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance()) {
-            body_ = msgScheme.MsgScheme.QuitRoomResponse.newBuilder((msgScheme.MsgScheme.QuitRoomResponse) body_)
-                    .mergeFrom(value).buildPartial();
+              body_ != MsgScheme.QuitRoomResponse.getDefaultInstance()) {
+            body_ = MsgScheme.QuitRoomResponse.newBuilder((MsgScheme.QuitRoomResponse) body_)
+                .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
           }
@@ -3056,35 +3145,35 @@ public final class MsgScheme {
       /**
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
-      public msgScheme.MsgScheme.QuitRoomResponse.Builder getQuitRoomResponseBuilder() {
+      public MsgScheme.QuitRoomResponse.Builder getQuitRoomResponseBuilder() {
         return getQuitRoomResponseFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
-      public msgScheme.MsgScheme.QuitRoomResponseOrBuilder getQuitRoomResponseOrBuilder() {
+      public MsgScheme.QuitRoomResponseOrBuilder getQuitRoomResponseOrBuilder() {
         if ((bodyCase_ == 12) && (quitRoomResponseBuilder_ != null)) {
           return quitRoomResponseBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 12) {
-            return (msgScheme.MsgScheme.QuitRoomResponse) body_;
+            return (MsgScheme.QuitRoomResponse) body_;
           }
-          return msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+          return MsgScheme.QuitRoomResponse.getDefaultInstance();
         }
       }
       /**
        * <code>optional .msgScheme.QuitRoomResponse quitRoomResponse = 12;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-              msgScheme.MsgScheme.QuitRoomResponse, msgScheme.MsgScheme.QuitRoomResponse.Builder, msgScheme.MsgScheme.QuitRoomResponseOrBuilder>
-      getQuitRoomResponseFieldBuilder() {
+          QuitRoomResponse, QuitRoomResponse.Builder, QuitRoomResponseOrBuilder>
+          getQuitRoomResponseFieldBuilder() {
         if (quitRoomResponseBuilder_ == null) {
           if (!(bodyCase_ == 12)) {
-            body_ = msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+            body_ = MsgScheme.QuitRoomResponse.getDefaultInstance();
           }
           quitRoomResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                  msgScheme.MsgScheme.QuitRoomResponse, msgScheme.MsgScheme.QuitRoomResponse.Builder, msgScheme.MsgScheme.QuitRoomResponseOrBuilder>(
-                  (msgScheme.MsgScheme.QuitRoomResponse) body_,
+              QuitRoomResponse, QuitRoomResponse.Builder, QuitRoomResponseOrBuilder>(
+                  (MsgScheme.QuitRoomResponse) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -3093,13 +3182,143 @@ public final class MsgScheme {
         onChanged();;
         return quitRoomResponseBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          CreateAccountRequest, CreateAccountRequest.Builder, CreateAccountRequestOrBuilder> createAccountRequestBuilder_;
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public MsgScheme.CreateAccountRequest getCreateAccountRequest() {
+        if (createAccountRequestBuilder_ == null) {
+          if (bodyCase_ == 13) {
+            return (MsgScheme.CreateAccountRequest) body_;
+          }
+          return MsgScheme.CreateAccountRequest.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 13) {
+            return createAccountRequestBuilder_.getMessage();
+          }
+          return MsgScheme.CreateAccountRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public Builder setCreateAccountRequest(MsgScheme.CreateAccountRequest value) {
+        if (createAccountRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          createAccountRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 13;
+        return this;
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public Builder setCreateAccountRequest(
+          MsgScheme.CreateAccountRequest.Builder builderForValue) {
+        if (createAccountRequestBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          createAccountRequestBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 13;
+        return this;
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public Builder mergeCreateAccountRequest(MsgScheme.CreateAccountRequest value) {
+        if (createAccountRequestBuilder_ == null) {
+          if (bodyCase_ == 13 &&
+              body_ != MsgScheme.CreateAccountRequest.getDefaultInstance()) {
+            body_ = MsgScheme.CreateAccountRequest.newBuilder((MsgScheme.CreateAccountRequest) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 13) {
+            createAccountRequestBuilder_.mergeFrom(value);
+          }
+          createAccountRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 13;
+        return this;
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public Builder clearCreateAccountRequest() {
+        if (createAccountRequestBuilder_ == null) {
+          if (bodyCase_ == 13) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 13) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          createAccountRequestBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public MsgScheme.CreateAccountRequest.Builder getCreateAccountRequestBuilder() {
+        return getCreateAccountRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      public MsgScheme.CreateAccountRequestOrBuilder getCreateAccountRequestOrBuilder() {
+        if ((bodyCase_ == 13) && (createAccountRequestBuilder_ != null)) {
+          return createAccountRequestBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 13) {
+            return (MsgScheme.CreateAccountRequest) body_;
+          }
+          return MsgScheme.CreateAccountRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .msgScheme.CreateAccountRequest createAccountRequest = 13;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          CreateAccountRequest, CreateAccountRequest.Builder, CreateAccountRequestOrBuilder>
+          getCreateAccountRequestFieldBuilder() {
+        if (createAccountRequestBuilder_ == null) {
+          if (!(bodyCase_ == 13)) {
+            body_ = MsgScheme.CreateAccountRequest.getDefaultInstance();
+          }
+          createAccountRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              CreateAccountRequest, CreateAccountRequest.Builder, CreateAccountRequestOrBuilder>(
+                  (MsgScheme.CreateAccountRequest) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 13;
+        onChanged();;
+        return createAccountRequestBuilder_;
+      }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -3108,22 +3327,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.AMsg)
-    private static final msgScheme.MsgScheme.AMsg DEFAULT_INSTANCE;
+    private static final MsgScheme.AMsg DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.AMsg();
+      DEFAULT_INSTANCE = new MsgScheme.AMsg();
     }
 
-    public static msgScheme.MsgScheme.AMsg getDefaultInstance() {
+    public static MsgScheme.AMsg getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<AMsg>
-            PARSER = new com.google.protobuf.AbstractParser<AMsg>() {
+        PARSER = new com.google.protobuf.AbstractParser<AMsg>() {
       public AMsg parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AMsg(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AMsg(input, extensionRegistry);
       }
     };
 
@@ -3131,44 +3350,44 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<AMsg> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.AMsg getDefaultInstanceForType() {
+    public MsgScheme.AMsg getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface UndefinedMsgOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.UndefinedMsg)
-          com.google.protobuf.MessageOrBuilder {
+  public interface CreateAccountRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:msgScheme.CreateAccountRequest)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
-   * Protobuf type {@code msgScheme.UndefinedMsg}
+   * Protobuf type {@code msgScheme.CreateAccountRequest}
    */
-  public  static final class UndefinedMsg extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.UndefinedMsg)
-          UndefinedMsgOrBuilder {
-    // Use UndefinedMsg.newBuilder() to construct.
-    private UndefinedMsg(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  public  static final class CreateAccountRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.CreateAccountRequest)
+      CreateAccountRequestOrBuilder {
+    // Use CreateAccountRequest.newBuilder() to construct.
+    private CreateAccountRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private UndefinedMsg() {
+    private CreateAccountRequest() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private UndefinedMsg(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    private CreateAccountRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       try {
         boolean done = false;
@@ -3190,21 +3409,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedMsg_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_CreateAccountRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedMsg_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.UndefinedMsg.class, msgScheme.MsgScheme.UndefinedMsg.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_CreateAccountRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.CreateAccountRequest.class, MsgScheme.CreateAccountRequest.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3218,7 +3437,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
     }
 
     public int getSerializedSize() {
@@ -3231,21 +3450,21 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.UndefinedMsg)) {
+      if (!(obj instanceof MsgScheme.CreateAccountRequest)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.UndefinedMsg other = (msgScheme.MsgScheme.UndefinedMsg) obj;
+      MsgScheme.CreateAccountRequest other = (MsgScheme.CreateAccountRequest) obj;
 
       boolean result = true;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -3257,80 +3476,445 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateAccountRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateAccountRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateAccountRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateAccountRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateAccountRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateAccountRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateAccountRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateAccountRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateAccountRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedMsg parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateAccountRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.UndefinedMsg prototype) {
+    public static Builder newBuilder(MsgScheme.CreateAccountRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code msgScheme.CreateAccountRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.CreateAccountRequest)
+        MsgScheme.CreateAccountRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_CreateAccountRequest_descriptor;
+      }
+
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_CreateAccountRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.CreateAccountRequest.class, MsgScheme.CreateAccountRequest.Builder.class);
+      }
+
+      // Construct using msgScheme.MsgScheme.CreateAccountRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_CreateAccountRequest_descriptor;
+      }
+
+      public MsgScheme.CreateAccountRequest getDefaultInstanceForType() {
+        return MsgScheme.CreateAccountRequest.getDefaultInstance();
+      }
+
+      public MsgScheme.CreateAccountRequest build() {
+        MsgScheme.CreateAccountRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public MsgScheme.CreateAccountRequest buildPartial() {
+        MsgScheme.CreateAccountRequest result = new MsgScheme.CreateAccountRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof MsgScheme.CreateAccountRequest) {
+          return mergeFrom((MsgScheme.CreateAccountRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(MsgScheme.CreateAccountRequest other) {
+        if (other == MsgScheme.CreateAccountRequest.getDefaultInstance()) return this;
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.CreateAccountRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (MsgScheme.CreateAccountRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:msgScheme.CreateAccountRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:msgScheme.CreateAccountRequest)
+    private static final MsgScheme.CreateAccountRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new MsgScheme.CreateAccountRequest();
+    }
+
+    public static MsgScheme.CreateAccountRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CreateAccountRequest>
+        PARSER = new com.google.protobuf.AbstractParser<CreateAccountRequest>() {
+      public CreateAccountRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new CreateAccountRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CreateAccountRequest> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<CreateAccountRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public MsgScheme.CreateAccountRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UndefinedMsgOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:msgScheme.UndefinedMsg)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code msgScheme.UndefinedMsg}
+   */
+  public  static final class UndefinedMsg extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.UndefinedMsg)
+      UndefinedMsgOrBuilder {
+    // Use UndefinedMsg.newBuilder() to construct.
+    private UndefinedMsg(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UndefinedMsg() {
+    }
+
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UndefinedMsg(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_UndefinedMsg_descriptor;
+    }
+
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_UndefinedMsg_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.UndefinedMsg.class, MsgScheme.UndefinedMsg.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof MsgScheme.UndefinedMsg)) {
+        return super.equals(obj);
+      }
+      MsgScheme.UndefinedMsg other = (MsgScheme.UndefinedMsg) obj;
+
+      boolean result = true;
+      return result;
+    }
+
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static MsgScheme.UndefinedMsg parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static MsgScheme.UndefinedMsg parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static MsgScheme.UndefinedMsg parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static MsgScheme.UndefinedMsg parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(MsgScheme.UndefinedMsg prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @Override
+    protected Builder newBuilderForType(
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3338,19 +3922,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.UndefinedMsg}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.UndefinedMsg)
-            msgScheme.MsgScheme.UndefinedMsgOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.UndefinedMsg)
+        MsgScheme.UndefinedMsgOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedMsg_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_UndefinedMsg_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedMsg_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.UndefinedMsg.class, msgScheme.MsgScheme.UndefinedMsg.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_UndefinedMsg_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.UndefinedMsg.class, MsgScheme.UndefinedMsg.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.UndefinedMsg.newBuilder()
@@ -3359,7 +3943,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -3374,24 +3958,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedMsg_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_UndefinedMsg_descriptor;
       }
 
-      public msgScheme.MsgScheme.UndefinedMsg getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance();
+      public MsgScheme.UndefinedMsg getDefaultInstanceForType() {
+        return MsgScheme.UndefinedMsg.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.UndefinedMsg build() {
-        msgScheme.MsgScheme.UndefinedMsg result = buildPartial();
+      public MsgScheme.UndefinedMsg build() {
+        MsgScheme.UndefinedMsg result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.UndefinedMsg buildPartial() {
-        msgScheme.MsgScheme.UndefinedMsg result = new msgScheme.MsgScheme.UndefinedMsg(this);
+      public MsgScheme.UndefinedMsg buildPartial() {
+        MsgScheme.UndefinedMsg result = new MsgScheme.UndefinedMsg(this);
         onBuilt();
         return result;
       }
@@ -3400,39 +3984,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.UndefinedMsg) {
-          return mergeFrom((msgScheme.MsgScheme.UndefinedMsg)other);
+        if (other instanceof MsgScheme.UndefinedMsg) {
+          return mergeFrom((MsgScheme.UndefinedMsg)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.UndefinedMsg other) {
-        if (other == msgScheme.MsgScheme.UndefinedMsg.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.UndefinedMsg other) {
+        if (other == MsgScheme.UndefinedMsg.getDefaultInstance()) return this;
         onChanged();
         return this;
       }
@@ -3442,14 +4026,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.UndefinedMsg parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.UndefinedMsg parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.UndefinedMsg) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.UndefinedMsg) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3459,12 +4043,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -3473,22 +4057,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.UndefinedMsg)
-    private static final msgScheme.MsgScheme.UndefinedMsg DEFAULT_INSTANCE;
+    private static final MsgScheme.UndefinedMsg DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.UndefinedMsg();
+      DEFAULT_INSTANCE = new MsgScheme.UndefinedMsg();
     }
 
-    public static msgScheme.MsgScheme.UndefinedMsg getDefaultInstance() {
+    public static MsgScheme.UndefinedMsg getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<UndefinedMsg>
-            PARSER = new com.google.protobuf.AbstractParser<UndefinedMsg>() {
+        PARSER = new com.google.protobuf.AbstractParser<UndefinedMsg>() {
       public UndefinedMsg parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UndefinedMsg(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UndefinedMsg(input, extensionRegistry);
       }
     };
 
@@ -3496,28 +4080,28 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<UndefinedMsg> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.UndefinedMsg getDefaultInstanceForType() {
+    public MsgScheme.UndefinedMsg getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface UndefinedRequestOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.UndefinedRequest)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.UndefinedRequest)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code msgScheme.UndefinedRequest}
    */
   public  static final class UndefinedRequest extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.UndefinedRequest)
-          UndefinedRequestOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.UndefinedRequest)
+      UndefinedRequestOrBuilder {
     // Use UndefinedRequest.newBuilder() to construct.
     private UndefinedRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -3525,15 +4109,15 @@ public final class MsgScheme {
     private UndefinedRequest() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private UndefinedRequest(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       try {
         boolean done = false;
@@ -3555,21 +4139,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedRequest_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_UndefinedRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedRequest_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.UndefinedRequest.class, msgScheme.MsgScheme.UndefinedRequest.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_UndefinedRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.UndefinedRequest.class, MsgScheme.UndefinedRequest.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3583,7 +4167,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
     }
 
     public int getSerializedSize() {
@@ -3596,21 +4180,21 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.UndefinedRequest)) {
+      if (!(obj instanceof MsgScheme.UndefinedRequest)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.UndefinedRequest other = (msgScheme.MsgScheme.UndefinedRequest) obj;
+      MsgScheme.UndefinedRequest other = (MsgScheme.UndefinedRequest) obj;
 
       boolean result = true;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -3622,80 +4206,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedRequest parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.UndefinedRequest prototype) {
+    public static Builder newBuilder(MsgScheme.UndefinedRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3703,19 +4287,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.UndefinedRequest}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.UndefinedRequest)
-            msgScheme.MsgScheme.UndefinedRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.UndefinedRequest)
+        MsgScheme.UndefinedRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedRequest_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_UndefinedRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedRequest_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.UndefinedRequest.class, msgScheme.MsgScheme.UndefinedRequest.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_UndefinedRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.UndefinedRequest.class, MsgScheme.UndefinedRequest.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.UndefinedRequest.newBuilder()
@@ -3724,7 +4308,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -3739,24 +4323,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedRequest_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_UndefinedRequest_descriptor;
       }
 
-      public msgScheme.MsgScheme.UndefinedRequest getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance();
+      public MsgScheme.UndefinedRequest getDefaultInstanceForType() {
+        return MsgScheme.UndefinedRequest.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.UndefinedRequest build() {
-        msgScheme.MsgScheme.UndefinedRequest result = buildPartial();
+      public MsgScheme.UndefinedRequest build() {
+        MsgScheme.UndefinedRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.UndefinedRequest buildPartial() {
-        msgScheme.MsgScheme.UndefinedRequest result = new msgScheme.MsgScheme.UndefinedRequest(this);
+      public MsgScheme.UndefinedRequest buildPartial() {
+        MsgScheme.UndefinedRequest result = new MsgScheme.UndefinedRequest(this);
         onBuilt();
         return result;
       }
@@ -3765,39 +4349,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.UndefinedRequest) {
-          return mergeFrom((msgScheme.MsgScheme.UndefinedRequest)other);
+        if (other instanceof MsgScheme.UndefinedRequest) {
+          return mergeFrom((MsgScheme.UndefinedRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.UndefinedRequest other) {
-        if (other == msgScheme.MsgScheme.UndefinedRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.UndefinedRequest other) {
+        if (other == MsgScheme.UndefinedRequest.getDefaultInstance()) return this;
         onChanged();
         return this;
       }
@@ -3807,14 +4391,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.UndefinedRequest parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.UndefinedRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.UndefinedRequest) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.UndefinedRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3824,12 +4408,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -3838,22 +4422,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.UndefinedRequest)
-    private static final msgScheme.MsgScheme.UndefinedRequest DEFAULT_INSTANCE;
+    private static final MsgScheme.UndefinedRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.UndefinedRequest();
+      DEFAULT_INSTANCE = new MsgScheme.UndefinedRequest();
     }
 
-    public static msgScheme.MsgScheme.UndefinedRequest getDefaultInstance() {
+    public static MsgScheme.UndefinedRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<UndefinedRequest>
-            PARSER = new com.google.protobuf.AbstractParser<UndefinedRequest>() {
+        PARSER = new com.google.protobuf.AbstractParser<UndefinedRequest>() {
       public UndefinedRequest parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UndefinedRequest(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UndefinedRequest(input, extensionRegistry);
       }
     };
 
@@ -3861,28 +4445,28 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<UndefinedRequest> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.UndefinedRequest getDefaultInstanceForType() {
+    public MsgScheme.UndefinedRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface UndefinedResponseOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.UndefinedResponse)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.UndefinedResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code msgScheme.UndefinedResponse}
    */
   public  static final class UndefinedResponse extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.UndefinedResponse)
-          UndefinedResponseOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.UndefinedResponse)
+      UndefinedResponseOrBuilder {
     // Use UndefinedResponse.newBuilder() to construct.
     private UndefinedResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -3890,15 +4474,15 @@ public final class MsgScheme {
     private UndefinedResponse() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private UndefinedResponse(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       try {
         boolean done = false;
@@ -3920,21 +4504,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedResponse_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_UndefinedResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedResponse_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.UndefinedResponse.class, msgScheme.MsgScheme.UndefinedResponse.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_UndefinedResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.UndefinedResponse.class, MsgScheme.UndefinedResponse.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3948,7 +4532,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
     }
 
     public int getSerializedSize() {
@@ -3961,21 +4545,21 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.UndefinedResponse)) {
+      if (!(obj instanceof MsgScheme.UndefinedResponse)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.UndefinedResponse other = (msgScheme.MsgScheme.UndefinedResponse) obj;
+      MsgScheme.UndefinedResponse other = (MsgScheme.UndefinedResponse) obj;
 
       boolean result = true;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -3987,80 +4571,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.UndefinedResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.UndefinedResponse parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.UndefinedResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.UndefinedResponse prototype) {
+    public static Builder newBuilder(MsgScheme.UndefinedResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -4068,19 +4652,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.UndefinedResponse}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.UndefinedResponse)
-            msgScheme.MsgScheme.UndefinedResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.UndefinedResponse)
+        MsgScheme.UndefinedResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedResponse_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_UndefinedResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.UndefinedResponse.class, msgScheme.MsgScheme.UndefinedResponse.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_UndefinedResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.UndefinedResponse.class, MsgScheme.UndefinedResponse.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.UndefinedResponse.newBuilder()
@@ -4089,7 +4673,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -4104,24 +4688,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_UndefinedResponse_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_UndefinedResponse_descriptor;
       }
 
-      public msgScheme.MsgScheme.UndefinedResponse getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance();
+      public MsgScheme.UndefinedResponse getDefaultInstanceForType() {
+        return MsgScheme.UndefinedResponse.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.UndefinedResponse build() {
-        msgScheme.MsgScheme.UndefinedResponse result = buildPartial();
+      public MsgScheme.UndefinedResponse build() {
+        MsgScheme.UndefinedResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.UndefinedResponse buildPartial() {
-        msgScheme.MsgScheme.UndefinedResponse result = new msgScheme.MsgScheme.UndefinedResponse(this);
+      public MsgScheme.UndefinedResponse buildPartial() {
+        MsgScheme.UndefinedResponse result = new MsgScheme.UndefinedResponse(this);
         onBuilt();
         return result;
       }
@@ -4130,39 +4714,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.UndefinedResponse) {
-          return mergeFrom((msgScheme.MsgScheme.UndefinedResponse)other);
+        if (other instanceof MsgScheme.UndefinedResponse) {
+          return mergeFrom((MsgScheme.UndefinedResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.UndefinedResponse other) {
-        if (other == msgScheme.MsgScheme.UndefinedResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.UndefinedResponse other) {
+        if (other == MsgScheme.UndefinedResponse.getDefaultInstance()) return this;
         onChanged();
         return this;
       }
@@ -4172,14 +4756,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.UndefinedResponse parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.UndefinedResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.UndefinedResponse) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.UndefinedResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4189,12 +4773,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -4203,22 +4787,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.UndefinedResponse)
-    private static final msgScheme.MsgScheme.UndefinedResponse DEFAULT_INSTANCE;
+    private static final MsgScheme.UndefinedResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.UndefinedResponse();
+      DEFAULT_INSTANCE = new MsgScheme.UndefinedResponse();
     }
 
-    public static msgScheme.MsgScheme.UndefinedResponse getDefaultInstance() {
+    public static MsgScheme.UndefinedResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<UndefinedResponse>
-            PARSER = new com.google.protobuf.AbstractParser<UndefinedResponse>() {
+        PARSER = new com.google.protobuf.AbstractParser<UndefinedResponse>() {
       public UndefinedResponse parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UndefinedResponse(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UndefinedResponse(input, extensionRegistry);
       }
     };
 
@@ -4226,48 +4810,48 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<UndefinedResponse> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.UndefinedResponse getDefaultInstanceForType() {
+    public MsgScheme.UndefinedResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface LoginRequestOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.LoginRequest)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.LoginRequest)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>optional string userId = 1;</code>
      */
-    java.lang.String getUserId();
+    String getUserId();
     /**
      * <code>optional string userId = 1;</code>
      */
     com.google.protobuf.ByteString
-    getUserIdBytes();
+        getUserIdBytes();
 
     /**
      * <code>optional string password = 2;</code>
      */
-    java.lang.String getPassword();
+    String getPassword();
     /**
      * <code>optional string password = 2;</code>
      */
     com.google.protobuf.ByteString
-    getPasswordBytes();
+        getPasswordBytes();
   }
   /**
    * Protobuf type {@code msgScheme.LoginRequest}
    */
   public  static final class LoginRequest extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.LoginRequest)
-          LoginRequestOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.LoginRequest)
+      LoginRequestOrBuilder {
     // Use LoginRequest.newBuilder() to construct.
     private LoginRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -4277,15 +4861,15 @@ public final class MsgScheme {
       password_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private LoginRequest(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -4303,13 +4887,13 @@ public final class MsgScheme {
               break;
             }
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               userId_ = s;
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               password_ = s;
               break;
@@ -4320,36 +4904,36 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_LoginRequest_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_LoginRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_LoginRequest_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.LoginRequest.class, msgScheme.MsgScheme.LoginRequest.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_LoginRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.LoginRequest.class, MsgScheme.LoginRequest.Builder.class);
     }
 
     public static final int USERID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object userId_;
+    private volatile Object userId_;
     /**
      * <code>optional string userId = 1;</code>
      */
-    public java.lang.String getUserId() {
-      java.lang.Object ref = userId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getUserId() {
+      Object ref = userId_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
         userId_ = s;
         return s;
       }
@@ -4358,12 +4942,12 @@ public final class MsgScheme {
      * <code>optional string userId = 1;</code>
      */
     public com.google.protobuf.ByteString
-    getUserIdBytes() {
-      java.lang.Object ref = userId_;
-      if (ref instanceof java.lang.String) {
+        getUserIdBytes() {
+      Object ref = userId_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8(
-                        (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
         userId_ = b;
         return b;
       } else {
@@ -4372,18 +4956,18 @@ public final class MsgScheme {
     }
 
     public static final int PASSWORD_FIELD_NUMBER = 2;
-    private volatile java.lang.Object password_;
+    private volatile Object password_;
     /**
      * <code>optional string password = 2;</code>
      */
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getPassword() {
+      Object ref = password_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
         password_ = s;
         return s;
       }
@@ -4392,12 +4976,12 @@ public final class MsgScheme {
      * <code>optional string password = 2;</code>
      */
     public com.google.protobuf.ByteString
-    getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
+        getPasswordBytes() {
+      Object ref = password_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8(
-                        (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
         password_ = b;
         return b;
       } else {
@@ -4416,7 +5000,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       if (!getUserIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
       }
@@ -4441,25 +5025,25 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.LoginRequest)) {
+      if (!(obj instanceof MsgScheme.LoginRequest)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.LoginRequest other = (msgScheme.MsgScheme.LoginRequest) obj;
+      MsgScheme.LoginRequest other = (MsgScheme.LoginRequest) obj;
 
       boolean result = true;
       result = result && getUserId()
-              .equals(other.getUserId());
+          .equals(other.getUserId());
       result = result && getPassword()
-              .equals(other.getPassword());
+          .equals(other.getPassword());
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -4475,80 +5059,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.LoginRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.LoginRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.LoginRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.LoginRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.LoginRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.LoginRequest parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.LoginRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.LoginRequest prototype) {
+    public static Builder newBuilder(MsgScheme.LoginRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -4556,19 +5140,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.LoginRequest}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.LoginRequest)
-            msgScheme.MsgScheme.LoginRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.LoginRequest)
+        MsgScheme.LoginRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_LoginRequest_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_LoginRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_LoginRequest_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.LoginRequest.class, msgScheme.MsgScheme.LoginRequest.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_LoginRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.LoginRequest.class, MsgScheme.LoginRequest.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.LoginRequest.newBuilder()
@@ -4577,7 +5161,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -4596,24 +5180,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_LoginRequest_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_LoginRequest_descriptor;
       }
 
-      public msgScheme.MsgScheme.LoginRequest getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.LoginRequest.getDefaultInstance();
+      public MsgScheme.LoginRequest getDefaultInstanceForType() {
+        return MsgScheme.LoginRequest.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.LoginRequest build() {
-        msgScheme.MsgScheme.LoginRequest result = buildPartial();
+      public MsgScheme.LoginRequest build() {
+        MsgScheme.LoginRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.LoginRequest buildPartial() {
-        msgScheme.MsgScheme.LoginRequest result = new msgScheme.MsgScheme.LoginRequest(this);
+      public MsgScheme.LoginRequest buildPartial() {
+        MsgScheme.LoginRequest result = new MsgScheme.LoginRequest(this);
         result.userId_ = userId_;
         result.password_ = password_;
         onBuilt();
@@ -4624,39 +5208,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.LoginRequest) {
-          return mergeFrom((msgScheme.MsgScheme.LoginRequest)other);
+        if (other instanceof MsgScheme.LoginRequest) {
+          return mergeFrom((MsgScheme.LoginRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.LoginRequest other) {
-        if (other == msgScheme.MsgScheme.LoginRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.LoginRequest other) {
+        if (other == MsgScheme.LoginRequest.getDefaultInstance()) return this;
         if (!other.getUserId().isEmpty()) {
           userId_ = other.userId_;
           onChanged();
@@ -4674,14 +5258,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.LoginRequest parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.LoginRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.LoginRequest) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.LoginRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4691,32 +5275,32 @@ public final class MsgScheme {
         return this;
       }
 
-      private java.lang.Object userId_ = "";
+      private Object userId_ = "";
       /**
        * <code>optional string userId = 1;</code>
        */
-      public java.lang.String getUserId() {
-        java.lang.Object ref = userId_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getUserId() {
+        Object ref = userId_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
-                  (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
           userId_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
        * <code>optional string userId = 1;</code>
        */
       public com.google.protobuf.ByteString
-      getUserIdBytes() {
-        java.lang.Object ref = userId_;
+          getUserIdBytes() {
+        Object ref = userId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
-                          (java.lang.String) ref);
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
           userId_ = b;
           return b;
         } else {
@@ -4727,10 +5311,10 @@ public final class MsgScheme {
        * <code>optional string userId = 1;</code>
        */
       public Builder setUserId(
-              java.lang.String value) {
+          String value) {
         if (value == null) {
-          throw new NullPointerException();
-        }
+    throw new NullPointerException();
+  }
 
         userId_ = value;
         onChanged();
@@ -4749,43 +5333,43 @@ public final class MsgScheme {
        * <code>optional string userId = 1;</code>
        */
       public Builder setUserIdBytes(
-              com.google.protobuf.ByteString value) {
+          com.google.protobuf.ByteString value) {
         if (value == null) {
-          throw new NullPointerException();
-        }
-        checkByteStringIsUtf8(value);
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
 
         userId_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object password_ = "";
+      private Object password_ = "";
       /**
        * <code>optional string password = 2;</code>
        */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getPassword() {
+        Object ref = password_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
-                  (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
           password_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
        * <code>optional string password = 2;</code>
        */
       public com.google.protobuf.ByteString
-      getPasswordBytes() {
-        java.lang.Object ref = password_;
+          getPasswordBytes() {
+        Object ref = password_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
-                          (java.lang.String) ref);
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
           password_ = b;
           return b;
         } else {
@@ -4796,10 +5380,10 @@ public final class MsgScheme {
        * <code>optional string password = 2;</code>
        */
       public Builder setPassword(
-              java.lang.String value) {
+          String value) {
         if (value == null) {
-          throw new NullPointerException();
-        }
+    throw new NullPointerException();
+  }
 
         password_ = value;
         onChanged();
@@ -4818,23 +5402,23 @@ public final class MsgScheme {
        * <code>optional string password = 2;</code>
        */
       public Builder setPasswordBytes(
-              com.google.protobuf.ByteString value) {
+          com.google.protobuf.ByteString value) {
         if (value == null) {
-          throw new NullPointerException();
-        }
-        checkByteStringIsUtf8(value);
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
 
         password_ = value;
         onChanged();
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -4843,22 +5427,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.LoginRequest)
-    private static final msgScheme.MsgScheme.LoginRequest DEFAULT_INSTANCE;
+    private static final MsgScheme.LoginRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.LoginRequest();
+      DEFAULT_INSTANCE = new MsgScheme.LoginRequest();
     }
 
-    public static msgScheme.MsgScheme.LoginRequest getDefaultInstance() {
+    public static MsgScheme.LoginRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<LoginRequest>
-            PARSER = new com.google.protobuf.AbstractParser<LoginRequest>() {
+        PARSER = new com.google.protobuf.AbstractParser<LoginRequest>() {
       public LoginRequest parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new LoginRequest(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new LoginRequest(input, extensionRegistry);
       }
     };
 
@@ -4866,50 +5450,61 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<LoginRequest> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.LoginRequest getDefaultInstanceForType() {
+    public MsgScheme.LoginRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface LoginResponseOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.LoginResponse)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.LoginResponse)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>optional bool ok = 1;</code>
      */
     boolean getOk();
+
+    /**
+     * <code>optional string reason = 2;</code>
+     */
+    String getReason();
+    /**
+     * <code>optional string reason = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getReasonBytes();
   }
   /**
    * Protobuf type {@code msgScheme.LoginResponse}
    */
   public  static final class LoginResponse extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.LoginResponse)
-          LoginResponseOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.LoginResponse)
+      LoginResponseOrBuilder {
     // Use LoginResponse.newBuilder() to construct.
     private LoginResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
     private LoginResponse() {
       ok_ = false;
+      reason_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private LoginResponse(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -4931,27 +5526,33 @@ public final class MsgScheme {
               ok_ = input.readBool();
               break;
             }
+            case 18: {
+              String s = input.readStringRequireUtf8();
+
+              reason_ = s;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_LoginResponse_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_LoginResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_LoginResponse_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.LoginResponse.class, msgScheme.MsgScheme.LoginResponse.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_LoginResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.LoginResponse.class, MsgScheme.LoginResponse.Builder.class);
     }
 
     public static final int OK_FIELD_NUMBER = 1;
@@ -4961,6 +5562,40 @@ public final class MsgScheme {
      */
     public boolean getOk() {
       return ok_;
+    }
+
+    public static final int REASON_FIELD_NUMBER = 2;
+    private volatile Object reason_;
+    /**
+     * <code>optional string reason = 2;</code>
+     */
+    public String getReason() {
+      Object ref = reason_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        reason_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string reason = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      Object ref = reason_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4974,9 +5609,12 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       if (ok_ != false) {
         output.writeBool(1, ok_);
+      }
+      if (!getReasonBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, reason_);
       }
     }
 
@@ -4987,30 +5625,35 @@ public final class MsgScheme {
       size = 0;
       if (ok_ != false) {
         size += com.google.protobuf.CodedOutputStream
-                .computeBoolSize(1, ok_);
+          .computeBoolSize(1, ok_);
+      }
+      if (!getReasonBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, reason_);
       }
       memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.LoginResponse)) {
+      if (!(obj instanceof MsgScheme.LoginResponse)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.LoginResponse other = (msgScheme.MsgScheme.LoginResponse) obj;
+      MsgScheme.LoginResponse other = (MsgScheme.LoginResponse) obj;
 
       boolean result = true;
       result = result && (getOk()
-              == other.getOk());
+          == other.getOk());
+      result = result && getReason()
+          .equals(other.getReason());
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -5019,86 +5662,88 @@ public final class MsgScheme {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       hash = (37 * hash) + OK_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-              getOk());
+          getOk());
+      hash = (37 * hash) + REASON_FIELD_NUMBER;
+      hash = (53 * hash) + getReason().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.LoginResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.LoginResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.LoginResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.LoginResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.LoginResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.LoginResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.LoginResponse parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.LoginResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.LoginResponse prototype) {
+    public static Builder newBuilder(MsgScheme.LoginResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5106,19 +5751,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.LoginResponse}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.LoginResponse)
-            msgScheme.MsgScheme.LoginResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.LoginResponse)
+        MsgScheme.LoginResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_LoginResponse_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_LoginResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_LoginResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.LoginResponse.class, msgScheme.MsgScheme.LoginResponse.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_LoginResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.LoginResponse.class, MsgScheme.LoginResponse.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.LoginResponse.newBuilder()
@@ -5127,7 +5772,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -5140,29 +5785,32 @@ public final class MsgScheme {
         super.clear();
         ok_ = false;
 
+        reason_ = "";
+
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_LoginResponse_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_LoginResponse_descriptor;
       }
 
-      public msgScheme.MsgScheme.LoginResponse getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.LoginResponse.getDefaultInstance();
+      public MsgScheme.LoginResponse getDefaultInstanceForType() {
+        return MsgScheme.LoginResponse.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.LoginResponse build() {
-        msgScheme.MsgScheme.LoginResponse result = buildPartial();
+      public MsgScheme.LoginResponse build() {
+        MsgScheme.LoginResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.LoginResponse buildPartial() {
-        msgScheme.MsgScheme.LoginResponse result = new msgScheme.MsgScheme.LoginResponse(this);
+      public MsgScheme.LoginResponse buildPartial() {
+        MsgScheme.LoginResponse result = new MsgScheme.LoginResponse(this);
         result.ok_ = ok_;
+        result.reason_ = reason_;
         onBuilt();
         return result;
       }
@@ -5171,41 +5819,45 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.LoginResponse) {
-          return mergeFrom((msgScheme.MsgScheme.LoginResponse)other);
+        if (other instanceof MsgScheme.LoginResponse) {
+          return mergeFrom((MsgScheme.LoginResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.LoginResponse other) {
-        if (other == msgScheme.MsgScheme.LoginResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.LoginResponse other) {
+        if (other == MsgScheme.LoginResponse.getDefaultInstance()) return this;
         if (other.getOk() != false) {
           setOk(other.getOk());
+        }
+        if (!other.getReason().isEmpty()) {
+          reason_ = other.reason_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -5216,14 +5868,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.LoginResponse parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.LoginResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.LoginResponse) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.LoginResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5258,13 +5910,82 @@ public final class MsgScheme {
         onChanged();
         return this;
       }
+
+      private Object reason_ = "";
+      /**
+       * <code>optional string reason = 2;</code>
+       */
+      public String getReason() {
+        Object ref = reason_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          reason_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReasonBytes() {
+        Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 2;</code>
+       */
+      public Builder setReason(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 2;</code>
+       */
+      public Builder clearReason() {
+
+        reason_ = getDefaultInstance().getReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 2;</code>
+       */
+      public Builder setReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+        reason_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -5273,22 +5994,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.LoginResponse)
-    private static final msgScheme.MsgScheme.LoginResponse DEFAULT_INSTANCE;
+    private static final MsgScheme.LoginResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.LoginResponse();
+      DEFAULT_INSTANCE = new MsgScheme.LoginResponse();
     }
 
-    public static msgScheme.MsgScheme.LoginResponse getDefaultInstance() {
+    public static MsgScheme.LoginResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<LoginResponse>
-            PARSER = new com.google.protobuf.AbstractParser<LoginResponse>() {
+        PARSER = new com.google.protobuf.AbstractParser<LoginResponse>() {
       public LoginResponse parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new LoginResponse(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new LoginResponse(input, extensionRegistry);
       }
     };
 
@@ -5296,28 +6017,28 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<LoginResponse> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.LoginResponse getDefaultInstanceForType() {
+    public MsgScheme.LoginResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface CreateRoomRequestOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.CreateRoomRequest)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.CreateRoomRequest)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code msgScheme.CreateRoomRequest}
    */
   public  static final class CreateRoomRequest extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.CreateRoomRequest)
-          CreateRoomRequestOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.CreateRoomRequest)
+      CreateRoomRequestOrBuilder {
     // Use CreateRoomRequest.newBuilder() to construct.
     private CreateRoomRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5325,15 +6046,15 @@ public final class MsgScheme {
     private CreateRoomRequest() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private CreateRoomRequest(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       try {
         boolean done = false;
@@ -5355,21 +6076,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomRequest_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_CreateRoomRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.CreateRoomRequest.class, msgScheme.MsgScheme.CreateRoomRequest.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.CreateRoomRequest.class, MsgScheme.CreateRoomRequest.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5383,7 +6104,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
     }
 
     public int getSerializedSize() {
@@ -5396,21 +6117,21 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.CreateRoomRequest)) {
+      if (!(obj instanceof MsgScheme.CreateRoomRequest)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.CreateRoomRequest other = (msgScheme.MsgScheme.CreateRoomRequest) obj;
+      MsgScheme.CreateRoomRequest other = (MsgScheme.CreateRoomRequest) obj;
 
       boolean result = true;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -5422,80 +6143,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.CreateRoomRequest parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.CreateRoomRequest prototype) {
+    public static Builder newBuilder(MsgScheme.CreateRoomRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5503,19 +6224,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.CreateRoomRequest}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.CreateRoomRequest)
-            msgScheme.MsgScheme.CreateRoomRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.CreateRoomRequest)
+        MsgScheme.CreateRoomRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomRequest_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_CreateRoomRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.CreateRoomRequest.class, msgScheme.MsgScheme.CreateRoomRequest.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.CreateRoomRequest.class, MsgScheme.CreateRoomRequest.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.CreateRoomRequest.newBuilder()
@@ -5524,7 +6245,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -5539,24 +6260,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomRequest_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_CreateRoomRequest_descriptor;
       }
 
-      public msgScheme.MsgScheme.CreateRoomRequest getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance();
+      public MsgScheme.CreateRoomRequest getDefaultInstanceForType() {
+        return MsgScheme.CreateRoomRequest.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.CreateRoomRequest build() {
-        msgScheme.MsgScheme.CreateRoomRequest result = buildPartial();
+      public MsgScheme.CreateRoomRequest build() {
+        MsgScheme.CreateRoomRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.CreateRoomRequest buildPartial() {
-        msgScheme.MsgScheme.CreateRoomRequest result = new msgScheme.MsgScheme.CreateRoomRequest(this);
+      public MsgScheme.CreateRoomRequest buildPartial() {
+        MsgScheme.CreateRoomRequest result = new MsgScheme.CreateRoomRequest(this);
         onBuilt();
         return result;
       }
@@ -5565,39 +6286,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.CreateRoomRequest) {
-          return mergeFrom((msgScheme.MsgScheme.CreateRoomRequest)other);
+        if (other instanceof MsgScheme.CreateRoomRequest) {
+          return mergeFrom((MsgScheme.CreateRoomRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.CreateRoomRequest other) {
-        if (other == msgScheme.MsgScheme.CreateRoomRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.CreateRoomRequest other) {
+        if (other == MsgScheme.CreateRoomRequest.getDefaultInstance()) return this;
         onChanged();
         return this;
       }
@@ -5607,14 +6328,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.CreateRoomRequest parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.CreateRoomRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.CreateRoomRequest) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.CreateRoomRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5624,12 +6345,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -5638,22 +6359,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.CreateRoomRequest)
-    private static final msgScheme.MsgScheme.CreateRoomRequest DEFAULT_INSTANCE;
+    private static final MsgScheme.CreateRoomRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.CreateRoomRequest();
+      DEFAULT_INSTANCE = new MsgScheme.CreateRoomRequest();
     }
 
-    public static msgScheme.MsgScheme.CreateRoomRequest getDefaultInstance() {
+    public static MsgScheme.CreateRoomRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<CreateRoomRequest>
-            PARSER = new com.google.protobuf.AbstractParser<CreateRoomRequest>() {
+        PARSER = new com.google.protobuf.AbstractParser<CreateRoomRequest>() {
       public CreateRoomRequest parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreateRoomRequest(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new CreateRoomRequest(input, extensionRegistry);
       }
     };
 
@@ -5661,20 +6382,20 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<CreateRoomRequest> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.CreateRoomRequest getDefaultInstanceForType() {
+    public MsgScheme.CreateRoomRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface CreateRoomResponseOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.CreateRoomResponse)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.CreateRoomResponse)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>optional int32 roomId = 1;</code>
@@ -5685,9 +6406,9 @@ public final class MsgScheme {
    * Protobuf type {@code msgScheme.CreateRoomResponse}
    */
   public  static final class CreateRoomResponse extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.CreateRoomResponse)
-          CreateRoomResponseOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.CreateRoomResponse)
+      CreateRoomResponseOrBuilder {
     // Use CreateRoomResponse.newBuilder() to construct.
     private CreateRoomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5696,15 +6417,15 @@ public final class MsgScheme {
       roomId_ = 0;
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private CreateRoomResponse(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -5732,21 +6453,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomResponse_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_CreateRoomResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.CreateRoomResponse.class, msgScheme.MsgScheme.CreateRoomResponse.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.CreateRoomResponse.class, MsgScheme.CreateRoomResponse.Builder.class);
     }
 
     public static final int ROOMID_FIELD_NUMBER = 1;
@@ -5769,7 +6490,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       if (roomId_ != 0) {
         output.writeInt32(1, roomId_);
       }
@@ -5782,30 +6503,30 @@ public final class MsgScheme {
       size = 0;
       if (roomId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-                .computeInt32Size(1, roomId_);
+          .computeInt32Size(1, roomId_);
       }
       memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.CreateRoomResponse)) {
+      if (!(obj instanceof MsgScheme.CreateRoomResponse)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.CreateRoomResponse other = (msgScheme.MsgScheme.CreateRoomResponse) obj;
+      MsgScheme.CreateRoomResponse other = (MsgScheme.CreateRoomResponse) obj;
 
       boolean result = true;
       result = result && (getRoomId()
-              == other.getRoomId());
+          == other.getRoomId());
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -5819,80 +6540,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.CreateRoomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.CreateRoomResponse parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.CreateRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.CreateRoomResponse prototype) {
+    public static Builder newBuilder(MsgScheme.CreateRoomResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5900,19 +6621,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.CreateRoomResponse}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.CreateRoomResponse)
-            msgScheme.MsgScheme.CreateRoomResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.CreateRoomResponse)
+        MsgScheme.CreateRoomResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomResponse_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_CreateRoomResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.CreateRoomResponse.class, msgScheme.MsgScheme.CreateRoomResponse.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.CreateRoomResponse.class, MsgScheme.CreateRoomResponse.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.CreateRoomResponse.newBuilder()
@@ -5921,7 +6642,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -5938,24 +6659,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_CreateRoomResponse_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_CreateRoomResponse_descriptor;
       }
 
-      public msgScheme.MsgScheme.CreateRoomResponse getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance();
+      public MsgScheme.CreateRoomResponse getDefaultInstanceForType() {
+        return MsgScheme.CreateRoomResponse.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.CreateRoomResponse build() {
-        msgScheme.MsgScheme.CreateRoomResponse result = buildPartial();
+      public MsgScheme.CreateRoomResponse build() {
+        MsgScheme.CreateRoomResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.CreateRoomResponse buildPartial() {
-        msgScheme.MsgScheme.CreateRoomResponse result = new msgScheme.MsgScheme.CreateRoomResponse(this);
+      public MsgScheme.CreateRoomResponse buildPartial() {
+        MsgScheme.CreateRoomResponse result = new MsgScheme.CreateRoomResponse(this);
         result.roomId_ = roomId_;
         onBuilt();
         return result;
@@ -5965,39 +6686,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.CreateRoomResponse) {
-          return mergeFrom((msgScheme.MsgScheme.CreateRoomResponse)other);
+        if (other instanceof MsgScheme.CreateRoomResponse) {
+          return mergeFrom((MsgScheme.CreateRoomResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.CreateRoomResponse other) {
-        if (other == msgScheme.MsgScheme.CreateRoomResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.CreateRoomResponse other) {
+        if (other == MsgScheme.CreateRoomResponse.getDefaultInstance()) return this;
         if (other.getRoomId() != 0) {
           setRoomId(other.getRoomId());
         }
@@ -6010,14 +6731,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.CreateRoomResponse parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.CreateRoomResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.CreateRoomResponse) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.CreateRoomResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6053,12 +6774,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -6067,22 +6788,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.CreateRoomResponse)
-    private static final msgScheme.MsgScheme.CreateRoomResponse DEFAULT_INSTANCE;
+    private static final MsgScheme.CreateRoomResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.CreateRoomResponse();
+      DEFAULT_INSTANCE = new MsgScheme.CreateRoomResponse();
     }
 
-    public static msgScheme.MsgScheme.CreateRoomResponse getDefaultInstance() {
+    public static MsgScheme.CreateRoomResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<CreateRoomResponse>
-            PARSER = new com.google.protobuf.AbstractParser<CreateRoomResponse>() {
+        PARSER = new com.google.protobuf.AbstractParser<CreateRoomResponse>() {
       public CreateRoomResponse parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreateRoomResponse(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new CreateRoomResponse(input, extensionRegistry);
       }
     };
 
@@ -6090,22 +6811,26 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<CreateRoomResponse> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.CreateRoomResponse getDefaultInstanceForType() {
+    public MsgScheme.CreateRoomResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface JoinRoomRequestOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.JoinRoomRequest)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.JoinRoomRequest)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     *TODO 选择房间进入功能未完成
+     * </pre>
+     *
      * <code>optional bool certainRoom = 1;</code>
      */
     boolean getCertainRoom();
@@ -6119,9 +6844,9 @@ public final class MsgScheme {
    * Protobuf type {@code msgScheme.JoinRoomRequest}
    */
   public  static final class JoinRoomRequest extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.JoinRoomRequest)
-          JoinRoomRequestOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.JoinRoomRequest)
+      JoinRoomRequestOrBuilder {
     // Use JoinRoomRequest.newBuilder() to construct.
     private JoinRoomRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -6131,15 +6856,15 @@ public final class MsgScheme {
       roomId_ = 0;
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private JoinRoomRequest(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -6172,26 +6897,30 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomRequest_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_JoinRoomRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.JoinRoomRequest.class, msgScheme.MsgScheme.JoinRoomRequest.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.JoinRoomRequest.class, MsgScheme.JoinRoomRequest.Builder.class);
     }
 
     public static final int CERTAINROOM_FIELD_NUMBER = 1;
     private boolean certainRoom_;
     /**
+     * <pre>
+     *TODO 选择房间进入功能未完成
+     * </pre>
+     *
      * <code>optional bool certainRoom = 1;</code>
      */
     public boolean getCertainRoom() {
@@ -6218,7 +6947,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       if (certainRoom_ != false) {
         output.writeBool(1, certainRoom_);
       }
@@ -6234,36 +6963,36 @@ public final class MsgScheme {
       size = 0;
       if (certainRoom_ != false) {
         size += com.google.protobuf.CodedOutputStream
-                .computeBoolSize(1, certainRoom_);
+          .computeBoolSize(1, certainRoom_);
       }
       if (roomId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-                .computeInt32Size(2, roomId_);
+          .computeInt32Size(2, roomId_);
       }
       memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.JoinRoomRequest)) {
+      if (!(obj instanceof MsgScheme.JoinRoomRequest)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.JoinRoomRequest other = (msgScheme.MsgScheme.JoinRoomRequest) obj;
+      MsgScheme.JoinRoomRequest other = (MsgScheme.JoinRoomRequest) obj;
 
       boolean result = true;
       result = result && (getCertainRoom()
-              == other.getCertainRoom());
+          == other.getCertainRoom());
       result = result && (getRoomId()
-              == other.getRoomId());
+          == other.getRoomId());
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -6272,7 +7001,7 @@ public final class MsgScheme {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       hash = (37 * hash) + CERTAINROOM_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-              getCertainRoom());
+          getCertainRoom());
       hash = (37 * hash) + ROOMID_FIELD_NUMBER;
       hash = (53 * hash) + getRoomId();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -6280,80 +7009,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.JoinRoomRequest parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.JoinRoomRequest prototype) {
+    public static Builder newBuilder(MsgScheme.JoinRoomRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6361,19 +7090,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.JoinRoomRequest}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.JoinRoomRequest)
-            msgScheme.MsgScheme.JoinRoomRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.JoinRoomRequest)
+        MsgScheme.JoinRoomRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomRequest_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_JoinRoomRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.JoinRoomRequest.class, msgScheme.MsgScheme.JoinRoomRequest.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.JoinRoomRequest.class, MsgScheme.JoinRoomRequest.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.JoinRoomRequest.newBuilder()
@@ -6382,7 +7111,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -6401,24 +7130,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomRequest_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_JoinRoomRequest_descriptor;
       }
 
-      public msgScheme.MsgScheme.JoinRoomRequest getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance();
+      public MsgScheme.JoinRoomRequest getDefaultInstanceForType() {
+        return MsgScheme.JoinRoomRequest.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.JoinRoomRequest build() {
-        msgScheme.MsgScheme.JoinRoomRequest result = buildPartial();
+      public MsgScheme.JoinRoomRequest build() {
+        MsgScheme.JoinRoomRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.JoinRoomRequest buildPartial() {
-        msgScheme.MsgScheme.JoinRoomRequest result = new msgScheme.MsgScheme.JoinRoomRequest(this);
+      public MsgScheme.JoinRoomRequest buildPartial() {
+        MsgScheme.JoinRoomRequest result = new MsgScheme.JoinRoomRequest(this);
         result.certainRoom_ = certainRoom_;
         result.roomId_ = roomId_;
         onBuilt();
@@ -6429,39 +7158,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.JoinRoomRequest) {
-          return mergeFrom((msgScheme.MsgScheme.JoinRoomRequest)other);
+        if (other instanceof MsgScheme.JoinRoomRequest) {
+          return mergeFrom((MsgScheme.JoinRoomRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.JoinRoomRequest other) {
-        if (other == msgScheme.MsgScheme.JoinRoomRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.JoinRoomRequest other) {
+        if (other == MsgScheme.JoinRoomRequest.getDefaultInstance()) return this;
         if (other.getCertainRoom() != false) {
           setCertainRoom(other.getCertainRoom());
         }
@@ -6477,14 +7206,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.JoinRoomRequest parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.JoinRoomRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.JoinRoomRequest) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.JoinRoomRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6496,12 +7225,20 @@ public final class MsgScheme {
 
       private boolean certainRoom_ ;
       /**
+       * <pre>
+       *TODO 选择房间进入功能未完成
+       * </pre>
+       *
        * <code>optional bool certainRoom = 1;</code>
        */
       public boolean getCertainRoom() {
         return certainRoom_;
       }
       /**
+       * <pre>
+       *TODO 选择房间进入功能未完成
+       * </pre>
+       *
        * <code>optional bool certainRoom = 1;</code>
        */
       public Builder setCertainRoom(boolean value) {
@@ -6511,6 +7248,10 @@ public final class MsgScheme {
         return this;
       }
       /**
+       * <pre>
+       *TODO 选择房间进入功能未完成
+       * </pre>
+       *
        * <code>optional bool certainRoom = 1;</code>
        */
       public Builder clearCertainRoom() {
@@ -6546,12 +7287,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -6560,22 +7301,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.JoinRoomRequest)
-    private static final msgScheme.MsgScheme.JoinRoomRequest DEFAULT_INSTANCE;
+    private static final MsgScheme.JoinRoomRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.JoinRoomRequest();
+      DEFAULT_INSTANCE = new MsgScheme.JoinRoomRequest();
     }
 
-    public static msgScheme.MsgScheme.JoinRoomRequest getDefaultInstance() {
+    public static MsgScheme.JoinRoomRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<JoinRoomRequest>
-            PARSER = new com.google.protobuf.AbstractParser<JoinRoomRequest>() {
+        PARSER = new com.google.protobuf.AbstractParser<JoinRoomRequest>() {
       public JoinRoomRequest parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new JoinRoomRequest(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new JoinRoomRequest(input, extensionRegistry);
       }
     };
 
@@ -6583,20 +7324,20 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<JoinRoomRequest> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.JoinRoomRequest getDefaultInstanceForType() {
+    public MsgScheme.JoinRoomRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface JoinRoomResponseOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.JoinRoomResponse)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.JoinRoomResponse)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>optional int32 roomId = 1;</code>
@@ -6607,9 +7348,9 @@ public final class MsgScheme {
    * Protobuf type {@code msgScheme.JoinRoomResponse}
    */
   public  static final class JoinRoomResponse extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.JoinRoomResponse)
-          JoinRoomResponseOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.JoinRoomResponse)
+      JoinRoomResponseOrBuilder {
     // Use JoinRoomResponse.newBuilder() to construct.
     private JoinRoomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -6618,15 +7359,15 @@ public final class MsgScheme {
       roomId_ = 0;
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private JoinRoomResponse(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -6654,21 +7395,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomResponse_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_JoinRoomResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.JoinRoomResponse.class, msgScheme.MsgScheme.JoinRoomResponse.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.JoinRoomResponse.class, MsgScheme.JoinRoomResponse.Builder.class);
     }
 
     public static final int ROOMID_FIELD_NUMBER = 1;
@@ -6691,7 +7432,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       if (roomId_ != 0) {
         output.writeInt32(1, roomId_);
       }
@@ -6704,30 +7445,30 @@ public final class MsgScheme {
       size = 0;
       if (roomId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-                .computeInt32Size(1, roomId_);
+          .computeInt32Size(1, roomId_);
       }
       memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.JoinRoomResponse)) {
+      if (!(obj instanceof MsgScheme.JoinRoomResponse)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.JoinRoomResponse other = (msgScheme.MsgScheme.JoinRoomResponse) obj;
+      MsgScheme.JoinRoomResponse other = (MsgScheme.JoinRoomResponse) obj;
 
       boolean result = true;
       result = result && (getRoomId()
-              == other.getRoomId());
+          == other.getRoomId());
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -6741,80 +7482,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.JoinRoomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.JoinRoomResponse parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.JoinRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.JoinRoomResponse prototype) {
+    public static Builder newBuilder(MsgScheme.JoinRoomResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6822,19 +7563,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.JoinRoomResponse}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.JoinRoomResponse)
-            msgScheme.MsgScheme.JoinRoomResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.JoinRoomResponse)
+        MsgScheme.JoinRoomResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomResponse_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_JoinRoomResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.JoinRoomResponse.class, msgScheme.MsgScheme.JoinRoomResponse.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.JoinRoomResponse.class, MsgScheme.JoinRoomResponse.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.JoinRoomResponse.newBuilder()
@@ -6843,7 +7584,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -6860,24 +7601,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_JoinRoomResponse_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_JoinRoomResponse_descriptor;
       }
 
-      public msgScheme.MsgScheme.JoinRoomResponse getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance();
+      public MsgScheme.JoinRoomResponse getDefaultInstanceForType() {
+        return MsgScheme.JoinRoomResponse.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.JoinRoomResponse build() {
-        msgScheme.MsgScheme.JoinRoomResponse result = buildPartial();
+      public MsgScheme.JoinRoomResponse build() {
+        MsgScheme.JoinRoomResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.JoinRoomResponse buildPartial() {
-        msgScheme.MsgScheme.JoinRoomResponse result = new msgScheme.MsgScheme.JoinRoomResponse(this);
+      public MsgScheme.JoinRoomResponse buildPartial() {
+        MsgScheme.JoinRoomResponse result = new MsgScheme.JoinRoomResponse(this);
         result.roomId_ = roomId_;
         onBuilt();
         return result;
@@ -6887,39 +7628,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.JoinRoomResponse) {
-          return mergeFrom((msgScheme.MsgScheme.JoinRoomResponse)other);
+        if (other instanceof MsgScheme.JoinRoomResponse) {
+          return mergeFrom((MsgScheme.JoinRoomResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.JoinRoomResponse other) {
-        if (other == msgScheme.MsgScheme.JoinRoomResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.JoinRoomResponse other) {
+        if (other == MsgScheme.JoinRoomResponse.getDefaultInstance()) return this;
         if (other.getRoomId() != 0) {
           setRoomId(other.getRoomId());
         }
@@ -6932,14 +7673,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.JoinRoomResponse parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.JoinRoomResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.JoinRoomResponse) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.JoinRoomResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6975,12 +7716,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -6989,22 +7730,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.JoinRoomResponse)
-    private static final msgScheme.MsgScheme.JoinRoomResponse DEFAULT_INSTANCE;
+    private static final MsgScheme.JoinRoomResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.JoinRoomResponse();
+      DEFAULT_INSTANCE = new MsgScheme.JoinRoomResponse();
     }
 
-    public static msgScheme.MsgScheme.JoinRoomResponse getDefaultInstance() {
+    public static MsgScheme.JoinRoomResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<JoinRoomResponse>
-            PARSER = new com.google.protobuf.AbstractParser<JoinRoomResponse>() {
+        PARSER = new com.google.protobuf.AbstractParser<JoinRoomResponse>() {
       public JoinRoomResponse parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new JoinRoomResponse(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new JoinRoomResponse(input, extensionRegistry);
       }
     };
 
@@ -7012,28 +7753,28 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<JoinRoomResponse> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.JoinRoomResponse getDefaultInstanceForType() {
+    public MsgScheme.JoinRoomResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface QuitRoomRequestOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.QuitRoomRequest)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.QuitRoomRequest)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code msgScheme.QuitRoomRequest}
    */
   public  static final class QuitRoomRequest extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.QuitRoomRequest)
-          QuitRoomRequestOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.QuitRoomRequest)
+      QuitRoomRequestOrBuilder {
     // Use QuitRoomRequest.newBuilder() to construct.
     private QuitRoomRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -7041,15 +7782,15 @@ public final class MsgScheme {
     private QuitRoomRequest() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private QuitRoomRequest(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       try {
         boolean done = false;
@@ -7071,21 +7812,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomRequest_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_QuitRoomRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.QuitRoomRequest.class, msgScheme.MsgScheme.QuitRoomRequest.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.QuitRoomRequest.class, MsgScheme.QuitRoomRequest.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -7099,7 +7840,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
     }
 
     public int getSerializedSize() {
@@ -7112,21 +7853,21 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.QuitRoomRequest)) {
+      if (!(obj instanceof MsgScheme.QuitRoomRequest)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.QuitRoomRequest other = (msgScheme.MsgScheme.QuitRoomRequest) obj;
+      MsgScheme.QuitRoomRequest other = (MsgScheme.QuitRoomRequest) obj;
 
       boolean result = true;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -7138,80 +7879,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.QuitRoomRequest parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.QuitRoomRequest prototype) {
+    public static Builder newBuilder(MsgScheme.QuitRoomRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7219,19 +7960,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.QuitRoomRequest}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.QuitRoomRequest)
-            msgScheme.MsgScheme.QuitRoomRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.QuitRoomRequest)
+        MsgScheme.QuitRoomRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomRequest_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_QuitRoomRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.QuitRoomRequest.class, msgScheme.MsgScheme.QuitRoomRequest.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.QuitRoomRequest.class, MsgScheme.QuitRoomRequest.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.QuitRoomRequest.newBuilder()
@@ -7240,7 +7981,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -7255,24 +7996,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomRequest_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_QuitRoomRequest_descriptor;
       }
 
-      public msgScheme.MsgScheme.QuitRoomRequest getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance();
+      public MsgScheme.QuitRoomRequest getDefaultInstanceForType() {
+        return MsgScheme.QuitRoomRequest.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.QuitRoomRequest build() {
-        msgScheme.MsgScheme.QuitRoomRequest result = buildPartial();
+      public MsgScheme.QuitRoomRequest build() {
+        MsgScheme.QuitRoomRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.QuitRoomRequest buildPartial() {
-        msgScheme.MsgScheme.QuitRoomRequest result = new msgScheme.MsgScheme.QuitRoomRequest(this);
+      public MsgScheme.QuitRoomRequest buildPartial() {
+        MsgScheme.QuitRoomRequest result = new MsgScheme.QuitRoomRequest(this);
         onBuilt();
         return result;
       }
@@ -7281,39 +8022,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.QuitRoomRequest) {
-          return mergeFrom((msgScheme.MsgScheme.QuitRoomRequest)other);
+        if (other instanceof MsgScheme.QuitRoomRequest) {
+          return mergeFrom((MsgScheme.QuitRoomRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.QuitRoomRequest other) {
-        if (other == msgScheme.MsgScheme.QuitRoomRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.QuitRoomRequest other) {
+        if (other == MsgScheme.QuitRoomRequest.getDefaultInstance()) return this;
         onChanged();
         return this;
       }
@@ -7323,14 +8064,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.QuitRoomRequest parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.QuitRoomRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.QuitRoomRequest) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.QuitRoomRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7340,12 +8081,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -7354,22 +8095,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.QuitRoomRequest)
-    private static final msgScheme.MsgScheme.QuitRoomRequest DEFAULT_INSTANCE;
+    private static final MsgScheme.QuitRoomRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.QuitRoomRequest();
+      DEFAULT_INSTANCE = new MsgScheme.QuitRoomRequest();
     }
 
-    public static msgScheme.MsgScheme.QuitRoomRequest getDefaultInstance() {
+    public static MsgScheme.QuitRoomRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<QuitRoomRequest>
-            PARSER = new com.google.protobuf.AbstractParser<QuitRoomRequest>() {
+        PARSER = new com.google.protobuf.AbstractParser<QuitRoomRequest>() {
       public QuitRoomRequest parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QuitRoomRequest(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new QuitRoomRequest(input, extensionRegistry);
       }
     };
 
@@ -7377,28 +8118,28 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<QuitRoomRequest> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.QuitRoomRequest getDefaultInstanceForType() {
+    public MsgScheme.QuitRoomRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface QuitRoomResponseOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.QuitRoomResponse)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.QuitRoomResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code msgScheme.QuitRoomResponse}
    */
   public  static final class QuitRoomResponse extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.QuitRoomResponse)
-          QuitRoomResponseOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.QuitRoomResponse)
+      QuitRoomResponseOrBuilder {
     // Use QuitRoomResponse.newBuilder() to construct.
     private QuitRoomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -7406,15 +8147,15 @@ public final class MsgScheme {
     private QuitRoomResponse() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private QuitRoomResponse(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       try {
         boolean done = false;
@@ -7436,21 +8177,21 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomResponse_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_QuitRoomResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.QuitRoomResponse.class, msgScheme.MsgScheme.QuitRoomResponse.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.QuitRoomResponse.class, MsgScheme.QuitRoomResponse.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -7464,7 +8205,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
     }
 
     public int getSerializedSize() {
@@ -7477,21 +8218,21 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.QuitRoomResponse)) {
+      if (!(obj instanceof MsgScheme.QuitRoomResponse)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.QuitRoomResponse other = (msgScheme.MsgScheme.QuitRoomResponse) obj;
+      MsgScheme.QuitRoomResponse other = (MsgScheme.QuitRoomResponse) obj;
 
       boolean result = true;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -7503,80 +8244,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.QuitRoomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.QuitRoomResponse parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.QuitRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.QuitRoomResponse prototype) {
+    public static Builder newBuilder(MsgScheme.QuitRoomResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7584,19 +8325,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.QuitRoomResponse}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.QuitRoomResponse)
-            msgScheme.MsgScheme.QuitRoomResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.QuitRoomResponse)
+        MsgScheme.QuitRoomResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomResponse_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_QuitRoomResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.QuitRoomResponse.class, msgScheme.MsgScheme.QuitRoomResponse.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.QuitRoomResponse.class, MsgScheme.QuitRoomResponse.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.QuitRoomResponse.newBuilder()
@@ -7605,7 +8346,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -7620,24 +8361,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_QuitRoomResponse_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_QuitRoomResponse_descriptor;
       }
 
-      public msgScheme.MsgScheme.QuitRoomResponse getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance();
+      public MsgScheme.QuitRoomResponse getDefaultInstanceForType() {
+        return MsgScheme.QuitRoomResponse.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.QuitRoomResponse build() {
-        msgScheme.MsgScheme.QuitRoomResponse result = buildPartial();
+      public MsgScheme.QuitRoomResponse build() {
+        MsgScheme.QuitRoomResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.QuitRoomResponse buildPartial() {
-        msgScheme.MsgScheme.QuitRoomResponse result = new msgScheme.MsgScheme.QuitRoomResponse(this);
+      public MsgScheme.QuitRoomResponse buildPartial() {
+        MsgScheme.QuitRoomResponse result = new MsgScheme.QuitRoomResponse(this);
         onBuilt();
         return result;
       }
@@ -7646,39 +8387,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.QuitRoomResponse) {
-          return mergeFrom((msgScheme.MsgScheme.QuitRoomResponse)other);
+        if (other instanceof MsgScheme.QuitRoomResponse) {
+          return mergeFrom((MsgScheme.QuitRoomResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.QuitRoomResponse other) {
-        if (other == msgScheme.MsgScheme.QuitRoomResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.QuitRoomResponse other) {
+        if (other == MsgScheme.QuitRoomResponse.getDefaultInstance()) return this;
         onChanged();
         return this;
       }
@@ -7688,14 +8429,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.QuitRoomResponse parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.QuitRoomResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.QuitRoomResponse) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.QuitRoomResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7705,12 +8446,12 @@ public final class MsgScheme {
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -7719,22 +8460,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.QuitRoomResponse)
-    private static final msgScheme.MsgScheme.QuitRoomResponse DEFAULT_INSTANCE;
+    private static final MsgScheme.QuitRoomResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.QuitRoomResponse();
+      DEFAULT_INSTANCE = new MsgScheme.QuitRoomResponse();
     }
 
-    public static msgScheme.MsgScheme.QuitRoomResponse getDefaultInstance() {
+    public static MsgScheme.QuitRoomResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<QuitRoomResponse>
-            PARSER = new com.google.protobuf.AbstractParser<QuitRoomResponse>() {
+        PARSER = new com.google.protobuf.AbstractParser<QuitRoomResponse>() {
       public QuitRoomResponse parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QuitRoomResponse(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new QuitRoomResponse(input, extensionRegistry);
       }
     };
 
@@ -7742,38 +8483,38 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<QuitRoomResponse> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.QuitRoomResponse getDefaultInstanceForType() {
+    public MsgScheme.QuitRoomResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface ErrorResponseOrBuilder extends
-          // @@protoc_insertion_point(interface_extends:msgScheme.ErrorResponse)
-          com.google.protobuf.MessageOrBuilder {
+      // @@protoc_insertion_point(interface_extends:msgScheme.ErrorResponse)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>optional string reason = 1;</code>
      */
-    java.lang.String getReason();
+    String getReason();
     /**
      * <code>optional string reason = 1;</code>
      */
     com.google.protobuf.ByteString
-    getReasonBytes();
+        getReasonBytes();
   }
   /**
    * Protobuf type {@code msgScheme.ErrorResponse}
    */
   public  static final class ErrorResponse extends
-          com.google.protobuf.GeneratedMessageV3 implements
-          // @@protoc_insertion_point(message_implements:msgScheme.ErrorResponse)
-          ErrorResponseOrBuilder {
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msgScheme.ErrorResponse)
+      ErrorResponseOrBuilder {
     // Use ErrorResponse.newBuilder() to construct.
     private ErrorResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -7782,15 +8523,15 @@ public final class MsgScheme {
       reason_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ErrorResponse(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
       try {
@@ -7808,7 +8549,7 @@ public final class MsgScheme {
               break;
             }
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               reason_ = s;
               break;
@@ -7819,36 +8560,36 @@ public final class MsgScheme {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-                e).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_ErrorResponse_descriptor;
+        getDescriptor() {
+      return MsgScheme.internal_static_msgScheme_ErrorResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return msgScheme.MsgScheme.internal_static_msgScheme_ErrorResponse_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                      msgScheme.MsgScheme.ErrorResponse.class, msgScheme.MsgScheme.ErrorResponse.Builder.class);
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return MsgScheme.internal_static_msgScheme_ErrorResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              MsgScheme.ErrorResponse.class, MsgScheme.ErrorResponse.Builder.class);
     }
 
     public static final int REASON_FIELD_NUMBER = 1;
-    private volatile java.lang.Object reason_;
+    private volatile Object reason_;
     /**
      * <code>optional string reason = 1;</code>
      */
-    public java.lang.String getReason() {
-      java.lang.Object ref = reason_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getReason() {
+      Object ref = reason_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
         reason_ = s;
         return s;
       }
@@ -7857,12 +8598,12 @@ public final class MsgScheme {
      * <code>optional string reason = 1;</code>
      */
     public com.google.protobuf.ByteString
-    getReasonBytes() {
-      java.lang.Object ref = reason_;
-      if (ref instanceof java.lang.String) {
+        getReasonBytes() {
+      Object ref = reason_;
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8(
-                        (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
         reason_ = b;
         return b;
       } else {
@@ -7881,7 +8622,7 @@ public final class MsgScheme {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       if (!getReasonBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, reason_);
       }
@@ -7900,23 +8641,23 @@ public final class MsgScheme {
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
-        return true;
+       return true;
       }
-      if (!(obj instanceof msgScheme.MsgScheme.ErrorResponse)) {
+      if (!(obj instanceof MsgScheme.ErrorResponse)) {
         return super.equals(obj);
       }
-      msgScheme.MsgScheme.ErrorResponse other = (msgScheme.MsgScheme.ErrorResponse) obj;
+      MsgScheme.ErrorResponse other = (MsgScheme.ErrorResponse) obj;
 
       boolean result = true;
       result = result && getReason()
-              .equals(other.getReason());
+          .equals(other.getReason());
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -7930,80 +8671,80 @@ public final class MsgScheme {
       return hash;
     }
 
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.ErrorResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.ErrorResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.ErrorResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
+    public static MsgScheme.ErrorResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.ErrorResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.ErrorResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.ErrorResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input);
+          .parseDelimitedWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.ErrorResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
+    public static MsgScheme.ErrorResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input);
+          .parseWithIOException(PARSER, input);
     }
-    public static msgScheme.MsgScheme.ErrorResponse parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
+    public static MsgScheme.ErrorResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-              .parseWithIOException(PARSER, input, extensionRegistry);
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(msgScheme.MsgScheme.ErrorResponse prototype) {
+    public static Builder newBuilder(MsgScheme.ErrorResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-              ? new Builder() : new Builder().mergeFrom(this);
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8011,19 +8752,19 @@ public final class MsgScheme {
      * Protobuf type {@code msgScheme.ErrorResponse}
      */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:msgScheme.ErrorResponse)
-            msgScheme.MsgScheme.ErrorResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msgScheme.ErrorResponse)
+        MsgScheme.ErrorResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_ErrorResponse_descriptor;
+          getDescriptor() {
+        return MsgScheme.internal_static_msgScheme_ErrorResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_ErrorResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        msgScheme.MsgScheme.ErrorResponse.class, msgScheme.MsgScheme.ErrorResponse.Builder.class);
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return MsgScheme.internal_static_msgScheme_ErrorResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                MsgScheme.ErrorResponse.class, MsgScheme.ErrorResponse.Builder.class);
       }
 
       // Construct using msgScheme.MsgScheme.ErrorResponse.newBuilder()
@@ -8032,7 +8773,7 @@ public final class MsgScheme {
       }
 
       private Builder(
-              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -8049,24 +8790,24 @@ public final class MsgScheme {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return msgScheme.MsgScheme.internal_static_msgScheme_ErrorResponse_descriptor;
+          getDescriptorForType() {
+        return MsgScheme.internal_static_msgScheme_ErrorResponse_descriptor;
       }
 
-      public msgScheme.MsgScheme.ErrorResponse getDefaultInstanceForType() {
-        return msgScheme.MsgScheme.ErrorResponse.getDefaultInstance();
+      public MsgScheme.ErrorResponse getDefaultInstanceForType() {
+        return MsgScheme.ErrorResponse.getDefaultInstance();
       }
 
-      public msgScheme.MsgScheme.ErrorResponse build() {
-        msgScheme.MsgScheme.ErrorResponse result = buildPartial();
+      public MsgScheme.ErrorResponse build() {
+        MsgScheme.ErrorResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public msgScheme.MsgScheme.ErrorResponse buildPartial() {
-        msgScheme.MsgScheme.ErrorResponse result = new msgScheme.MsgScheme.ErrorResponse(this);
+      public MsgScheme.ErrorResponse buildPartial() {
+        MsgScheme.ErrorResponse result = new MsgScheme.ErrorResponse(this);
         result.reason_ = reason_;
         onBuilt();
         return result;
@@ -8076,39 +8817,39 @@ public final class MsgScheme {
         return (Builder) super.clone();
       }
       public Builder setField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
-              com.google.protobuf.Descriptors.FieldDescriptor field) {
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
       public Builder clearOneof(
-              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
       public Builder setRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              int index, Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
-              com.google.protobuf.Descriptors.FieldDescriptor field,
-              Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof msgScheme.MsgScheme.ErrorResponse) {
-          return mergeFrom((msgScheme.MsgScheme.ErrorResponse)other);
+        if (other instanceof MsgScheme.ErrorResponse) {
+          return mergeFrom((MsgScheme.ErrorResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(msgScheme.MsgScheme.ErrorResponse other) {
-        if (other == msgScheme.MsgScheme.ErrorResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(MsgScheme.ErrorResponse other) {
+        if (other == MsgScheme.ErrorResponse.getDefaultInstance()) return this;
         if (!other.getReason().isEmpty()) {
           reason_ = other.reason_;
           onChanged();
@@ -8122,14 +8863,14 @@ public final class MsgScheme {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        msgScheme.MsgScheme.ErrorResponse parsedMessage = null;
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        MsgScheme.ErrorResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (msgScheme.MsgScheme.ErrorResponse) e.getUnfinishedMessage();
+          parsedMessage = (MsgScheme.ErrorResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -8139,32 +8880,32 @@ public final class MsgScheme {
         return this;
       }
 
-      private java.lang.Object reason_ = "";
+      private Object reason_ = "";
       /**
        * <code>optional string reason = 1;</code>
        */
-      public java.lang.String getReason() {
-        java.lang.Object ref = reason_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getReason() {
+        Object ref = reason_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
-                  (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
           reason_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
        * <code>optional string reason = 1;</code>
        */
       public com.google.protobuf.ByteString
-      getReasonBytes() {
-        java.lang.Object ref = reason_;
+          getReasonBytes() {
+        Object ref = reason_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
-                          (java.lang.String) ref);
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
           reason_ = b;
           return b;
         } else {
@@ -8175,10 +8916,10 @@ public final class MsgScheme {
        * <code>optional string reason = 1;</code>
        */
       public Builder setReason(
-              java.lang.String value) {
+          String value) {
         if (value == null) {
-          throw new NullPointerException();
-        }
+    throw new NullPointerException();
+  }
 
         reason_ = value;
         onChanged();
@@ -8197,23 +8938,23 @@ public final class MsgScheme {
        * <code>optional string reason = 1;</code>
        */
       public Builder setReasonBytes(
-              com.google.protobuf.ByteString value) {
+          com.google.protobuf.ByteString value) {
         if (value == null) {
-          throw new NullPointerException();
-        }
-        checkByteStringIsUtf8(value);
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
 
         reason_ = value;
         onChanged();
         return this;
       }
       public final Builder setUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
       public final Builder mergeUnknownFields(
-              final com.google.protobuf.UnknownFieldSet unknownFields) {
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
       }
 
@@ -8222,22 +8963,22 @@ public final class MsgScheme {
     }
 
     // @@protoc_insertion_point(class_scope:msgScheme.ErrorResponse)
-    private static final msgScheme.MsgScheme.ErrorResponse DEFAULT_INSTANCE;
+    private static final MsgScheme.ErrorResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new msgScheme.MsgScheme.ErrorResponse();
+      DEFAULT_INSTANCE = new MsgScheme.ErrorResponse();
     }
 
-    public static msgScheme.MsgScheme.ErrorResponse getDefaultInstance() {
+    public static MsgScheme.ErrorResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<ErrorResponse>
-            PARSER = new com.google.protobuf.AbstractParser<ErrorResponse>() {
+        PARSER = new com.google.protobuf.AbstractParser<ErrorResponse>() {
       public ErrorResponse parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ErrorResponse(input, extensionRegistry);
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ErrorResponse(input, extensionRegistry);
       }
     };
 
@@ -8245,218 +8986,233 @@ public final class MsgScheme {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<ErrorResponse> getParserForType() {
       return PARSER;
     }
 
-    public msgScheme.MsgScheme.ErrorResponse getDefaultInstanceForType() {
+    public MsgScheme.ErrorResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_AMsg_descriptor;
+    internal_static_msgScheme_AMsg_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_AMsg_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_AMsg_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_UndefinedMsg_descriptor;
+    internal_static_msgScheme_CreateAccountRequest_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_UndefinedMsg_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_CreateAccountRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_UndefinedRequest_descriptor;
+    internal_static_msgScheme_UndefinedMsg_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_UndefinedRequest_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_UndefinedMsg_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_UndefinedResponse_descriptor;
+    internal_static_msgScheme_UndefinedRequest_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_UndefinedResponse_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_UndefinedRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_LoginRequest_descriptor;
+    internal_static_msgScheme_UndefinedResponse_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_LoginRequest_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_UndefinedResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_LoginResponse_descriptor;
+    internal_static_msgScheme_LoginRequest_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_LoginResponse_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_LoginRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_CreateRoomRequest_descriptor;
+    internal_static_msgScheme_LoginResponse_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_LoginResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_CreateRoomResponse_descriptor;
+    internal_static_msgScheme_CreateRoomRequest_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_JoinRoomRequest_descriptor;
+    internal_static_msgScheme_CreateRoomResponse_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_JoinRoomResponse_descriptor;
+    internal_static_msgScheme_JoinRoomRequest_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_QuitRoomRequest_descriptor;
+    internal_static_msgScheme_JoinRoomResponse_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_QuitRoomResponse_descriptor;
+    internal_static_msgScheme_QuitRoomRequest_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_msgScheme_ErrorResponse_descriptor;
+    internal_static_msgScheme_QuitRoomResponse_descriptor;
   private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_msgScheme_ErrorResponse_fieldAccessorTable;
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_msgScheme_ErrorResponse_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msgScheme_ErrorResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
-  getDescriptor() {
+      getDescriptor() {
     return descriptor;
   }
   private static  com.google.protobuf.Descriptors.FileDescriptor
-          descriptor;
+      descriptor;
   static {
-    java.lang.String[] descriptorData = {
-            "\n\017msgScheme.proto\022\tmsgScheme\"\347\007\n\004AMsg\022\"\n" +
-                    "\004head\030\001 \001(\0162\024.msgScheme.AMsg.Head\0221\n\rerr" +
-                    "orResponse\030\016 \001(\0132\030.msgScheme.ErrorRespon" +
-                    "seH\000\022/\n\014loginRequest\030\002 \001(\0132\027.msgScheme.L" +
-                    "oginRequestH\000\0221\n\rloginResponse\030\003 \001(\0132\030.m" +
-                    "sgScheme.LoginResponseH\000\022/\n\014undefinedMsg" +
-                    "\030\004 \001(\0132\027.msgScheme.UndefinedMsgH\000\0227\n\020und" +
-                    "efinedRequest\030\005 \001(\0132\033.msgScheme.Undefine" +
-                    "dRequestH\000\0229\n\021undefinedResponse\030\006 \001(\0132\034." +
-                    "msgScheme.UndefinedResponseH\000\0229\n\021createR",
-            "oomRequest\030\007 \001(\0132\034.msgScheme.CreateRoomR" +
-                    "equestH\000\022;\n\022createRoomResponse\030\010 \001(\0132\035.m" +
-                    "sgScheme.CreateRoomResponseH\000\0225\n\017joinRoo" +
-                    "mRequest\030\t \001(\0132\032.msgScheme.JoinRoomReque" +
-                    "stH\000\0227\n\020joinRoomResponse\030\n \001(\0132\033.msgSche" +
-                    "me.JoinRoomResponseH\000\0225\n\017quitRoomRequest" +
-                    "\030\013 \001(\0132\032.msgScheme.QuitRoomRequestH\000\0227\n\020" +
-                    "quitRoomResponse\030\014 \001(\0132\033.msgScheme.QuitR" +
-                    "oomResponseH\000\"\236\002\n\004Head\022\021\n\rUndefined_Msg\020" +
-                    "\000\022\025\n\021Undefined_Request\020\001\022\026\n\022Undefined_Re",
-            "sponse\020\002\022\022\n\016Error_Response\020\003\022\023\n\rLogin_Re" +
-                    "quest\020\241\215\006\022\024\n\016Login_Response\020\242\215\006\022\030\n\022Creat" +
-                    "eRoom_Request\020\243\215\006\022\031\n\023CreateRoom_Response" +
-                    "\020\244\215\006\022\026\n\020JoinRoom_Request\020\245\215\006\022\027\n\021JoinRoom" +
-                    "_Response\020\246\215\006\022\026\n\020QuitRoom_Request\020\247\215\006\022\027\n" +
-                    "\021QuitRoom_Response\020\250\215\006B\006\n\004body\"\016\n\014Undefi" +
-                    "nedMsg\"\022\n\020UndefinedRequest\"\023\n\021UndefinedR" +
-                    "esponse\"0\n\014LoginRequest\022\016\n\006userId\030\001 \001(\t\022" +
-                    "\020\n\010password\030\002 \001(\t\"\033\n\rLoginResponse\022\n\n\002ok" +
-                    "\030\001 \001(\010\"\023\n\021CreateRoomRequest\"$\n\022CreateRoo",
-            "mResponse\022\016\n\006roomId\030\001 \001(\005\"6\n\017JoinRoomReq" +
-                    "uest\022\023\n\013certainRoom\030\001 \001(\010\022\016\n\006roomId\030\002 \001(" +
-                    "\005\"\"\n\020JoinRoomResponse\022\016\n\006roomId\030\001 \001(\005\"\021\n" +
-                    "\017QuitRoomRequest\"\022\n\020QuitRoomResponse\"\037\n\r" +
-                    "ErrorResponse\022\016\n\006reason\030\001 \001(\tB\013\n\tmsgSche" +
-                    "meb\006proto3"
+    String[] descriptorData = {
+      "\n\017msgScheme.proto\022\tmsgScheme\"\343\010\n\004AMsg\022\"\n" +
+      "\004head\030\001 \001(\0162\024.msgScheme.AMsg.Head\0221\n\rerr" +
+      "orResponse\030\016 \001(\0132\030.msgScheme.ErrorRespon" +
+      "seH\000\022/\n\014loginRequest\030\002 \001(\0132\027.msgScheme.L" +
+      "oginRequestH\000\0221\n\rloginResponse\030\003 \001(\0132\030.m" +
+      "sgScheme.LoginResponseH\000\022/\n\014undefinedMsg" +
+      "\030\004 \001(\0132\027.msgScheme.UndefinedMsgH\000\0227\n\020und" +
+      "efinedRequest\030\005 \001(\0132\033.msgScheme.Undefine" +
+      "dRequestH\000\0229\n\021undefinedResponse\030\006 \001(\0132\034." +
+      "msgScheme.UndefinedResponseH\000\0229\n\021createR",
+      "oomRequest\030\007 \001(\0132\034.msgScheme.CreateRoomR" +
+      "equestH\000\022;\n\022createRoomResponse\030\010 \001(\0132\035.m" +
+      "sgScheme.CreateRoomResponseH\000\0225\n\017joinRoo" +
+      "mRequest\030\t \001(\0132\032.msgScheme.JoinRoomReque" +
+      "stH\000\0227\n\020joinRoomResponse\030\n \001(\0132\033.msgSche" +
+      "me.JoinRoomResponseH\000\0225\n\017quitRoomRequest" +
+      "\030\013 \001(\0132\032.msgScheme.QuitRoomRequestH\000\0227\n\020" +
+      "quitRoomResponse\030\014 \001(\0132\033.msgScheme.QuitR" +
+      "oomResponseH\000\022?\n\024createAccountRequest\030\r " +
+      "\001(\0132\037.msgScheme.CreateAccountRequestH\000\"\331",
+      "\002\n\004Head\022\021\n\rUndefined_Msg\020\000\022\025\n\021Undefined_" +
+      "Request\020\001\022\026\n\022Undefined_Response\020\002\022\022\n\016Err" +
+      "or_Response\020\003\022\023\n\rLogin_Request\020\241\215\006\022\024\n\016Lo" +
+      "gin_Response\020\242\215\006\022\030\n\022CreateRoom_Request\020\243" +
+      "\215\006\022\031\n\023CreateRoom_Response\020\244\215\006\022\026\n\020JoinRoo" +
+      "m_Request\020\245\215\006\022\027\n\021JoinRoom_Response\020\246\215\006\022\026" +
+      "\n\020QuitRoom_Request\020\247\215\006\022\027\n\021QuitRoom_Respo" +
+      "nse\020\250\215\006\022\033\n\025CreateAccount_Request\020\251\215\006\022\034\n\026" +
+      "CreateAccount_Response\020\252\215\006B\006\n\004body\"\026\n\024Cr" +
+      "eateAccountRequest\"\016\n\014UndefinedMsg\"\022\n\020Un",
+      "definedRequest\"\023\n\021UndefinedResponse\"0\n\014L" +
+      "oginRequest\022\016\n\006userId\030\001 \001(\t\022\020\n\010password\030" +
+      "\002 \001(\t\"+\n\rLoginResponse\022\n\n\002ok\030\001 \001(\010\022\016\n\006re" +
+      "ason\030\002 \001(\t\"\023\n\021CreateRoomRequest\"$\n\022Creat" +
+      "eRoomResponse\022\016\n\006roomId\030\001 \001(\005\"6\n\017JoinRoo" +
+      "mRequest\022\023\n\013certainRoom\030\001 \001(\010\022\016\n\006roomId\030" +
+      "\002 \001(\005\"\"\n\020JoinRoomResponse\022\016\n\006roomId\030\001 \001(" +
+      "\005\"\021\n\017QuitRoomRequest\"\022\n\020QuitRoomResponse" +
+      "\"\037\n\rErrorResponse\022\016\n\006reason\030\001 \001(\tB\013\n\tmsg" +
+      "Schemeb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-            new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-              public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                      com.google.protobuf.Descriptors.FileDescriptor root) {
-                descriptor = root;
-                return null;
-              }
-            };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
-            .internalBuildGeneratedFileFrom(descriptorData,
-                    new com.google.protobuf.Descriptors.FileDescriptor[] {
-                    }, assigner);
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        }, assigner);
     internal_static_msgScheme_AMsg_descriptor =
-            getDescriptor().getMessageTypes().get(0);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_msgScheme_AMsg_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_AMsg_descriptor,
-            new java.lang.String[] { "Head", "ErrorResponse", "LoginRequest", "LoginResponse", "UndefinedMsg", "UndefinedRequest", "UndefinedResponse", "CreateRoomRequest", "CreateRoomResponse", "JoinRoomRequest", "JoinRoomResponse", "QuitRoomRequest", "QuitRoomResponse", "Body", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_AMsg_descriptor,
+        new String[] { "Head", "ErrorResponse", "LoginRequest", "LoginResponse", "UndefinedMsg", "UndefinedRequest", "UndefinedResponse", "CreateRoomRequest", "CreateRoomResponse", "JoinRoomRequest", "JoinRoomResponse", "QuitRoomRequest", "QuitRoomResponse", "CreateAccountRequest", "Body", });
+    internal_static_msgScheme_CreateAccountRequest_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_msgScheme_CreateAccountRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_CreateAccountRequest_descriptor,
+        new String[] { });
     internal_static_msgScheme_UndefinedMsg_descriptor =
-            getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_msgScheme_UndefinedMsg_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_UndefinedMsg_descriptor,
-            new java.lang.String[] { });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_UndefinedMsg_descriptor,
+        new String[] { });
     internal_static_msgScheme_UndefinedRequest_descriptor =
-            getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_msgScheme_UndefinedRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_UndefinedRequest_descriptor,
-            new java.lang.String[] { });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_UndefinedRequest_descriptor,
+        new String[] { });
     internal_static_msgScheme_UndefinedResponse_descriptor =
-            getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_msgScheme_UndefinedResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_UndefinedResponse_descriptor,
-            new java.lang.String[] { });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_UndefinedResponse_descriptor,
+        new String[] { });
     internal_static_msgScheme_LoginRequest_descriptor =
-            getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_msgScheme_LoginRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_LoginRequest_descriptor,
-            new java.lang.String[] { "UserId", "Password", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_LoginRequest_descriptor,
+        new String[] { "UserId", "Password", });
     internal_static_msgScheme_LoginResponse_descriptor =
-            getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_msgScheme_LoginResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_LoginResponse_descriptor,
-            new java.lang.String[] { "Ok", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_LoginResponse_descriptor,
+        new String[] { "Ok", "Reason", });
     internal_static_msgScheme_CreateRoomRequest_descriptor =
-            getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_msgScheme_CreateRoomRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_CreateRoomRequest_descriptor,
-            new java.lang.String[] { });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_CreateRoomRequest_descriptor,
+        new String[] { });
     internal_static_msgScheme_CreateRoomResponse_descriptor =
-            getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_msgScheme_CreateRoomResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_CreateRoomResponse_descriptor,
-            new java.lang.String[] { "RoomId", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_CreateRoomResponse_descriptor,
+        new String[] { "RoomId", });
     internal_static_msgScheme_JoinRoomRequest_descriptor =
-            getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_msgScheme_JoinRoomRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_JoinRoomRequest_descriptor,
-            new java.lang.String[] { "CertainRoom", "RoomId", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_JoinRoomRequest_descriptor,
+        new String[] { "CertainRoom", "RoomId", });
     internal_static_msgScheme_JoinRoomResponse_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_msgScheme_JoinRoomResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_JoinRoomResponse_descriptor,
-            new java.lang.String[] { "RoomId", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_JoinRoomResponse_descriptor,
+        new String[] { "RoomId", });
     internal_static_msgScheme_QuitRoomRequest_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_msgScheme_QuitRoomRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_QuitRoomRequest_descriptor,
-            new java.lang.String[] { });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_QuitRoomRequest_descriptor,
+        new String[] { });
     internal_static_msgScheme_QuitRoomResponse_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_msgScheme_QuitRoomResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_QuitRoomResponse_descriptor,
-            new java.lang.String[] { });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_QuitRoomResponse_descriptor,
+        new String[] { });
     internal_static_msgScheme_ErrorResponse_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_msgScheme_ErrorResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_msgScheme_ErrorResponse_descriptor,
-            new java.lang.String[] { "Reason", });
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msgScheme_ErrorResponse_descriptor,
+        new String[] { "Reason", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

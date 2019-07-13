@@ -9,7 +9,7 @@
         <module name="vertxlearn" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="vertxlearn" target="8" />
     </bytecodeTargetLevel>
   </component>

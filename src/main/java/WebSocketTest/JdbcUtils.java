@@ -12,18 +12,15 @@ public class JdbcUtils {
     public JdbcUtils(Vertx vertx) {
 
         // 构造数据库的连接信息
-        JsonObject dbConfig = new JsonObject();
-        dbConfig.put("url", "jdbc:mysql://localhost:3306?serverTimezone=UTC");
-        dbConfig.put("driver_class", "com.mysql.cj.jdbc.Driver");
-        dbConfig.put("user", "root");
-        dbConfig.put("password", "123456");
+        JsonObject dbConfig = Config.jso();
 
         // 创建客户端
         dbClient = JDBCClient.createShared(vertx, dbConfig);
 
 
-
     }
+
+
 
     // 提供一个公共方法来获取客户端
     public JDBCClient getDbClient() {

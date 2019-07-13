@@ -20,6 +20,10 @@ message AMsg {
 
         QuitRoom_Request = 100007;
         QuitRoom_Response = 100008;
+
+        CreateAccount_Request = 100009;
+        CreateAccount_Response = 100010;
+
     }
     Head head = 1;
 
@@ -41,7 +45,13 @@ message AMsg {
 
         QuitRoomRequest quitRoomRequest = 11;
         QuitRoomResponse quitRoomResponse = 12;
+
+        CreateAccountRequest createAccountRequest = 13;
     }
+
+}
+
+message CreateAccountRequest {
 
 }
 
@@ -59,13 +69,14 @@ message UndefinedResponse {
 
 
 message LoginRequest {
-    string userId = 1;
+    string accountId = 1;
     string password = 2;
 
 }
 
 message LoginResponse {
     bool ok = 1;
+    string reason = 2;
 }
 message CreateRoomRequest {
 }
