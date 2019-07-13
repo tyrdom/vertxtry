@@ -46,11 +46,14 @@ public class JdbcVerticle extends AbstractVerticle {
         });
 
         EventBus eb = vertx.eventBus();
-        eb.consumer("loginGame" ,msg->{
+        eb.consumer("loginGame", msg -> {
             JSONObject accountAndPassword = JSONObject.parseObject(msg.body().toString());
-           String accountId = accountAndPassword.getString("accountId");
+            String accountId = accountAndPassword.getString("accountId");
             String password = accountAndPassword.getString("password");
 
+        });
+
+        eb.consumer(Channels.createAccount(), msg -> {
         });
     }
 }

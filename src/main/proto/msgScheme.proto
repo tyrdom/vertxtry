@@ -28,31 +28,44 @@ message AMsg {
     Head head = 1;
 
     oneof body {
-        ErrorResponse errorResponse = 14;
+        ErrorResponse errorResponse = 2;
 
-        LoginRequest loginRequest = 2;
-        LoginResponse loginResponse = 3;
+        LoginRequest loginRequest = 3;
+        LoginResponse loginResponse = 4;
 
-        UndefinedMsg undefinedMsg = 4;
-        UndefinedRequest undefinedRequest = 5;
-        UndefinedResponse undefinedResponse = 6;
+        UndefinedMsg undefinedMsg = 5;
+        UndefinedRequest undefinedRequest = 6;
+        UndefinedResponse undefinedResponse = 7;
 
-        CreateRoomRequest createRoomRequest = 7;
-        CreateRoomResponse createRoomResponse = 8;
+        CreateRoomRequest createRoomRequest = 9;
+        CreateRoomResponse createRoomResponse = 10;
 
-        JoinRoomRequest joinRoomRequest = 9;
-        JoinRoomResponse joinRoomResponse = 10;
+        JoinRoomRequest joinRoomRequest = 11;
+        JoinRoomResponse joinRoomResponse = 12;
 
-        QuitRoomRequest quitRoomRequest = 11;
-        QuitRoomResponse quitRoomResponse = 12;
+        QuitRoomRequest quitRoomRequest = 13;
+        QuitRoomResponse quitRoomResponse = 14;
 
-        CreateAccountRequest createAccountRequest = 13;
+        CreateAccountRequest createAccountRequest = 15;
+        CreateAccountResponse createAccountResponse = 16;
     }
 
 }
 
 message CreateAccountRequest {
-
+    string accountId = 1;
+    string password = 2;
+    int32 phone = 3;
+}
+message CreateAccountResponse {
+    bool ok = 1;
+    enum Reason {
+        OK = 0;
+        ALREADY_EXIST = 1;
+        NO_GOOD_PASSWORD = 2;
+        OTHER = 3;
+    }
+    Reason reason = 2;
 }
 
 message UndefinedMsg {
@@ -76,7 +89,13 @@ message LoginRequest {
 
 message LoginResponse {
     bool ok = 1;
-    string reason = 2;
+    enum Reason {
+        OK = 0;
+        WRONG_PASSWORD = 1;
+        ACCOUNT_NOT_EXIST = 2;
+        OTHER = 3;
+    }
+    Reason reason = 2;
 }
 message CreateRoomRequest {
 }

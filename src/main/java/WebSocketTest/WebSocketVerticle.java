@@ -12,7 +12,6 @@ import io.vertx.core.http.ServerWebSocket;
 import io.vertx.ext.web.Router;
 
 import msgScheme.MsgScheme;
-import org.javatuples.Triplet;
 import scala.Tuple2;
 
 
@@ -167,11 +166,16 @@ public class WebSocketVerticle extends AbstractVerticle {
                     JSONObject body = msg._2;
                     ServerWebSocket responseWebSocket = connectionMap.get(currID).serverWebSocket();
                     switch (head) {
+                        case CreateAccount_Request:
+
+                            eb.send(Channels.createAccount(), body.toJSONString(), messageAsyncResult -> {
+                            });
                         case Login_Request:
-                            String userId = body.getString("userId");
+                            String accountId = body.getString("accountId");
                             String password = body.getString("password");
-                            System.out.println("收到登录消息" + "userId:" + userId + "===password:" + password);
-                            eb.send("loginGame",body.toJSONString(),messageAsyncResult -> {});
+                            System.out.println("收到登录消息" + "accountId:" + accountId + "===password:" + password);
+                            eb.send("loginGame", body.toJSONString(), messageAsyncResult -> {
+                            });
                             //TODO 登陆处理
 
                             JSONObject responseBody = new JSONObject();

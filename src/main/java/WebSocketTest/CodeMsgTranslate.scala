@@ -13,18 +13,37 @@ object CodeMsgTranslate {
   def encode(head: Head, body: JSONObject): Array[Byte] = (head, body) match {
     case (Head.Login_Response, somebody) =>
       val ok = somebody.getBoolean("ok")
-      val reason = somebody.getString("reason")
+      val reasonString = somebody.getString("reason")
+      val reason = reasonString match {
+        case "ok" => LoginResponse.Reason.OK
+        case "accountNotExist" => LoginResponse.Reason.ACCOUNT_NOT_EXIST
+        case "wrongPassword" => LoginResponse.Reason.WRONG_PASSWORD
+        case _ => LoginResponse.Reason.OTHER
+      }
       println("encode:" + ok)
       val bodyBuilder = LoginResponse.newBuilder().setOk(ok).setReason(reason)
       val msgBuilder = AMsg.newBuilder().setHead(head).setLoginResponse(bodyBuilder)
       val code = msgBuilder.build().toByteArray
       code
     //TODO 其他的答复encode在这里加
+
+    case (Head.CreateAccount_Response, sb) =>
+      val ok = sb.getBoolean("ok")
+      val reasonString = sb.getString("reason")
+      val reason = reasonString match {
+        case "ok" => CreateAccountResponse.Reason.OK
+        case "NoGoodPassword" => CreateAccountResponse.Reason.NO_GOOD_PASSWORD
+        case _ => CreateAccountResponse.Reason.OTHER
+      }
+      val bb = CreateAccountResponse.newBuilder().setOk(ok).setReason(reason)
+      val mb = AMsg.newBuilder().setHead(head).setCreateAccountResponse(bb)
+      mb.build().toByteArray
     //test用 ok
     case (Head.Login_Request, somebody) =>
+
       val userId = somebody.getString("userId")
       val password = somebody.getString("password")
-      val bodyBuilder = LoginRequest.newBuilder().setUserId(userId).setPassword(password)
+      val bodyBuilder = LoginRequest.newBuilder().setAccountId(userId).setPassword(password)
       val msgBuilder = AMsg.newBuilder().setHead(head).setLoginRequest(bodyBuilder)
       val code = msgBuilder.build().toByteArray
       code
@@ -61,15 +80,24 @@ object CodeMsgTranslate {
     val head = msg.getHead
     //    println(head)
     val jsonObj = (head, msg) match {
+      case (Head.CreateAccount_Request, someMsg) =>
+        val accountId = someMsg.getCreateAccountRequest.getAccountId
+        val password = someMsg.getCreateAccountRequest.getPassword
+        val phone = someMsg.getCreateAccountRequest.getPhone
+        val theJob = new JSONObject()
+        theJob.put("accountId", accountId)
+        theJob.put("password", password)
+        theJob.put("phone", phone)
+        (head, theJob)
       case (AMsg.Head.Login_Request, someMsg) =>
-        val theJsonObj: JSONObject = new JSONObject()
-        val uid = someMsg.getLoginRequest.getUserId
+        val theJsonBody: JSONObject = new JSONObject()
+        val uid = someMsg.getLoginRequest.getAccountId
         // println(uid)
         val password = someMsg.getLoginRequest.getPassword
 
-        theJsonObj.put("accountId", uid)
-        theJsonObj.put("password", password)
-        (head, theJsonObj)
+        theJsonBody.put("accountId", uid)
+        theJsonBody.put("password", password)
+        (head, theJsonBody)
       //TODO 其他的请求decode在这里加
 
       //      case class Login_Request(head:Head,userId:String,password: String)

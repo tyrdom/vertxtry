@@ -2,11 +2,13 @@ package WebSocketTest
 
 import java.security.MessageDigest
 
+import WebSocketTest.SqlConfig.AccountBaseData
 import com.mysql.cj.util.StringUtils
 import io.vertx.core.AsyncResult
 import io.vertx.core.http.ServerWebSocket
 import io.vertx.ext.jdbc.JDBCClient
 import io.vertx.ext.sql.ResultSet
+import msgScheme.MsgScheme.CreateAccountResponse.Reason
 import msgScheme.MsgScheme.LoginResponse
 import sun.security.util.Password
 
@@ -44,10 +46,38 @@ object JDBCLib {
       throw new Exception(e)
   }
 
-  def accountCheck(JDBCClient: JDBCClient, account: String, password: String): (Boolean, String) = {
+  def accountCheck(JDBCClient: JDBCClient, account: String, password: String): AccountBaseData = {
     val passwordInTable = getSha1(password)
     val sql = "SELECT * WHERE accountId=" + account + "FROM" + SqlConfig.accountBase
-    (true, "ok")
+    var ok = false
+    var reasion = ""
+
+    JDBCClient.query(sql, res => {
+      if (res.succeeded()) {
+        val resultSet = res.result()
+        println(resultSet)
+      }
+    })
+    AccountBaseData("", "", "", Some(1))
+  }
+
+  //  case class AccountBaseData(accountId: String, password: String, nickname: String, phone: Option[Int])
+
+  case class CreateRes(ok: Boolean, reason: Reason)
+
+  def accountCreate(jc: JDBCClient, abd: AccountBaseData): CreateRes = {
+
+    val passwordInTable = getSha1(abd.password)
+    var result: CreateRes = if (abd.password.forall(_.isLetterOrDigit)) CreateRes(false, Reason.NO_GOOD_PASSWORD) else CreateRes(false, Reason.OTHER)
+
+    val sql = "INSERT INTO " + SqlConfig.accountBase + SqlConfig.accountBaseInsertScheme + abd.genValue + ";"
+    jc.query(sql, res => {
+      if (res.succeeded()) {
+        result = CreateRes(true, Reason.OK)
+      }
+      else result = CreateRes(false, Reason.ALREADY_EXIST)
+    })
+    result
   }
 
   def tableCheckAndCreate(jc: JDBCClient, tableName: String): Unit = {
