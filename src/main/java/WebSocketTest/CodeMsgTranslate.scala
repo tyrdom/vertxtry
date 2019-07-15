@@ -83,12 +83,15 @@ object CodeMsgTranslate {
       case (Head.CreateAccount_Request, someMsg) =>
         val accountId = someMsg.getCreateAccountRequest.getAccountId
         val password = someMsg.getCreateAccountRequest.getPassword
+        val weChat = someMsg.getCreateAccountRequest.getWeChat
         val phone = someMsg.getCreateAccountRequest.getPhone
         val theJob = new JSONObject()
         theJob.put("accountId", accountId)
         theJob.put("password", password)
+        theJob.put("weChat", weChat)
         theJob.put("phone", phone)
         (head, theJob)
+
       case (AMsg.Head.Login_Request, someMsg) =>
         val theJsonBody: JSONObject = new JSONObject()
         val uid = someMsg.getLoginRequest.getAccountId

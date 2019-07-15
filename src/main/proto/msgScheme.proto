@@ -24,6 +24,8 @@ message AMsg {
         CreateAccount_Request = 100009;
         CreateAccount_Response = 100010;
 
+        ChangeNickname_Request = 100011;
+        ChangeNickname_Response = 100012;
     }
     Head head = 1;
 
@@ -55,7 +57,8 @@ message AMsg {
 message CreateAccountRequest {
     string accountId = 1;
     string password = 2;
-    int32 phone = 3;
+    string weChat = 3;
+    int32 phone = 4;
 }
 message CreateAccountResponse {
     bool ok = 1;

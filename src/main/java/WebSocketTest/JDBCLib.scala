@@ -8,13 +8,33 @@ import io.vertx.core.AsyncResult
 import io.vertx.core.http.ServerWebSocket
 import io.vertx.ext.jdbc.JDBCClient
 import io.vertx.ext.sql.ResultSet
+import com.alibaba.fastjson.JSONObject
 import msgScheme.MsgScheme.CreateAccountResponse.Reason
-import msgScheme.MsgScheme.LoginResponse
-import sun.security.util.Password
+import msgScheme.MsgScheme._
 
 case class ConnectionMsg(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket)
 
 object JDBCLib {
+
+  case class ReadTestResult(ok: Boolean)
+
+  def readTest(JDBCClient: JDBCClient, where: String, value: String, table: String): ReadTestResult
+  = {
+    var readTestResult = ReadTestResult(false)
+    val sql = "SELECT * WHERE " + where + " = " + value + "FROM" + table
+    JDBCClient.query(sql, res => {
+      if (res.succeeded()) {
+        println("result:" + res.result().getOutput)
+        readTestResult = ReadTestResult(true)
+      }
+      else {
+        println("read fail" + res.cause().getMessage)
+      }
+    })
+    readTestResult
+  }
+
+
   def getSha1(encryptStr: String): String = try {
     if (StringUtils.isNullOrEmpty(encryptStr)) return null
     //指定sha1算法
@@ -48,7 +68,7 @@ object JDBCLib {
 
   def accountCheck(JDBCClient: JDBCClient, account: String, password: String): AccountBaseData = {
     val passwordInTable = getSha1(password)
-    val sql = "SELECT * WHERE accountId=" + account + "FROM" + SqlConfig.accountBase
+    val sql = "SELECT * WHERE accountId=" + account + "FROM" + SqlConfig.accountBaseTable
     var ok = false
     var reasion = ""
 
@@ -58,24 +78,40 @@ object JDBCLib {
         println(resultSet)
       }
     })
-    AccountBaseData("", "", "", Some(1))
+    AccountBaseData("", "", "", "", -1)
   }
 
   //  case class AccountBaseData(accountId: String, password: String, nickname: String, phone: Option[Int])
 
-  case class CreateRes(ok: Boolean, reason: Reason)
+  case class CreateRes(ok: Boolean, reason: Reason) {
+    def toJSON: JSONObject = {
+      val theJsonBody: JSONObject = new JSONObject()
+      theJsonBody.put("ok", ok)
+      val reasonString = reason match {
+        case Reason.OK => "ok"
+        case Reason.NO_GOOD_PASSWORD => "NoGoodPassword"
+        case _ => "other"
+      }
+      theJsonBody.put("reason", reasonString)
+      theJsonBody
+    }
+  }
 
   def accountCreate(jc: JDBCClient, abd: AccountBaseData): CreateRes = {
 
-    val passwordInTable = getSha1(abd.password)
+
     var result: CreateRes = if (abd.password.forall(_.isLetterOrDigit)) CreateRes(false, Reason.NO_GOOD_PASSWORD) else CreateRes(false, Reason.OTHER)
 
-    val sql = "INSERT INTO " + SqlConfig.accountBase + SqlConfig.accountBaseInsertScheme + abd.genValue + ";"
+    val sql = "INSERT INTO " + SqlConfig.accountBaseTable + SqlConfig.accountBaseInsertScheme + abd.genValue + ";"
     jc.query(sql, res => {
       if (res.succeeded()) {
         result = CreateRes(true, Reason.OK)
+        println("create account ok")
       }
-      else result = CreateRes(false, Reason.ALREADY_EXIST)
+      else {
+        result = CreateRes(false, Reason.ALREADY_EXIST)
+        println("create fail:" + res.cause().getMessage)
+      }
     })
     result
   }
@@ -85,12 +121,12 @@ object JDBCLib {
     jc.query(sql, (qryRes: AsyncResult[ResultSet]) => {
       if (qryRes.succeeded) {
         val resultSet = qryRes.result
-        println(resultSet)
+        println("describe res:" + resultSet.getOutput)
       }
       else {
         println("TableNotFound:" + tableName)
         val cSql = SqlConfig.schemaMap(tableName)
-
+        println("Creating:" + cSql)
         jc.query(cSql, res => {
           if (res.succeeded()) {
             println("createTable:" + tableName + " ok")
@@ -102,7 +138,8 @@ object JDBCLib {
     )
   }
 
-  def tableCheckAllAndCreate(JDBCClient: JDBCClient) = {
+  def tableCheckAllAndCreate(JDBCClient: JDBCClient): Unit = {
+
     SqlConfig.schemaMap.keys.foreach(t =>
       tableCheckAndCreate(JDBCClient, t))
   }
