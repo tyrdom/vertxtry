@@ -12,23 +12,43 @@ import com.alibaba.fastjson.JSONObject
 import msgScheme.MsgScheme.CreateAccountResponse.Reason
 import msgScheme.MsgScheme._
 
-case class ConnectionMsg(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket)
+case class ConnectionMsg(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket, tempPassword: Int) {
+
+
+}
+
+object ConnectionMsg {
+  def genConnectMsgWithNoTempPassword(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket): ConnectionMsg = {
+    ConnectionMsg(accountId, position, status, serverWebSocket, -1)
+  }
+}
 
 object JDBCLib {
 
   case class ReadTestResult(ok: Boolean)
 
-  def readTest(JDBCClient: JDBCClient, where: String, value: String, table: String): ReadTestResult
+  def genWhereString(pairs: Seq[(String, String)]): String = {
+    val s = pairs.map(aPair => {
+      val where = aPair._1
+      val value = aPair._2
+      where + "=\"" + value + "\"" + " AND "
+    }).reduce(_ + _)
+    s.substring(0, s.length - 4)
+  }
+
+
+  def readSqlRow(JDBCClient: JDBCClient, wheres: String, values: String, table: String): ReadTestResult
   = {
     var readTestResult = ReadTestResult(false)
-    val sql = "SELECT * WHERE " + where + " = " + value + "FROM" + table
+    val sql = "SELECT * FROM " + table + " WHERE " + wheres + "=\"" + values + "\""
+
     JDBCClient.query(sql, res => {
       if (res.succeeded()) {
-        println("result:" + res.result().getOutput)
+        println("result:" + res.result().getRows)
         readTestResult = ReadTestResult(true)
       }
       else {
-        println("read fail" + res.cause().getMessage)
+        println("read fail:" + res.cause().getMessage)
       }
     })
     readTestResult
@@ -68,7 +88,7 @@ object JDBCLib {
 
   def accountCheck(JDBCClient: JDBCClient, account: String, password: String): AccountBaseData = {
     val passwordInTable = getSha1(password)
-    val sql = "SELECT * WHERE accountId=" + account + "FROM" + SqlConfig.accountBaseTable
+    val sql = "SELECT * WHERE accountId=" + account + " FROM " + SqlConfig.accountBaseTable
     var ok = false
     var reasion = ""
 
@@ -110,18 +130,18 @@ object JDBCLib {
       }
       else {
         result = CreateRes(false, Reason.ALREADY_EXIST)
-        println("create fail:" + res.cause().getMessage)
+        println("create account fail:" + res.cause().getMessage)
       }
     })
     result
   }
 
-  def tableCheckAndCreate(jc: JDBCClient, tableName: String): Unit = {
+  def tableCheckAndCreate(jc: JDBCClient, tableName: String): Boolean = {
     val sql = "DESCRIBE " + tableName
     jc.query(sql, (qryRes: AsyncResult[ResultSet]) => {
       if (qryRes.succeeded) {
         val resultSet = qryRes.result
-        println("describe res:" + resultSet.getOutput)
+        println("describe res:" + resultSet.getRows)
       }
       else {
         println("TableNotFound:" + tableName)
@@ -136,12 +156,14 @@ object JDBCLib {
       }
     }
     )
+    true
   }
 
-  def tableCheckAllAndCreate(JDBCClient: JDBCClient): Unit = {
+  def tableCheckAllAndCreate(JDBCClient: JDBCClient): Boolean = {
 
-    SqlConfig.schemaMap.keys.foreach(t =>
+    SqlConfig.schemaMap.keys.forall(t =>
       tableCheckAndCreate(JDBCClient, t))
+
   }
 
 

@@ -19,24 +19,24 @@ object SqlConfig {
   val password = "password"
   val nickname = "nickname"
   val phone = "phone"
-  val weChat = "wechat"
+  val weChat = "we_chat"
   val createTime = "create_time"
   val nickChangeTime = "nick_change_time"
   val accountBaseTableCreate: (String, String) = accountBaseTable -> (
-
-    "CREATE TABLE `" +
-//      database + "." +
-      accountBaseTable + "` ( " +
+    //    "DROP TABLE " + accountBaseTable +
+    " CREATE TABLE " +
+      //      database + "." +
+      accountBaseTable + " ( " +
       "`" + id + "` int(11) NOT NULL AUTO_INCREMENT,  " +
       "`" + accountId + "` varchar(20) NOT NULL, " +
       "`" + password + "` varchar(80) NOT NULL, " +
       " `" + nickname + "` varchar(20) NOT NULL, " +
       " `" + weChat + "` varchar(20)," +
-      " `" + phone + "` int(11)," +
+      " `" + phone + "` bigint(20)," +
       " `" + createTime + "`  datetime NOT NULL DEFAULT NOW()," +
       " `" + nickChangeTime + "`  datetime NOT NULL DEFAULT NOW()," +
-      " PRIMARY KEY (`id`)," +
-      " UNIQUE KEY `accountId` (`accountId`)) " +
+      " PRIMARY KEY (`" + id + "`)," +
+      " UNIQUE KEY `" + accountId + "` (`" + accountId + "`)) " +
       "ENGINE=InnoDB DEFAULT CHARSET=utf8 "
     )
 
