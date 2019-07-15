@@ -126,7 +126,7 @@ object JDBCLib {
       else {
         println("TableNotFound:" + tableName)
         val cSql = SqlConfig.schemaMap(tableName)
-        println("Creating:" + cSql)
+        println("Creating Table:" + tableName + "by Sql:" + cSql)
         jc.query(cSql, res => {
           if (res.succeeded()) {
             println("createTable:" + tableName + " ok")
