@@ -23,20 +23,19 @@ public class JdbcVerticle extends AbstractVerticle {
             } else {
 
                 System.out.println("查询数据库出错！" + qryRes.cause().getMessage() + "将创建新数据库");
-                if (qryRes.cause().getMessage().startsWith("Unknown")) {
-                    String createDBSql = "CREATE DATABASE " + SqlConfig.database() + ";";
-                    jdbcClient.query(createDBSql, resultSetAsyncResult -> {
-                        if (resultSetAsyncResult.succeeded()) {
 
+                String createDBSql = "CREATE DATABASE " + SqlConfig.database() + ";";
+                jdbcClient.query(createDBSql, resultSetAsyncResult -> {
+                    if (resultSetAsyncResult.succeeded()) {
 
-                            // 输出结果
-                            System.out.println("create ok:");
-                            initSqlProcess(jdbcClient, sql);
-                        } else {
-                            System.out.println("！！！数据库再次错误！！！" + resultSetAsyncResult.cause().getMessage());
-                        }
-                    });
-                }
+                        // 输出结果
+                        System.out.println("create database ok:");
+                        initSqlProcess(jdbcClient, sql);
+                    } else {
+                        System.out.println("！！！数据库再次错误！！！" + resultSetAsyncResult.cause().getMessage());
+                    }
+                });
+
             }
         });
 

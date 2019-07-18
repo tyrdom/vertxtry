@@ -50,11 +50,9 @@ public class HallVerticle extends AbstractVerticle {
 //             Now send back reply
 //
 //        });
-        eb.consumer("playerOffLineInHall", msg ->
-                playersInHall.remove(msg.body().toString()));
 
 
-        eb.consumer("player.inHall", msg -> {
+        eb.consumer(Channels.playerInHall(), msg -> {
             String who = msg.body().toString();
 
             if (!loginCancelPlayers.remove(who)) {
@@ -67,7 +65,7 @@ public class HallVerticle extends AbstractVerticle {
         });
 
         //房间发出的某玩家离开房间
-        eb.consumer("leftRoom", msg -> {
+        eb.consumer(Channels.leftRoom(), msg -> {
             JSONObject whoAndRoomIdAndReason = JSONObject.parseObject(msg.body().toString());
             String id = whoAndRoomIdAndReason.getString("id");
             Integer roomId = whoAndRoomIdAndReason.getInteger("room");
@@ -97,7 +95,7 @@ public class HallVerticle extends AbstractVerticle {
         });
 
         //房间发出，某玩家已经进入房间成功
-        eb.consumer("haveInRoom", msg -> {
+        eb.consumer(Channels.haveInRoom(), msg -> {
             JSONObject playerIdAndRoomId = JSONObject.parseObject(msg.body().toString());
             String playerId = playerIdAndRoomId.getString("id");
             String roomId = playerIdAndRoomId.getString("room");
@@ -107,12 +105,12 @@ public class HallVerticle extends AbstractVerticle {
             }
         });
 
-        eb.consumer("quitHall", msg -> {
+        eb.consumer(Channels.quitHall(), msg -> {
             playersInHall.remove(msg.body().toString());
 
         });
 
-        eb.consumer("cancelLogin", msg -> {
+        eb.consumer(Channels.cancelHallIn(), msg -> {
             JSONObject whoAndReason = JSONObject.parseObject(msg.body().toString());
 
             String who = whoAndReason.getString("id");
@@ -124,7 +122,7 @@ public class HallVerticle extends AbstractVerticle {
             }
         });
 
-        eb.consumer("cancelCreate", msg -> {
+        eb.consumer(Channels.cancelCreate(), msg -> {
                     JSONObject whoAndReason = JSONObject.parseObject(msg.body().toString());
 
                     String who = whoAndReason.getString("id");
@@ -151,7 +149,7 @@ public class HallVerticle extends AbstractVerticle {
                 }
         );
 
-        eb.consumer("createRoom", msg -> {
+        eb.consumer(Channels.createRoom(), msg -> {
             String Id = msg.body().toString();
             //在大厅的，并且不在掉线取消创建用户集中的，则去创建房间
             if (!createCancelPlayers.remove(Id) && playersInHall.containsKey(Id)) {
@@ -184,7 +182,7 @@ public class HallVerticle extends AbstractVerticle {
             }
 
         });
-        eb.consumer("cancelFind", msg -> {
+        eb.consumer(Channels.cancelFind(), msg -> {
             JSONObject whoAndReason = JSONObject.parseObject(msg.body().toString());
 
             String who = whoAndReason.getString("id");
@@ -203,7 +201,7 @@ public class HallVerticle extends AbstractVerticle {
             }
         });
 
-        eb.consumer("findRoom", msg ->
+        eb.consumer(Channels.findRoom(), msg ->
 
                 {
 

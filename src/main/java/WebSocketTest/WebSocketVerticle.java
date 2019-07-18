@@ -59,7 +59,7 @@ public class WebSocketVerticle extends AbstractVerticle {
         connectionMap.put(connectId, ConnectionMsg.genConnectMsgWithNoTempPassword("id", "loginHall", "free", someWebSocket));
 
         System.out.println("ws：发送进入大厅请求：" + connectId);
-        eb.send("player.inHall", connectId, ar -> {
+        eb.send(Channels.playerInHall(), connectId, ar -> {
                     if (ar.succeeded()) {
                         String who = ar.result().body().toString();
                         System.out.println("ws:收到进入大厅回复：" + who);
@@ -113,28 +113,28 @@ public class WebSocketVerticle extends AbstractVerticle {
 
                         String whoAndReasonMsg = whoAndReason.toJSONString();
                         if (playerPosition.startsWith("Room")) {
-                            eb.send("quit" + playerPosition, whoAndReasonMsg);
+                            eb.send(Channels.quitRoom() + playerPosition, whoAndReasonMsg);
                         } else
                             switch (connectionMap.get(id).position()) {
                                 case "loginHall":
-                                    eb.send("cancelLogin", whoAndReasonMsg);
+                                    eb.send(Channels.cancelHallIn(), whoAndReasonMsg);
                                     break;
                                 //如果状态已在大厅，直接发送id
                                 case "inHall":
-                                    eb.send("quitHall", id);
+                                    eb.send(Channels.quitHall(), id);
                                     break;
                                 case "creatingRoom":
-                                    eb.send("cancelCreate", whoAndReasonMsg);
+                                    eb.send(Channels.cancelCreate(), whoAndReasonMsg);
                                     break;
 
                                 case "findingRoom":
                                     //向大厅发送取消寻找，如果不是早于大厅的寻找流程，那么就会向房间发送退出消息
-                                    eb.send("cancelFind", whoAndReasonMsg,
+                                    eb.send(Channels.cancelFind(), whoAndReasonMsg,
                                             messageAsyncResult -> {
                                                 if (messageAsyncResult.succeeded())
                                                     if (!messageAsyncResult.result().body().equals("early")) {
                                                         String roomId = messageAsyncResult.result().body().toString();
-                                                        eb.send("quitRoom" + roomId, whoAndReasonMsg);
+                                                        eb.send(Channels.quitRoom() + "Room" + roomId, whoAndReasonMsg);
                                                     }
                                             }
 
@@ -143,7 +143,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 //在正在加入状态，说明在状态上保存了房间号，但是没有进入，通知该房间谁退出
                                 case "joiningRoom":
                                     String RoomId = connectionMap.get(id).status();
-                                    eb.send("quitRoom" + RoomId, whoAndReasonMsg);
+                                    eb.send(Channels.quitRoom() + "Room" + RoomId, whoAndReasonMsg);
                                     break;
 
                             }
@@ -192,7 +192,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                             if (connectionMap.get(connectEnsureID).position().equals("inHall")) {
                                 {
                                     connectionMap.put(connectEnsureID, ConnectionMsg.genConnectMsgWithNoTempPassword("", "creatingRoom", "free", webSocket));
-                                    eb.send("createRoom", connectEnsureID, ar ->
+                                    eb.send(Channels.createRoom(), connectEnsureID, ar ->
 
                                     {
                                         JSONObject crInfo =
@@ -226,13 +226,13 @@ public class WebSocketVerticle extends AbstractVerticle {
                             if (connectionMap.get(connectEnsureID).position().equals("inHall")) {
                                 connectionMap.put(connectEnsureID, ConnectionMsg.genConnectMsgWithNoTempPassword("sb", "findingRoom", "free", webSocket));
                                 //向大厅请求一个有位置的房间号
-                                eb.send("findRoom", connectEnsureID, messageAsyncResult -> {
+                                eb.send(Channels.findRoom(), connectEnsureID, messageAsyncResult -> {
                                     if (messageAsyncResult.succeeded() && !messageAsyncResult.result().body().equals("fail")) {
 
                                         String roomId = messageAsyncResult.result().body().toString();
                                         //请求到房间成功后，开始进入房间
                                         connectionMap.put(connectEnsureID, ConnectionMsg.genConnectMsgWithNoTempPassword("", "joiningRoom", roomId, webSocket));
-                                        eb.send("joinRoom" + roomId, connectEnsureID, messageAsyncResult1 -> {
+                                        eb.send(Channels.joinRoomNum() + roomId, connectEnsureID, messageAsyncResult1 -> {
                                             //房间回复ok，则记录在房间的状态
                                             if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
                                                 byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.JoinRoom_Response).setJoinRoomResponse(MsgScheme.JoinRoomResponse.newBuilder().setRoomId(Integer.valueOf(roomId))).build().toByteArray();
@@ -263,7 +263,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 whoAndReason.put("id", connectEnsureID);
                                 whoAndReason.put("reason", "normal");
                                 String whoAndReasonMsg = whoAndReason.toJSONString();
-                                eb.send("quit" + connectionMap.get(connectEnsureID).position(), whoAndReasonMsg);
+                                eb.send(Channels.quitRoom() + connectionMap.get(connectEnsureID).position(), whoAndReasonMsg);
                                 goHallProcess(connectEnsureID, webSocket, eb);
 
                                 byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.QuitRoom_Response).setQuitRoomResponse(MsgScheme.QuitRoomResponse.newBuilder()).build().toByteArray();

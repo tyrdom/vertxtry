@@ -32,7 +32,7 @@ public class RoomVerticle extends AbstractVerticle {
         EventBus eb = vertx.eventBus();
 
 
-        eb.consumer("quitRoom" + roomId, msg -> {
+        eb.consumer(Channels.quitRoom() + "Room" + roomId, msg -> {
             JSONObject whoAndReason = JSONObject.parseObject(msg.body().toString());
 
             String who = whoAndReason.getString("id");
@@ -47,22 +47,22 @@ public class RoomVerticle extends AbstractVerticle {
             if (roomStatus.equals("standBy")) {
                 if (players.containsKey(who)) {
                     players.remove(who);
-                    eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
-                    //如果在待命状态 则把先到退出消息加入
+                    eb.send(Channels.leftRoom(), whoAndRoomIdAndReasonMsg);
+                    //如果在待命状态,人没有进入 则把先到退出消息加入
                 } else {
                     somebodyWantToQuit.add(who);
-                    eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
+                    eb.send(Channels.leftRoom(), whoAndRoomIdAndReasonMsg);
                 }
 
             } else {
                 //TODO 重连 将不发出leftRoom消息，等待账号重连
                 players.remove(who);
-                eb.send("leftRoom", whoAndRoomIdAndReasonMsg);
+                eb.send(Channels.leftRoom(), whoAndRoomIdAndReasonMsg);
             }
 
         });
 
-        eb.consumer("joinRoom" + roomId, msg -> {
+        eb.consumer(Channels.joinRoomNum() + roomId, msg -> {
             String who = msg.body().toString();
             JSONObject playerIdAndRoomId = new JSONObject();
             playerIdAndRoomId.put("id", who);
@@ -73,7 +73,7 @@ public class RoomVerticle extends AbstractVerticle {
                 if (players.size() < maxPlayer) {
                     players.put(who, "standBy");
                     msg.reply("ok");
-                    eb.send("haveInRoom", sendMsg);
+                    eb.send(Channels.haveInRoom(), sendMsg);
                     if (players.size() == maxPlayer) {
                         roomStatus = "full";
                     } else if (players.size() > maxPlayer) {
@@ -87,7 +87,7 @@ public class RoomVerticle extends AbstractVerticle {
             msg.reply("fail");
         });
 
-        eb.consumer("readyRoom" + roomId, msg ->
+        eb.consumer(Channels.readyRoom() + roomId, msg ->
 
         {
             String who = msg.body().toString();
