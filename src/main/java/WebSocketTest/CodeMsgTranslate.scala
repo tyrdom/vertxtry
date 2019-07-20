@@ -12,30 +12,28 @@ object CodeMsgTranslate {
 
   def encode(head: Head, body: JSONObject): Array[Byte] = (head, body) match {
     case (Head.Login_Response, somebody) =>
-      val ok = somebody.getBoolean("ok")
+
       val reasonString = somebody.getString("reason")
       val reason = reasonString match {
-        case "ok" => LoginResponse.Reason.OK
-        case "accountNotExist" => LoginResponse.Reason.ACCOUNT_NOT_EXIST
-        case "wrongPassword" => LoginResponse.Reason.WRONG_PASSWORD
+        case x if x == LoginResponse.Reason.OK.toString => LoginResponse.Reason.OK
+        case x if x== LoginResponse.Reason.WRONG_PASSWORD.toString => LoginResponse.Reason.WRONG_PASSWORD
         case _ => LoginResponse.Reason.OTHER
       }
-      println("encode:" + ok)
-      val bodyBuilder = LoginResponse.newBuilder().setOk(ok).setReason(reason)
+      println("encode:" + reason)
+      val bodyBuilder = LoginResponse.newBuilder().setReason(reason)
       val msgBuilder = AMsg.newBuilder().setHead(head).setLoginResponse(bodyBuilder)
       val code = msgBuilder.build().toByteArray
       code
     //TODO 其他的答复encode在这里加
 
     case (Head.CreateAccount_Response, sb) =>
-      val ok = sb.getBoolean("ok")
       val reasonString = sb.getString("reason")
       val reason = reasonString match {
-        case "ok" => CreateAccountResponse.Reason.OK
-        case "NoGoodPassword" => CreateAccountResponse.Reason.NO_GOOD_PASSWORD
+        case x if x == CreateAccountResponse.Reason.OK.toString => CreateAccountResponse.Reason.OK
+        case x if x == CreateAccountResponse.Reason.NO_GOOD_PASSWORD.toString => CreateAccountResponse.Reason.NO_GOOD_PASSWORD
         case _ => CreateAccountResponse.Reason.OTHER
       }
-      val bb = CreateAccountResponse.newBuilder().setOk(ok).setReason(reason)
+      val bb = CreateAccountResponse.newBuilder().setReason(reason)
       val mb = AMsg.newBuilder().setHead(head).setCreateAccountResponse(bb)
       mb.build().toByteArray
     //test用 ok
@@ -107,9 +105,9 @@ object CodeMsgTranslate {
       //      Login_Request(AMsg.Head.Login_Request,uid,password)
       case (Head.Login_Response, someBody) =>
         val theJSBody = new JSONObject()
-        val ok = someBody.getLoginResponse.getOk
+        val reason = someBody.getLoginResponse.getReason
 
-        theJSBody.put("ok", ok)
+        theJSBody.put("reason", reason)
         (head, theJSBody)
 
       //        message CreateRoomRequest {

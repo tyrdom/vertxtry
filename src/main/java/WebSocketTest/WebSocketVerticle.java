@@ -167,7 +167,6 @@ public class WebSocketVerticle extends AbstractVerticle {
                     ServerWebSocket responseWebSocket = connectionMap.get(connectEnsureID).serverWebSocket();
                     switch (head) {
                         case CreateAccount_Request:
-
                             eb.send(Channels.createAccount(), body.toJSONString(), messageAsyncResult -> {
                                 JSONObject resBody = JSONObject.parseObject(messageAsyncResult.result().body().toString());
                                 byte[] createAccountRespBin = CodeMsgTranslate.encode(MsgScheme.AMsg.Head.CreateAccount_Response, resBody);
@@ -178,6 +177,8 @@ public class WebSocketVerticle extends AbstractVerticle {
                             String password = body.getString("password");
                             System.out.println("收到登录消息" + "accountId:" + accountId + "===password:" + password);
                             eb.send(Channels.loginGame(), body.toJSONString(), messageAsyncResult -> {
+                                JSONObject resBody = JSONObject.parseObject(messageAsyncResult.result().body().toString());
+
                             });
                             //TODO 登陆处理
 

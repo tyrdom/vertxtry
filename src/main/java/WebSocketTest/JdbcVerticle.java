@@ -3,7 +3,11 @@ package WebSocketTest;
 import com.alibaba.fastjson.JSONObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
+import msgScheme.MsgScheme;
+
+import java.util.List;
 
 public class JdbcVerticle extends AbstractVerticle {
     private void initSqlProcess(JDBCClient jdbcClient, String sql) {
@@ -17,17 +21,30 @@ public class JdbcVerticle extends AbstractVerticle {
                 System.out.println("use ok");
 
                 JDBCLib.tableCheckAllAndCreate(jdbcClient);
-                if (!JDBCLib.readSqlRow(jdbcClient, SqlConfig.accountId(), SqlConfig.testARow().accountId(), SqlConfig.accountBaseTable()).ok()) {
-                    JDBCLib.accountCreate(jdbcClient, SqlConfig.testARow());
-                }
+                String readSql = JDBCLib.readSqlStringARowBy1Limit(SqlConfig.account_id(), SqlConfig.testARow().accountId(), SqlConfig.account_base_table());
+                jdbcClient.query(readSql, qRes -> {
+                            if (qRes.succeeded()) {
+                                if (qRes.result().getRows().isEmpty()) {
+                                    SqlConfig.AccountBaseData testARow = SqlConfig.testARow();
+                                    String s = testARow.accountCreateSqlString();
+                                    jdbcClient.query(s, res ->
+                                    {
+                                        if (res.succeeded()) {
+                                            System.out.println("=======testCreateOk=======");
+                                        } else System.out.println("==========test account fail!============");
+                                    });
+                                } else System.out.println("read test ok:" + qRes.result().getRows());
+                            } else System.out.println("======testAccountReadFail!!!!============");
+                        }
+                );
+
             } else {
 
                 System.out.println("查询数据库出错！" + qryRes.cause().getMessage() + "将创建新数据库");
 
-                String createDBSql = "CREATE DATABASE " + SqlConfig.database() + ";";
+                String createDBSql = "CREATE DATABASE " + SqlConfig.database();
                 jdbcClient.query(createDBSql, resultSetAsyncResult -> {
                     if (resultSetAsyncResult.succeeded()) {
-
                         // 输出结果
                         System.out.println("create database ok:");
                         initSqlProcess(jdbcClient, sql);
@@ -35,11 +52,8 @@ public class JdbcVerticle extends AbstractVerticle {
                         System.out.println("！！！数据库再次错误！！！" + resultSetAsyncResult.cause().getMessage());
                     }
                 });
-
             }
         });
-
-
     }
 
     @Override
@@ -61,6 +75,15 @@ public class JdbcVerticle extends AbstractVerticle {
             String accountId = accountAndPassword.getString("accountId");
             String password = accountAndPassword.getString("password");
 
+
+            String s = JDBCLib.accountCheckSqlString(accountId, password);
+            jdbcClient.query(s, res -> {
+                if (res.succeeded()) {
+                    msg.reply(MsgScheme.LoginResponse.Reason.OK.toString());
+                } else {
+                    msg.reply(MsgScheme.LoginResponse.Reason.WRONG_PASSWORD.toString());
+                }
+            });
         });
 
         eb.consumer(Channels.createAccount(), msg ->
@@ -71,8 +94,21 @@ public class JdbcVerticle extends AbstractVerticle {
             String password = createAccountMsg.getString("password");
             String weChat = createAccountMsg.getString("weChat");
             Long phone = createAccountMsg.getLong("phone");
-            JDBCLib.CreateRes createRes = JDBCLib.accountCreate(jdbcClient, new SqlConfig.AccountBaseData(accountId, password, accountId, weChat, phone));
-            msg.reply(createRes.toJSON().toJSONString());
+            System.out.println("creating Account Msg OK");
+            boolean passOk = JDBCLib.passwordSchemeCheck(password);
+            if (passOk) {
+                SqlConfig.AccountBaseData accountBaseData = new SqlConfig.AccountBaseData(accountId, password, "", weChat, phone);
+                String cSql = accountBaseData.accountCreateSqlString();
+                jdbcClient.query(cSql, res -> {
+                    if (res.succeeded()) {
+                        List<JsonObject> rows = res.result().getRows();
+                        System.out.println("create ok:" + rows);
+                        msg.reply(MsgScheme.CreateAccountResponse.Reason.OK.toString());
+                    } else {
+                        msg.reply(MsgScheme.CreateAccountResponse.Reason.OTHER.toString());
+                    }
+                });
+            } else msg.reply(MsgScheme.CreateAccountResponse.Reason.NO_GOOD_PASSWORD.toString());
         });
     }
 }

@@ -61,14 +61,14 @@ message CreateAccountRequest {
     int32 phone = 4;
 }
 message CreateAccountResponse {
-    bool ok = 1;
+
     enum Reason {
         OK = 0;
         ALREADY_EXIST = 1;
         NO_GOOD_PASSWORD = 2;
         OTHER = 3;
     }
-    Reason reason = 2;
+    Reason reason = 1;
 }
 
 message UndefinedMsg {
@@ -91,14 +91,13 @@ message LoginRequest {
 }
 
 message LoginResponse {
-    bool ok = 1;
+
     enum Reason {
         OK = 0;
         WRONG_PASSWORD = 1;
-        ACCOUNT_NOT_EXIST = 2;
-        OTHER = 3;
+        OTHER = 2;
     }
-    Reason reason = 2;
+    Reason reason = 1;
 }
 message CreateRoomRequest {
 }
