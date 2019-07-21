@@ -19,4 +19,5 @@ object Channels {
   val cancelCreate = "cancelCreate"
   val cancelFind = "cancelFind"
   val playerInHall = "player.inHall"
+
 }

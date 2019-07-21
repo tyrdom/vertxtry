@@ -16,7 +16,7 @@ object CodeMsgTranslate {
       val reasonString = somebody.getString("reason")
       val reason = reasonString match {
         case x if x == LoginResponse.Reason.OK.toString => LoginResponse.Reason.OK
-        case x if x== LoginResponse.Reason.WRONG_PASSWORD.toString => LoginResponse.Reason.WRONG_PASSWORD
+        case x if x == LoginResponse.Reason.WRONG_PASSWORD.toString => LoginResponse.Reason.WRONG_PASSWORD
         case _ => LoginResponse.Reason.OTHER
       }
       println("encode:" + reason)

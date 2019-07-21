@@ -107,7 +107,7 @@ object JDBCLib {
 
   def passwordSchemeCheck(password: String): Boolean = password.length <= 12 && password.length >= 6 && password.forall(_.isLetterOrDigit)
 
-  def tableCheckAndCreate(jc: JDBCClient, tableName: String): Boolean = {
+  def tableCheckAndCreate(jc: JDBCClient, tableName: String): Unit = {
     val sql = "DESCRIBE " + tableName
     jc.query(sql, (qryRes: AsyncResult[ResultSet]) => {
       if (qryRes.succeeded) {
@@ -127,11 +127,10 @@ object JDBCLib {
       }
     }
     )
-    true
   }
 
-  def tableCheckAllAndCreate(JDBCClient: JDBCClient): Boolean = {
-    SqlConfig.schemaMap.keys.forall(t =>
+  def tableCheckAllAndCreate(JDBCClient: JDBCClient): Unit = {
+    SqlConfig.schemaMap.keys.foreach(t =>
       tableCheckAndCreate(JDBCClient, t))
   }
 }
