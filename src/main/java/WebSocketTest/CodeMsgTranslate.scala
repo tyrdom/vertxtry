@@ -25,12 +25,23 @@ object CodeMsgTranslate {
       val code = msgBuilder.build().toByteArray
       code
     //TODO 其他的答复encode在这里加
+    case (Head.Error_Response, sb) =>
+      val reason = sb.getString("reason")
+      val bdb = ErrorResponse.newBuilder().setReason(reason)
+      val msg = AMsg.newBuilder().setHead(head).setErrorResponse(bdb)
+      msg.build().toByteArray
+    case (Head.Test_Response, sb) =>
+      val text = sb.getString("testText")
+      val bdb = TestResponse.newBuilder().setTestText(text)
+      val msg = AMsg.newBuilder().setHead(head).setTestResponse(bdb)
+      msg.build().toByteArray
 
     case (Head.CreateAccount_Response, sb) =>
       val reasonString = sb.getString("reason")
       val reason = reasonString match {
         case x if x == CreateAccountResponse.Reason.OK.toString => CreateAccountResponse.Reason.OK
         case x if x == CreateAccountResponse.Reason.NO_GOOD_PASSWORD.toString => CreateAccountResponse.Reason.NO_GOOD_PASSWORD
+        case x if x == CreateAccountResponse.Reason.ALREADY_EXIST.toString => CreateAccountResponse.Reason.ALREADY_EXIST
         case _ => CreateAccountResponse.Reason.OTHER
       }
       val bb = CreateAccountResponse.newBuilder().setReason(reason)
@@ -38,7 +49,6 @@ object CodeMsgTranslate {
       mb.build().toByteArray
     //test用 ok
     case (Head.Login_Request, somebody) =>
-
       val userId = somebody.getString("userId")
       val password = somebody.getString("password")
       val bodyBuilder = LoginRequest.newBuilder().setAccountId(userId).setPassword(password)
@@ -78,6 +88,13 @@ object CodeMsgTranslate {
     val head = msg.getHead
     //    println(head)
     val jsonObj = (head, msg) match {
+
+      case (Head.Test_Request, someMsg) =>
+        val text = someMsg.getTestRequest.getTestText
+        val theJob = new JSONObject()
+        theJob.put("testText", text)
+        (head, theJob)
+
       case (Head.CreateAccount_Request, someMsg) =>
         val accountId = someMsg.getCreateAccountRequest.getAccountId
         val password = someMsg.getCreateAccountRequest.getPassword

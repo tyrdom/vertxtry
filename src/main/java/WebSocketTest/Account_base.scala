@@ -1,9 +1,12 @@
 package WebSocketTest
 
 //想办法自动化写这些代码
-object SqlConfig {
-
+object Database{
   val database = "test_server"
+}
+object Account_base {
+
+
 
   val account_base_table = "account_base"
 
@@ -56,7 +59,7 @@ object SqlConfig {
 
     def accountCreateSqlString: String = {
 
-      val sql = "INSERT INTO " + SqlConfig.account_base_table + SqlConfig.accountBaseInsertScheme + this.genValue + ";"
+      val sql = "INSERT INTO " + Account_base.account_base_table + Account_base.accountBaseInsertScheme + this.genValue + ";"
       sql
     }
 

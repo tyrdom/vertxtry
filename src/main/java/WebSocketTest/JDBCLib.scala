@@ -2,7 +2,7 @@ package WebSocketTest
 
 import java.security.MessageDigest
 
-import WebSocketTest.SqlConfig.AccountBaseData
+import WebSocketTest.Account_base.AccountBaseData
 import com.mysql.cj.util.StringUtils
 import io.vertx.core.AsyncResult
 import io.vertx.core.http.ServerWebSocket
@@ -14,7 +14,20 @@ import msgScheme.MsgScheme.CreateAccountResponse.Reason
 import scala.collection.JavaConverters._
 
 
+//case class ConnectionKey(socketId: String, accountId: String)
+
 case class ConnectionMsg(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket, tempPassword: Int) {
+  def ChangeAccountId(newAccountId: String): ConnectionMsg = {
+    ConnectionMsg(accountId = newAccountId, position = this.position, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+  }
+
+  def ChangePosition(NewPosition: String): ConnectionMsg = {
+    ConnectionMsg(accountId = this.accountId, position = NewPosition, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+  }
+
+  def ChangeStatus(newStatus: String): ConnectionMsg = {
+    ConnectionMsg(accountId = this.accountId, position = this.position, status = newStatus, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+  }
 }
 
 object ConnectionMsg {
@@ -39,14 +52,14 @@ object JDBCLib {
   def readSqlByMultiLimit(pairs: Seq[(String, String)], table: String): String
   = {
 
-    val sql = "SELECT * FROM " + SqlConfig.database + "." + table + " WHERE " + genWhereString(pairs)
+    val sql = "SELECT * FROM " + Database.database + "." + table + " WHERE " + genWhereString(pairs)
     sql
   }
 
   def readSqlStringARowBy1Limit(wheres: String, values: String, table: String): String
   = {
 
-    val sql = "SELECT * FROM " + SqlConfig.database + "." + table + " WHERE " + wheres + "=\"" + values + "\"" + " LIMIT 1"
+    val sql = "SELECT * FROM " + Database.database + "." + table + " WHERE " + wheres + "=\"" + values + "\"" + " LIMIT 1"
     sql
   }
 
@@ -84,7 +97,7 @@ object JDBCLib {
 
   def accountCheckSqlString(account: String, password: String): String = {
     val passwordInTable = getSha1(password)
-    readSqlByMultiLimit(Seq((SqlConfig.account_id, account), (SqlConfig.password, passwordInTable)), SqlConfig.account_base_table)
+    readSqlByMultiLimit(Seq((Account_base.account_id, account), (Account_base.password, passwordInTable)), Account_base.account_base_table)
 
   }
 
@@ -104,6 +117,7 @@ object JDBCLib {
     }
   }
 
+  def accountIdSchemeCheck(password: String): Boolean = password.length <= 15 && password.length >= 3 && password.forall(_.isLetterOrDigit)
 
   def passwordSchemeCheck(password: String): Boolean = password.length <= 12 && password.length >= 6 && password.forall(_.isLetterOrDigit)
 
@@ -116,7 +130,7 @@ object JDBCLib {
       }
       else {
         println("TableNotFound:" + tableName)
-        val cSql = SqlConfig.schemaMap(tableName)
+        val cSql = Account_base.schemaMap(tableName)
         println("Creating Table:" + tableName + "by Sql:" + cSql)
         jc.query(cSql, res => {
           if (res.succeeded()) {
@@ -130,7 +144,7 @@ object JDBCLib {
   }
 
   def tableCheckAllAndCreate(JDBCClient: JDBCClient): Unit = {
-    SqlConfig.schemaMap.keys.foreach(t =>
+    Account_base.schemaMap.keys.foreach(t =>
       tableCheckAndCreate(JDBCClient, t))
   }
 }

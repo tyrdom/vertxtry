@@ -20,6 +20,7 @@ public class HallVerticle extends AbstractVerticle {
     //玩家id，玩家状态：standBy：大厅待命
     //                  房间号：找到了房号正在进入某房间
     private Map<String, String> playersInHall = new HashMap<>(16);
+
     //所有房间的信息 房间id，创建者，人数，verticleId
     private Map<Integer, Triplet<String, Integer, String>> rooms = new HashMap<>(16);
     private Integer roomId = 1;

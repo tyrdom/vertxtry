@@ -56,16 +56,16 @@ message AMsg {
         CreateAccountRequest createAccountRequest = 15;
         CreateAccountResponse createAccountResponse = 16;
 
-        TestRequest testRequest=17;
+        TestRequest testRequest = 17;
         TestResponse testResponse = 18;
     }
 
 }
-message TestRequest{
-    string testText =1;
+message TestRequest {
+    string testText = 1;
 }
-message TestResponse{
-    string testText =2;
+message TestResponse {
+    string testText = 1;
 }
 
 message CreateAccountRequest {
@@ -80,7 +80,7 @@ message CreateAccountResponse {
         OK = 0;
         ALREADY_EXIST = 1;
         NO_GOOD_PASSWORD = 2;
-        OTHER = 3;
+        OTHER = 4;
     }
     Reason reason = 1;
 }

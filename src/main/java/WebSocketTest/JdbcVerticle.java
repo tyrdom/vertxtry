@@ -21,11 +21,11 @@ public class JdbcVerticle extends AbstractVerticle {
                 System.out.println("use ok");
 
                 JDBCLib.tableCheckAllAndCreate(jdbcClient);
-                String readSql = JDBCLib.readSqlStringARowBy1Limit(SqlConfig.account_id(), SqlConfig.testARow().accountId(), SqlConfig.account_base_table());
+                String readSql = JDBCLib.readSqlStringARowBy1Limit(Account_base.account_id(), Account_base.testARow().accountId(), Account_base.account_base_table());
                 jdbcClient.query(readSql, qRes -> {
                             if (qRes.succeeded()) {
                                 if (qRes.result().getRows().isEmpty()) {
-                                    SqlConfig.AccountBaseData testARow = SqlConfig.testARow();
+                                    Account_base.AccountBaseData testARow = Account_base.testARow();
                                     String s = testARow.accountCreateSqlString();
                                     jdbcClient.query(s, res ->
                                     {
@@ -42,7 +42,7 @@ public class JdbcVerticle extends AbstractVerticle {
 
                 System.out.println("查询数据库出错！" + qryRes.cause().getMessage() + "将创建新数据库");
 
-                String createDBSql = "CREATE DATABASE " + SqlConfig.database();
+                String createDBSql = "CREATE DATABASE " + Database.database();
                 jdbcClient.query(createDBSql, resultSetAsyncResult -> {
                     if (resultSetAsyncResult.succeeded()) {
                         // 输出结果
@@ -60,7 +60,7 @@ public class JdbcVerticle extends AbstractVerticle {
     public void start() throws Exception {
 // 获取到数据库连接的客户端
         JDBCClient jdbcClient = new JdbcUtils(vertx).getDbClient();
-        String sql = "USE " + SqlConfig.database() + ";";
+        String sql = "USE " + Database.database() + ";";
         // 构造参数
 //        JsonArray params = new JsonArray().add(18);
         // 执行查询
@@ -79,9 +79,9 @@ public class JdbcVerticle extends AbstractVerticle {
             String s = JDBCLib.accountCheckSqlString(accountId, password);
             jdbcClient.query(s, res -> {
                 if (res.succeeded()) {
-                    msg.reply(MsgScheme.LoginResponse.Reason.OK.toString());
+                    msg.reply(new JsonObject().put("reason", MsgScheme.LoginResponse.Reason.OK.toString()));
                 } else {
-                    msg.reply(MsgScheme.LoginResponse.Reason.WRONG_PASSWORD.toString());
+                    msg.reply(new JsonObject().put("reason", MsgScheme.LoginResponse.Reason.WRONG_PASSWORD.toString()));
                 }
             });
         });
@@ -94,20 +94,35 @@ public class JdbcVerticle extends AbstractVerticle {
             String password = createAccountMsg.getString("password");
             String weChat = createAccountMsg.getString("weChat");
             Long phone = createAccountMsg.getLong("phone");
-            System.out.println("creating Account Msg OK");
+            System.out.println("creating Account Msg OK:" + accountId + password);
             boolean passOk = JDBCLib.passwordSchemeCheck(password);
-            if (passOk) {
-                SqlConfig.AccountBaseData accountBaseData = new SqlConfig.AccountBaseData(accountId, password, "", weChat, phone);
-                String cSql = accountBaseData.accountCreateSqlString();
-                jdbcClient.query(cSql, res -> {
+            boolean accountOk = JDBCLib.accountIdSchemeCheck(accountId);
+            if (passOk && accountOk) {
+                Account_base.AccountBaseData accountBaseData = new Account_base.AccountBaseData(accountId, password, accountId, weChat, phone);
+                String checkSql = JDBCLib.readSqlStringARowBy1Limit(Account_base.account_id(), accountBaseData.accountId(), Account_base.account_base_table());
+
+                jdbcClient.query(checkSql, res -> {
                     if (res.succeeded()) {
-                        List<JsonObject> rows = res.result().getRows();
-                        System.out.println("create ok:" + rows);
-                        msg.reply(MsgScheme.CreateAccountResponse.Reason.OK.toString());
+                        if (res.result().getRows().isEmpty()) {
+                            System.out.println("creating!!!!");
+                            String createSql = accountBaseData.accountCreateSqlString();
+                            jdbcClient.query(createSql, res1 -> {
+                                if (res1.succeeded()) {
+                                    System.out.println("create ok!!!!");
+                                    msg.reply(new JsonObject().put("reason", MsgScheme.CreateAccountResponse.Reason.OK.toString()));
+                                } else {
+                                    msg.reply(new JsonObject().put("reason", MsgScheme.CreateAccountResponse.Reason.OTHER.toString()));
+                                }
+                            });
+                        } else {
+                            System.out.println("already exist!!!");
+                            msg.reply(new JsonObject().put("reason", MsgScheme.CreateAccountResponse.Reason.ALREADY_EXIST.toString()));
+                        }
                     } else {
-                        msg.reply(MsgScheme.CreateAccountResponse.Reason.OTHER.toString());
+                        msg.reply(new JsonObject().put("reason", MsgScheme.CreateAccountResponse.Reason.OTHER.toString()));
                     }
                 });
+
             } else msg.reply(MsgScheme.CreateAccountResponse.Reason.NO_GOOD_PASSWORD.toString());
         });
     }
