@@ -74,20 +74,24 @@ public class JdbcVerticle extends AbstractVerticle {
             JSONObject accountAndPassword = JSONObject.parseObject(msg.body().toString());
             String accountId = accountAndPassword.getString("accountId");
             String password = accountAndPassword.getString("password");
-
-
             String s = JDBCLib.accountCheckSqlString(accountId, password);
             jdbcClient.query(s, res -> {
-                if (res.succeeded()) {
-                    msg.reply(new JsonObject().put("reason", MsgScheme.LoginResponse.Reason.OK.toString()));
+                if (res.succeeded() && !res.result().getRows().isEmpty()) {
+
+                    JsonObject entries = res.result().getRows().get(0);
+                    String nickname = entries.getString("nickname");
+                    System.out.println("get from db!!!!!!!" + entries);
+                    JsonObject jsonObject = new JsonObject().put("reason", MsgScheme.LoginResponse.Reason.OK.toString()).put("nickname", nickname);
+
+                    msg.reply(jsonObject);
                 } else {
-                    msg.reply(new JsonObject().put("reason", MsgScheme.LoginResponse.Reason.WRONG_PASSWORD.toString()));
+
+                    msg.reply(new JsonObject().put("reason", MsgScheme.LoginResponse.Reason.WRONG_PASSWORD.toString()).put("nickname", ""));
                 }
             });
         });
 
         eb.consumer(Channels.createAccount(), msg ->
-
         {
             JSONObject createAccountMsg = JSONObject.parseObject(msg.body().toString());
             String accountId = createAccountMsg.getString("accountId");
@@ -100,7 +104,6 @@ public class JdbcVerticle extends AbstractVerticle {
             if (passOk && accountOk) {
                 Account_base.AccountBaseData accountBaseData = new Account_base.AccountBaseData(accountId, password, accountId, weChat, phone);
                 String checkSql = JDBCLib.readSqlStringARowBy1Limit(Account_base.account_id(), accountBaseData.accountId(), Account_base.account_base_table());
-
                 jdbcClient.query(checkSql, res -> {
                     if (res.succeeded()) {
                         if (res.result().getRows().isEmpty()) {
@@ -123,7 +126,8 @@ public class JdbcVerticle extends AbstractVerticle {
                     }
                 });
 
-            } else msg.reply(MsgScheme.CreateAccountResponse.Reason.NO_GOOD_PASSWORD.toString());
+            } else
+                msg.reply(new JsonObject().put("reason", MsgScheme.CreateAccountResponse.Reason.NO_GOOD_PASSWORD.toString()));
         });
     }
 }

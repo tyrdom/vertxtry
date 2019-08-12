@@ -9,10 +9,8 @@ message AMsg {
 
         Error_Response = 3;
 
-
         Test_Request = 5;
         Test_Response = 6;
-
 
         Login_Request = 100001;
         Login_Response = 100002;
@@ -31,6 +29,9 @@ message AMsg {
 
         ChangeNickname_Request = 100011;
         ChangeNickname_Response = 100012;
+
+        RoomPlayerStatus_Broadcast = 100013;
+        HallPlayerStatus_Broadcast = 100014;
     }
     Head head = 1;
 
@@ -58,9 +59,41 @@ message AMsg {
 
         TestRequest testRequest = 17;
         TestResponse testResponse = 18;
+
+        RoomPlayerStatusBroadcast roomPlayerStatusBroadcast = 19;
+        HallPlayersStatusBroadcast hallPlayersStatusBroadcast = 20;
     }
 
 }
+message HallPlayersStatusBroadcast {
+    repeated OnePlayerInHall onePlayer = 1;
+    message OnePlayerInHall {
+        string nickName = 1;
+        Status status = 2;
+        enum Status {
+            STANDBY = 0;
+            DO_NOT_CALL = 1;
+        }
+    }
+}
+message RoomPlayerStatusBroadcast {
+    repeated OnePlayerInRoom playerStatusList = 1;
+    message OnePlayerInRoom {
+        int32 tempId = 1;
+        string nickName = 2;
+        Status status = 3;
+        enum Status {
+            STANDBY = 0;
+            OFFLINE = 1;
+            GAMING = 2;
+            READY = 3;
+        }
+        //        bool isYou = 4;
+    }
+    int32 yourTempId = 3;
+
+}
+
 message TestRequest {
     string testText = 1;
 }
@@ -97,7 +130,6 @@ message UndefinedResponse {
 
 }
 
-
 message LoginRequest {
     string accountId = 1;
     string password = 2;
@@ -112,7 +144,10 @@ message LoginResponse {
         OTHER = 2;
     }
     Reason reason = 1;
+    string nickname = 2;
 }
+
+
 message CreateRoomRequest {
 }
 message CreateRoomResponse {
@@ -126,7 +161,6 @@ message JoinRoomRequest {
 }
 
 message JoinRoomResponse {
-
     int32 roomId = 1;
 }
 
@@ -139,5 +173,11 @@ message QuitRoomResponse {
 }
 
 message ErrorResponse {
-    string reason = 1;
+    ErrorType errorType = 1;
+    string reason = 2;
+    enum ErrorType {
+        UNKNOWN = 0;
+        NO_ROOM_TO_JOIN = 1;
+        OTHER_LOGIN=2;
+    }
 }

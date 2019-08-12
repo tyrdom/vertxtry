@@ -2,12 +2,15 @@ package WebSocketTest
 
 import com.alibaba.fastjson.JSONObject
 import msgScheme.MsgScheme.AMsg.Head
+import msgScheme.MsgScheme.ErrorResponse.ErrorType
 import msgScheme.MsgScheme._
 
 //由于vert.x常用JSONString传送数据，所以把body 以JSON格式encode decode
 object CodeMsgTranslate {
 
-  def genErrorBytes(reason: String): Array[Byte] = AMsg.newBuilder().setHead(Head.Error_Response).setErrorResponse(ErrorResponse.newBuilder().setReason(reason)).build().toByteArray
+  def genErrorBytes(reason: String): Array[Byte] = AMsg.newBuilder().setHead(Head.Error_Response).setErrorResponse(ErrorResponse.newBuilder().setErrorType(ErrorResponse.ErrorType.UNKNOWN).setReason(reason)).build().toByteArray
+
+  def genErrorBytes(errorType: ErrorType, reason: String): Array[Byte] = AMsg.newBuilder().setHead(Head.Error_Response).setErrorResponse(ErrorResponse.newBuilder().setErrorType(errorType).setReason(reason)).build().toByteArray
 
 
   def encode(head: Head, body: JSONObject): Array[Byte] = (head, body) match {
@@ -20,7 +23,8 @@ object CodeMsgTranslate {
         case _ => LoginResponse.Reason.OTHER
       }
       println("encode:" + reason)
-      val bodyBuilder = LoginResponse.newBuilder().setReason(reason)
+      val nickname = somebody.getString("nickname")
+      val bodyBuilder = LoginResponse.newBuilder().setReason(reason).setNickname(nickname)
       val msgBuilder = AMsg.newBuilder().setHead(head).setLoginResponse(bodyBuilder)
       val code = msgBuilder.build().toByteArray
       code

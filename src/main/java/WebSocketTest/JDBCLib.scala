@@ -16,24 +16,32 @@ import scala.collection.JavaConverters._
 
 //case class ConnectionKey(socketId: String, accountId: String)
 
-case class ConnectionMsg(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket, tempPassword: Int) {
+
+case class ConnectionMsg(accountId: String, nickName: String, position: String, status: String, serverWebSocket: ServerWebSocket, tempPassword: Int) {
   def ChangeAccountId(newAccountId: String): ConnectionMsg = {
-    ConnectionMsg(accountId = newAccountId, position = this.position, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+    ConnectionMsg(accountId = newAccountId, nickName = this.nickName, position = this.position, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
   }
 
   def ChangePosition(NewPosition: String): ConnectionMsg = {
-    ConnectionMsg(accountId = this.accountId, position = NewPosition, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+    ConnectionMsg(accountId = this.accountId, nickName = this.nickName, position = NewPosition, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
   }
 
   def ChangeStatus(newStatus: String): ConnectionMsg = {
-    ConnectionMsg(accountId = this.accountId, position = this.position, status = newStatus, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+    ConnectionMsg(accountId = this.accountId, nickName = this.nickName, position = this.position, status = newStatus, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
   }
+
+  def ChangeNickname(str: String): ConnectionMsg = {
+    ConnectionMsg(accountId = this.accountId, nickName = str, position = this.position, status = this.status, serverWebSocket = this.serverWebSocket, tempPassword = this.tempPassword)
+  }
+
+
 }
 
 object ConnectionMsg {
   def genConnectMsgWithNoTempPassword(accountId: String, position: String, status: String, serverWebSocket: ServerWebSocket): ConnectionMsg = {
-    ConnectionMsg(accountId, position, status, serverWebSocket, -1)
+    ConnectionMsg(accountId, accountId, position, status, serverWebSocket, -1)
   }
+
 }
 
 object JDBCLib {
@@ -117,7 +125,7 @@ object JDBCLib {
     }
   }
 
-  def accountIdSchemeCheck(password: String): Boolean = password.length <= 15 && password.length >= 3 && password.forall(_.isLetterOrDigit)
+  def accountIdSchemeCheck(accountString: String): Boolean = accountString.length <= 15 && accountString.length >= 3 && accountString.forall(_.isLetterOrDigit) && accountString.head.isLetter
 
   def passwordSchemeCheck(password: String): Boolean = password.length <= 12 && password.length >= 6 && password.forall(_.isLetterOrDigit)
 

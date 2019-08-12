@@ -51,7 +51,10 @@ public class HallVerticle extends AbstractVerticle {
 //             Now send back reply
 //
 //        });
-
+        eb.consumer(Channels.offline(), msg -> {
+            String who = msg.body().toString();
+            playersInHall.remove(who);
+        });
 
         eb.consumer(Channels.playerInHall(), msg -> {
             String who = msg.body().toString();
@@ -89,7 +92,7 @@ public class HallVerticle extends AbstractVerticle {
                 playersInHall.remove(id);
 
             } else if (reason.equals("normal")) {//如果是正常退出，没有断开，则保存一个回到大厅的状态
-                playersInHall.put(id, "leavingRoom");
+                playersInHall.put(id, "standBy");
             } else {
                 playersInHall.remove(id);
             }
@@ -151,21 +154,22 @@ public class HallVerticle extends AbstractVerticle {
         );
 
         eb.consumer(Channels.createRoom(), msg -> {
-            String Id = msg.body().toString();
+            String aid = msg.body().toString();
             //在大厅的，并且不在掉线取消创建用户集中的，则去创建房间
-            if (!createCancelPlayers.remove(Id) && playersInHall.containsKey(Id)) {
+            if (!createCancelPlayers.remove(aid) && playersInHall.containsKey(aid)) {
 
-                JsonObject config = new JsonObject().put("host", Id).put("roomId", roomId);
+                JsonObject config = new JsonObject().put("host", aid).put("roomId", roomId);
 
                 DeploymentOptions opt = new DeploymentOptions().setConfig(config).setWorker(true);
                 vertx.deployVerticle(new RoomVerticle(), opt, stringAsyncResult -> {
+                    JSONObject roomInfo = new JSONObject();
                     if (stringAsyncResult.succeeded()) {
                         String roomVerticleId = stringAsyncResult.result();
-                        playersInHall.remove(Id);
+                        playersInHall.remove(aid);
+                        System.out.println(aid + "：创建成功：" + roomId);
+                        rooms.put(roomId, new Triplet<>(aid, 1, roomVerticleId));
 
-                        rooms.put(roomId, new Triplet<>(Id, 1, roomVerticleId));
-                        JSONObject roomInfo = new JSONObject();
-                        roomInfo.put("id", msg.body());
+                        roomInfo.put("id", aid);
                         roomInfo.put("room", roomId);
                         msg.reply(roomInfo.toJSONString());
 
@@ -174,7 +178,9 @@ public class HallVerticle extends AbstractVerticle {
                             roomId++;
                         else roomId = 1;
                     } else {
-                        msg.reply("createFail");
+                        roomInfo.put("id", "");
+                        roomInfo.put("room", -1);
+                        msg.reply(roomInfo.toJSONString());
                     }
                 });
 

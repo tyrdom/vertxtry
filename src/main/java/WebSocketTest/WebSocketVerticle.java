@@ -8,10 +8,14 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
-import io.vertx.core.http.WebSocket;
+
 import io.vertx.ext.web.Router;
 import msgScheme.MsgScheme;
+import scala.None;
+import scala.None$;
+import scala.Option;
 import scala.Tuple2;
+import scala.collection.Iterable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,11 +24,12 @@ import java.util.Map;
 public class WebSocketVerticle extends AbstractVerticle {
     // 保存每一个连接到服务器的通道
     //用户Id，用户信息
-    private Map<String, ConnectionMsg> connectionMap = new HashMap<>(16);
-    private Map<String, ServerWebSocket> onlineAccountMap = new HashMap<>(16);
+//    private Map<String, ConnectionMsg> connectionMap = new HashMap<>(16);
+    //    private Map<String, ServerWebSocket> onlineAccountMap = new HashMap<>(16);
+    private Map<String, String> reconnectMap = new HashMap<>(16);
 
     /*
-    元组为：玩家位置，玩家状态，玩家webSocket
+    为：玩家位置，玩家状态，玩家webSocket
     位置： loginSession 未登录
             loginHall 去大厅
             inHall  在大厅
@@ -34,8 +39,8 @@ public class WebSocketVerticle extends AbstractVerticle {
             play 在游戏中
             号码 正在进入房间X，但是还未正式进入
      * */
-    private boolean checkID(String cid) {
-        return connectionMap.containsKey(cid);
+    private boolean checksocketId(String cid) {
+        return WebTable.connectMap().contains(cid);
     }
 
     @Override
@@ -54,23 +59,25 @@ public class WebSocketVerticle extends AbstractVerticle {
     }
 
     private void goHallProcess(String connectId, ServerWebSocket someWebSocket, EventBus eb) {
-        //
-        if (connectionMap.containsKey(connectId)) {
-            ConnectionMsg connectionMsg = connectionMap.get(connectId);
-            connectionMap.put(connectId, connectionMsg.ChangePosition("loginHall").ChangeStatus("free"));
 
+        if (checksocketId(connectId)) {
+            ConnectionMsg connectionMsg = WebTable.connectMap().get(connectId).get();
+            WebTable.connectMapAdd(connectId, connectionMsg.ChangePosition("loginHall").ChangeStatus("free"));
+            String accountId = connectionMsg.accountId();
             System.out.println("ws：发送进入大厅请求：" + connectId);
-            eb.send(Channels.playerInHall(), connectId, ar -> {
+            eb.send(Channels.playerInHall(), accountId, ar -> {
                         if (ar.succeeded()) {
                             String who = ar.result().body().toString();
                             System.out.println("ws:收到进入大厅回复：" + who);
-                            if (who.equals(connectId) && connectionMap.get(who).position().equals("loginHall")) {
+                            Option<ServerWebSocket> socketOption = WebTable.onlineAccount().get(who);
+                            String webId = WebTable.getSocketBin(socketOption);
+                            if (!webId.equals("") && who.equals(accountId) && WebTable.connectMap().get(webId).get().position().equals("loginHall")) {
 
-                                connectionMap.put(connectId, connectionMsg.ChangeStatus("free").ChangePosition("inHall"));
+                                WebTable.connectMapAdd(connectId, connectionMsg.ChangeStatus("free").ChangePosition("inHall"));
                                 System.out.println("ws：进入大厅成功" + who);
 
                             } else {
-                                connectionMap.remove(who);
+                                WebTable.connectMapRemove(connectId);
                                 System.out.println("ws：没有此玩家或玩家状态错误：" + who);
                                 someWebSocket.close();
 
@@ -85,44 +92,67 @@ public class WebSocketVerticle extends AbstractVerticle {
     }
 
     private void webSocketMethod(HttpServer server) {
+        EventBus eb = vertx.eventBus();
+        eb.consumer(Channels.roomBroadcast(), msg -> {
+            String s = msg.body().toString();
+
+        });
+
         server.websocketHandler(webSocket -> { // 获取每一个链接的ID
-            String id = webSocket.binaryHandlerID();
-            EventBus eb = vertx.eventBus();
+            String socketId = webSocket.binaryHandlerID();
 
             // 判断当前连接的ID是否存在于map集合中，如果不存在则添加进map集合中
 
-            if (!checkID(id)) {
+            if (!checksocketId(socketId)) {
 
-                connectionMap.put(id, ConnectionMsg.genConnectMsgWithNoTempPassword("", "loginSession", "notLogin", webSocket));
+                WebTable.connectMapAdd(socketId, ConnectionMsg.genConnectMsgWithNoTempPassword("", "loginSession", "notLogin", webSocket));
 
             } else {
-                // Too Many Connect
+                // SocketIdError
                 webSocket.close();
             }
             System.out.print("ws：id列表");
-            for (Map.Entry<String, ConnectionMsg> entry : connectionMap.entrySet()) {
-                System.out.println(entry.getKey());
-            }
+            Iterable<String> keys = WebTable.connectMap().keys();
+            System.out.println(keys);
 
             //OFFLineResp
             webSocket.closeHandler(handler -> {
-                        String playerPosition = connectionMap.get(id).position();
+                        ConnectionMsg connectionMsg = WebTable.connectMap().get(socketId).get();
+                        String playerPosition = connectionMsg.position();
                         JSONObject whoAndReason = new JSONObject();
-                        System.out.println(id + "已断开");
-                        whoAndReason.put("id", id);
+                        String aid = connectionMsg.accountId();
+                        String position = connectionMsg.position();
+                        whoAndReason.put("id", aid);
                         whoAndReason.put("reason", "offLine");
-
                         String whoAndReasonMsg = whoAndReason.toJSONString();
+                        System.out.println(socketId + "已断开:" + aid);
                         if (playerPosition.startsWith("Room")) {
-                            eb.send(Channels.quitRoom() + playerPosition, whoAndReasonMsg);
+                            if (connectionMsg.status().equals("play")) {
+
+
+                                reconnectMap.put(aid, position);
+                            } else {
+                                eb.send(Channels.quitRoom() + position, whoAndReasonMsg, messageAsyncResult ->
+                                {
+                                    System.out.println(aid + "断线，发出退出到房间" + position);
+                                    if (messageAsyncResult.succeeded()) {
+                                        String s = messageAsyncResult.result().body().toString();
+                                        if (s.equals("play")) {
+                                            reconnectMap.put(aid, position);
+                                            System.out.println("记录状态可能出错，实际为游戏中");
+                                        } else System.out.println(aid + ":不在游戏中，直接退出房间:" + position);
+                                    } else System.out.println("房间错误，需要检查");
+                                });
+
+                            }
                         } else
-                            switch (connectionMap.get(id).position()) {
+                            switch (connectionMsg.position()) {
                                 case "loginHall":
                                     eb.send(Channels.cancelHallIn(), whoAndReasonMsg);
                                     break;
                                 //如果状态已在大厅，直接发送id
                                 case "inHall":
-                                    eb.send(Channels.quitHall(), id);
+                                    eb.send(Channels.quitHall(), aid);
                                     break;
                                 case "creatingRoom":
                                     eb.send(Channels.cancelCreate(), whoAndReasonMsg);
@@ -143,12 +173,15 @@ public class WebSocketVerticle extends AbstractVerticle {
                                     break;
                                 //在正在加入状态，说明在状态上保存了房间号，但是没有进入，通知该房间谁退出
                                 case "joiningRoom":
-                                    String RoomId = connectionMap.get(id).status();
+                                    String RoomId = connectionMsg.status();
                                     eb.send(Channels.quitRoom() + "Room" + RoomId, whoAndReasonMsg);
                                     break;
+                                default:
+                                    eb.send(Channels.offline(), aid);
                             }
-                        onlineAccountMap.remove(connectionMap.get(id).accountId());
-                        connectionMap.remove(id);
+
+                        WebTable.onlineAccountRemove(connectionMsg.accountId());
+                        WebTable.connectMapRemove(socketId);
 
                     }
             );
@@ -161,13 +194,15 @@ public class WebSocketVerticle extends AbstractVerticle {
                 String connectEnsureID = webSocket.binaryHandlerID();
 
                 try {
-                    ConnectionMsg connectionMsg = connectionMap.get(connectEnsureID);
+                    ConnectionMsg connectionMsg = WebTable.connectMap().get(connectEnsureID).get();
+                    String mapAccountId = connectionMsg.accountId();
+                    System.out.println("收到请求，其id为：：：：：" + mapAccountId);
                     byte[] binData = handler.binaryData().getBytes();
                     Tuple2<MsgScheme.AMsg.Head, JSONObject> msg = CodeMsgTranslate.decode(binData);
 
                     MsgScheme.AMsg.Head head = msg._1;
                     JSONObject body = msg._2;
-                    ServerWebSocket responseWebSocket = connectionMap.get(connectEnsureID).serverWebSocket();
+                    ServerWebSocket responseWebSocket = WebTable.connectMap().get(connectEnsureID).get().serverWebSocket();
                     switch (head) {
                         case Test_Request:
                             String testText = body.getString("testText");
@@ -199,27 +234,34 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 if (messageAsyncResult.succeeded()) {
                                     JSONObject resBody = JSONObject.parseObject(messageAsyncResult.result().body().toString());
                                     String reason = resBody.getString("reason");
+                                    String nickname = resBody.getString("nickname");
                                     if (reason.equals(MsgScheme.LoginResponse.Reason.OK.toString())) {
 
                                         System.out.println("登陆成功，记录账号跟踪，进入大厅");
-                                        if (connectionMap.containsKey(connectEnsureID)) {
-                                            if (onlineAccountMap.containsKey(accountId)) {
-                                                ServerWebSocket oldWebSocket = onlineAccountMap.get(accountId);
-                                                byte[] bytes = CodeMsgTranslate.genErrorBytes("账号重复登陆，顶掉");
+                                        if (WebTable.connectMap().contains(connectEnsureID)) {
+
+                                            if (reconnectMap.containsKey(accountId)) {
+                                                String position = reconnectMap.get(accountId);
+                                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition(position).ChangeStatus("play"));
+                                            } else if (WebTable.onlineAccount().contains(accountId)) {
+                                                ServerWebSocket oldWebSocket = WebTable.onlineAccount().get(accountId).get();
+                                                byte[] bytes = CodeMsgTranslate.genErrorBytes(MsgScheme.ErrorResponse.ErrorType.OTHER_LOGIN, "账号重复登陆，顶掉");
                                                 oldWebSocket.writeBinaryMessage(Buffer.buffer(bytes));
                                                 oldWebSocket.close();
                                             }
-                                            connectionMap.put(connectEnsureID, connectionMsg.ChangeAccountId(accountId));
-                                            onlineAccountMap.put(accountId, webSocket);
-
+                                            WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangeAccountId(accountId).ChangeNickname(nickname));
+                                            WebTable.onlineAccountAdd(accountId, webSocket);
                                             goHallProcess(connectEnsureID, webSocket, eb);
+                                        } else {
+                                            webSocket.writeBinaryMessage(Buffer.buffer(CodeMsgTranslate.genErrorBytes("连接异常，连接关闭")));
+                                            webSocket.close();
                                         }
 
                                     }
                                     byte[] loginBin = CodeMsgTranslate.encode(MsgScheme.AMsg.Head.Login_Response, resBody);
                                     webSocket.writeBinaryMessage(Buffer.buffer(loginBin));
                                 } else
-                                    webSocket.writeBinaryMessage(Buffer.buffer(CodeMsgTranslate.genErrorBytes("账号服务异常")));
+                                    webSocket.writeBinaryMessage(Buffer.buffer(CodeMsgTranslate.genErrorBytes("账号服务异常!!!!")));
                             });
 
 
@@ -227,26 +269,34 @@ public class WebSocketVerticle extends AbstractVerticle {
                         case CreateRoom_Request:
                             if (connectionMsg.position().equals("inHall")) {
                                 {
-                                    connectionMap.put(connectEnsureID, connectionMsg.ChangePosition("creatingRoom").ChangeStatus("free"));
-                                    eb.send(Channels.createRoom(), connectEnsureID, ar ->
+                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("creatingRoom").ChangeStatus("free"));
+                                    eb.send(Channels.createRoom(), mapAccountId, ar ->
                                     {
-                                        JSONObject crInfo =
-                                                JSONObject.parseObject(ar.result().body().toString());
+                                        if (ar.succeeded()) {
+                                            String s1 = ar.result().body().toString();
+//                                            System.out.println("创建回复为：：：" + s1);
+                                            JSONObject crInfo =
+                                                    JSONObject.parseObject(s1);
 
-                                        String cid = crInfo.getString("id");
-                                        int RoomId = crInfo.getInteger("room");
-                                        if (connectionMap.get(cid).position().equals("creatingRoom") && cid.equals(id)) {
-                                            connectionMap.put(cid, connectionMsg.ChangePosition("Room" + RoomId).ChangeStatus("free"));
-                                            System.out.println("回复房间:" + RoomId + "开启ok--开启者：" + cid);
-                                            byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.CreateRoom_Response).setCreateRoomResponse(MsgScheme.CreateRoomResponse.newBuilder().setRoomId(RoomId)).build().toByteArray();
+                                            String aid = crInfo.getString("id");
+//                                            System.out.println("创建者为：：：" + aid);
+                                            int RoomId = crInfo.getInteger("room");
+                                            boolean creatingRoom = WebTable.connectMap().get(connectEnsureID).get().position().equals("creatingRoom");
+                                            boolean equals = aid.equals(mapAccountId);
 
-                                            responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                            if (creatingRoom && equals) {
+                                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("Room" + RoomId).ChangeStatus("free"));
+                                                System.out.println("回复房间:" + RoomId + "开启ok--开启者：" + aid);
+                                                byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.CreateRoom_Response).setCreateRoomResponse(MsgScheme.CreateRoomResponse.newBuilder().setRoomId(RoomId)).build().toByteArray();
 
-                                        } else {
-                                            System.out.println("ws：createRoom：没有此玩家或玩家状态错误：" + cid);
-                                            byte[] toSend = CodeMsgTranslate.genErrorBytes("没有此玩家或玩家状态错误");
-                                            responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                        }
+                                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+
+                                            } else {
+                                                System.out.println("ws：createRoom：创建失败或玩家状态错误：" + aid);
+                                                byte[] toSend = CodeMsgTranslate.genErrorBytes("创建失败或玩家状态错误");
+                                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                            }
+                                        } else System.out.println("Create Server Error");
                                     });
                                 }
                             } else {
@@ -257,26 +307,27 @@ public class WebSocketVerticle extends AbstractVerticle {
                             break;
 
                         case JoinRoom_Request: {
-                            if (connectionMap.get(connectEnsureID).position().equals("inHall")) {
-                                connectionMap.put(connectEnsureID, connectionMsg.ChangePosition("findingRoom").ChangeStatus("free"));
+
+                            if (WebTable.connectMap().get(connectEnsureID).get().position().equals("inHall")) {
+                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("findingRoom").ChangeStatus("free"));
                                 //向大厅请求一个有位置的房间号
-                                eb.send(Channels.findRoom(), connectEnsureID, messageAsyncResult -> {
+                                eb.send(Channels.findRoom(), mapAccountId, messageAsyncResult -> {
                                     if (messageAsyncResult.succeeded() && !messageAsyncResult.result().body().equals("fail")) {
 
                                         String roomId = messageAsyncResult.result().body().toString();
                                         //请求到房间成功后，开始进入房间
-                                        connectionMap.put(connectEnsureID, connectionMsg.ChangePosition("joiningRoom").ChangeStatus(roomId));
-                                        eb.send(Channels.joinRoomNum() + roomId, connectEnsureID, messageAsyncResult1 -> {
+                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("joiningRoom").ChangeStatus(roomId));
+                                        eb.send(Channels.joinRoomNum() + roomId, mapAccountId, messageAsyncResult1 -> {
                                             //房间回复ok，则记录在房间的状态
-                                            if (connectionMap.get(connectEnsureID).position().equals("joiningRoom")) {
+                                            if (WebTable.connectMap().get(connectEnsureID).get().position().equals("joiningRoom")) {
                                                 if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
                                                     byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.JoinRoom_Response).setJoinRoomResponse(MsgScheme.JoinRoomResponse.newBuilder().setRoomId(Integer.valueOf(roomId))).build().toByteArray();
                                                     responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                                    connectionMap.put(connectEnsureID, ConnectionMsg.genConnectMsgWithNoTempPassword("", "Room" + roomId, "free", webSocket));
+                                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("Room" + roomId).ChangeStatus("free"));
                                                 } else {
                                                     byte[] toSend = CodeMsgTranslate.genErrorBytes("房间出问题，不可进入");
                                                     responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                                    connectionMap.put(connectEnsureID, ConnectionMsg.genConnectMsgWithNoTempPassword("", "inHall", "free", webSocket));
+                                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("inHall").ChangeStatus("free"));
                                                 }
                                             } else {
                                                 byte[] bytes = CodeMsgTranslate.genErrorBytes("加入状态有误！！");
@@ -286,9 +337,9 @@ public class WebSocketVerticle extends AbstractVerticle {
                                         });
 
                                     } else {
-                                        byte[] toSend = CodeMsgTranslate.genErrorBytes("没有剩余的空房间,请创建房间");
+                                        byte[] toSend = CodeMsgTranslate.genErrorBytes(MsgScheme.ErrorResponse.ErrorType.NO_ROOM_TO_JOIN, "没有剩余的空房间,请创建房间");
                                         responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                        connectionMap.put(connectEnsureID, ConnectionMsg.genConnectMsgWithNoTempPassword("", "inHall", "free", webSocket));
+                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("inHall").ChangeStatus("free"));
                                     }
                                 });
                             } else {
@@ -298,13 +349,24 @@ public class WebSocketVerticle extends AbstractVerticle {
                             break;
                         }
                         case QuitRoom_Request: {
-                            if (connectionMap.get(connectEnsureID).position().startsWith("Room")) {
+
+                            if (connectionMsg.position().startsWith("Room")) {
                                 JSONObject whoAndReason = new JSONObject();
-                                whoAndReason.put("id", connectEnsureID);
+                                whoAndReason.put("id", mapAccountId);
                                 whoAndReason.put("reason", "normal");
                                 String whoAndReasonMsg = whoAndReason.toJSONString();
-                                eb.send(Channels.quitRoom() + connectionMap.get(connectEnsureID).position(), whoAndReasonMsg);
-                                goHallProcess(connectEnsureID, webSocket, eb);
+                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangeStatus("quitingRoom"));
+                                eb.send(Channels.quitRoom() + WebTable.connectMap().get(connectEnsureID).get().position(), whoAndReasonMsg, messageAsyncResult ->
+                                {
+                                    if (messageAsyncResult.succeeded() && WebTable.connectMap().get(connectEnsureID).get().status().equals("quitingRoom")) {
+                                        goHallProcess(connectEnsureID, webSocket, eb);
+                                    } else {
+                                        byte[] bytes = CodeMsgTranslate.genErrorBytes("房间错误，请重启");
+                                        webSocket.writeBinaryMessage(Buffer.buffer(bytes));
+                                        webSocket.close();
+                                    }
+                                });
+
 
                                 byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.QuitRoom_Response).setQuitRoomResponse(MsgScheme.QuitRoomResponse.newBuilder()).build().toByteArray();
                                 responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
@@ -321,9 +383,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                             responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
                             responseWebSocket.close();
                     }
-
                 } catch (Exception e) {
-
                 }
 
                 //创建 加入房间只能位于大厅操作 字符串协议

@@ -5,9 +5,6 @@ object Database{
   val database = "test_server"
 }
 object Account_base {
-
-
-
   val account_base_table = "account_base"
 
   def addComma(seq: Seq[String]): String = {

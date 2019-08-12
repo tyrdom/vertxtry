@@ -5,7 +5,7 @@ object Channels {
 
   val loginGame = "loginGame"
 
-
+  val offline = "offline"
   val createRoom = "createRoom"
   val findRoom = "findRoom"
   val joinRoomNum = "joinRoom"
@@ -19,5 +19,5 @@ object Channels {
   val cancelCreate = "cancelCreate"
   val cancelFind = "cancelFind"
   val playerInHall = "player.inHall"
-
+  val roomBroadcast = "room_broadcast"
 }
