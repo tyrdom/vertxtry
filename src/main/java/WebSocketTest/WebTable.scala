@@ -13,8 +13,8 @@ object WebTable {
 
   var connectMap: Map[String, ConnectionMsg] = Map[String, ConnectionMsg]()
 
-  def connectMapAdd(accountId: String, connectMsg: ConnectionMsg): Unit =
-    connectMap += accountId -> connectMsg
+  def connectMapAdd(socketId: String, connectMsg: ConnectionMsg): Unit =
+    connectMap += socketId -> connectMsg
 
   def connectMapRemove(accountId: String): Unit =
     connectMap -= accountId

@@ -7,6 +7,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.ServerWebSocket;
+import io.vertx.core.json.JsonObject;
 import msgScheme.MsgScheme;
 
 import java.util.*;
@@ -17,7 +18,7 @@ public class RoomVerticle extends AbstractVerticle {
     //                  ready 准备完成
     //                  gaming 游戏中
     private int tempId = -1;
-
+    private String roomName;
 
     private int genTempId() {
         tempId = (tempId + 1) % maxPlayer;
@@ -36,7 +37,7 @@ public class RoomVerticle extends AbstractVerticle {
             playerStatusMap.put(aid, status);
     }
 
-    private void changePlayerStatus(String who, MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Status newStatus) {
+    private void changePlayerStatus(String who, MsgScheme.StatusInRoom newStatus) {
         PlayerStatus orDefault = playerStatusMap.getOrDefault(who, PlayerStatus.zero());
         if (orDefault == PlayerStatus.zero()) {
             System.out.println("账号错误，没有此玩家");
@@ -56,7 +57,7 @@ public class RoomVerticle extends AbstractVerticle {
                         values.forEach(x -> {
                             int i = x.tempId();
                             String nickname = x.nickname();
-                            MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Status status = x.status();
+                            MsgScheme.StatusInRoom status = x.status();
                             MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Builder builder1 = MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.newBuilder().setNickName(nickname).setStatus(status).setTempId(i);
                             builder.addPlayerStatusList(builder1);
                         });
@@ -72,7 +73,6 @@ public class RoomVerticle extends AbstractVerticle {
         }
 
     }
-//
 
     //房间状态 standBy：准备 ，gaming： 游戏中
     private String roomStatus = "standBy";
@@ -88,10 +88,11 @@ public class RoomVerticle extends AbstractVerticle {
         newPlayer(hostPlayerId);
         System.out.println("Room is ok:" + hostPlayerId);
         final Integer roomId = config().getInteger("roomId");
+        roomName = "Room" + roomId;
         EventBus eb = vertx.eventBus();
 
 
-        eb.consumer(Channels.quitRoom() + "Room" + roomId, msg -> {
+        eb.consumer(Channels.quitRoom() + roomName, msg -> {
             String text = msg.body().toString();
             JSONObject whoAndReason = JSONObject.parseObject(text);
             String who = whoAndReason.getString("id");
@@ -106,7 +107,7 @@ public class RoomVerticle extends AbstractVerticle {
             System.out.println("quit:" + who);
             if (playerStatusMap.containsKey(who)) {
                 if (roomStatus.equals("gaming")) {
-                    changePlayerStatus(who, MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Status.OFFLINE);
+                    changePlayerStatus(who, MsgScheme.StatusInRoom.OFFLINE);
                     msg.reply("play");
 
 
@@ -130,12 +131,12 @@ public class RoomVerticle extends AbstractVerticle {
             playerIdAndRoomId.put("id", who);
             playerIdAndRoomId.put("room", roomId.toString());
             String sendMsg = playerIdAndRoomId.toJSONString();
-            //加入的人如果在要退出的人中，则不添加此玩家，回复fail
+
             if (playerStatusMap.size() < maxPlayer) {
-//                players.put(who, "Standby");
+//
                 newPlayer(who);
                 msg.reply("ok");
-                // TODO 广播状态
+
 
                 eb.send(Channels.haveInRoom(), sendMsg);
                 if (playerStatusMap.size() == maxPlayer) {
@@ -149,41 +150,63 @@ public class RoomVerticle extends AbstractVerticle {
             broadcastPlayerStatus();
         });
 
-        eb.consumer(Channels.readyRoom() + roomId, msg ->
+        eb.consumer(Channels.readyRoom() + roomName, msg ->
 
         {
-            String who = msg.body().toString();
-            if (roomStatus.equals("full")) {
-                if (playerStatusMap.containsKey(who)) {
-//                    players.put(who, "ready");
-                    changePlayerStatus(who, MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Status.READY);
-                    boolean allReady = true;
-                    for (Map.Entry<String, PlayerStatus> entry : playerStatusMap.entrySet()) {
-                        if (!entry.getValue().status().equals(MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Status.READY)) {
-                            allReady = false;
-                        }
-                    }
-                    if (allReady) {
-                        msg.reply("gameStart");
-                        roomStatus = "gaming";
-                        for (Map.Entry<String, PlayerStatus> entry : playerStatusMap.entrySet()) {
-                            changePlayerStatus(entry.getKey(), MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom.Status.GAMING);
-                        }
-                        GamePlayGround gamePlayGround = GamePlayGroundInit.gamePlayGroundInit();
-
-                        int[] cIds = gameplayLib.Config.standardCIds();
-                        String[] pIds = playerStatusMap.keySet().toArray(new String[maxPlayer]);
-                        gamePlayGround.initPlayGround(pIds, cIds);
-
-                    } else {
-                        msg.reply("readyOk");
-                    }
-                } else {
-                    msg.reply("error");
+            String s = msg.body().toString();
+            JSONObject jsonObject = JSONObject.parseObject(s);
+            String who = jsonObject.getString("accountId");
+            Boolean isReady = jsonObject.getBoolean("isReady");
+            JSONObject entries = new JSONObject();
+            MsgScheme.StatusInRoom statusInRoom = playerStatusMap.getOrDefault(who, PlayerStatus.zero()).status();
+            if (playerStatusMap.containsKey(who)
+                    && (statusInRoom == MsgScheme.StatusInRoom.READY
+                    || statusInRoom == MsgScheme.StatusInRoom.STANDBY)) {
+                if (isReady)
+                    changePlayerStatus(who, MsgScheme.StatusInRoom.READY);
+                else {
+                    changePlayerStatus(who, MsgScheme.StatusInRoom.STANDBY);
+                    entries.put("yourStatus", MsgScheme.StatusInRoom.STANDBY.toString());
+                    msg.reply(entries.toString());
                 }
+                //test Array
+
+                //
+
+                boolean allReady = true;
+                for (Map.Entry<String, PlayerStatus> entry : playerStatusMap.entrySet()) {
+                    if (!entry.getValue().status().equals(MsgScheme.StatusInRoom.READY)) {
+                        allReady = false;
+                    }
+                }
+                if (allReady && playerStatusMap.size() == Config.maxPlayer()) {
+
+                    roomStatus = "gaming";
+                    for (Map.Entry<String, PlayerStatus> entry : playerStatusMap.entrySet()) {
+                        changePlayerStatus(entry.getKey(), MsgScheme.StatusInRoom.GAMING);
+                    }
+                    entries.put("yourStatus", MsgScheme.StatusInRoom.GAMING.toString());
+                    Set<String> strings = playerStatusMap.keySet();
+                    entries.put("accountIds", strings);
+                    msg.reply(entries.toString());
+
+                    GamePlayGround gamePlayGround = GamePlayGroundInit.gamePlayGroundInit();
+                    System.out.println("init playground ok!");
+
+                    int[] cIds = gameplayLib.Config.standardCIds();
+                    String[] pIds = playerStatusMap.keySet().toArray(new String[maxPlayer]);
+                    gamePlayGround.initPlayGround(pIds, cIds);
+
+                } else {
+                    entries.put("yourStatus", MsgScheme.StatusInRoom.READY.toString());
+                    msg.reply(entries.toString());
+                }
+
             } else {
-                msg.reply("notFull");
+                entries.put("yourStatus", MsgScheme.StatusInRoom.ERROR.toString());
+                msg.reply(entries.toString());
             }
+
             broadcastPlayerStatus();
         });
     }

@@ -1,7 +1,9 @@
 package WebSocketTest;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.buffer.Buffer;
@@ -43,6 +45,13 @@ public class WebSocketVerticle extends AbstractVerticle {
         return WebTable.connectMap().contains(cid);
     }
 
+    private boolean checkOnline(String socketId) {
+        Option<ConnectionMsg> connectionMsgOption = WebTable.connectMap().get(socketId);
+        String accountId = ConnectionMsg.getAccountId(connectionMsgOption);
+        return WebTable.onlineAccount().contains(accountId);
+
+    }
+
     @Override
     public void start() {
         HttpServer server = vertx.createHttpServer();
@@ -77,7 +86,7 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 System.out.println("ws：进入大厅成功" + who);
 
                             } else {
-                                WebTable.connectMapRemove(connectId);
+
                                 System.out.println("ws：没有此玩家或玩家状态错误：" + who);
                                 someWebSocket.close();
 
@@ -179,10 +188,12 @@ public class WebSocketVerticle extends AbstractVerticle {
                                 default:
                                     eb.send(Channels.offline(), aid);
                             }
-
-                        WebTable.onlineAccountRemove(connectionMsg.accountId());
                         WebTable.connectMapRemove(socketId);
+                        if (WebTable.getSocketBin(WebTable.onlineAccount().get(aid)).equals(socketId))
+                            WebTable.onlineAccountRemove(aid);
 
+                        System.out.println("ws--close------------" + WebTable.connectMap());
+                        System.out.println("ws--close------------" + WebTable.onlineAccount());
                     }
             );
 
@@ -192,7 +203,7 @@ public class WebSocketVerticle extends AbstractVerticle {
 //                String textData = handler.textData();
 
                 String connectEnsureID = webSocket.binaryHandlerID();
-
+                boolean b = checkOnline(connectEnsureID);
                 try {
                     ConnectionMsg connectionMsg = WebTable.connectMap().get(connectEnsureID).get();
                     String mapAccountId = connectionMsg.accountId();
@@ -247,10 +258,16 @@ public class WebSocketVerticle extends AbstractVerticle {
                                                 ServerWebSocket oldWebSocket = WebTable.onlineAccount().get(accountId).get();
                                                 byte[] bytes = CodeMsgTranslate.genErrorBytes(MsgScheme.ErrorResponse.ErrorType.OTHER_LOGIN, "账号重复登陆，顶掉");
                                                 oldWebSocket.writeBinaryMessage(Buffer.buffer(bytes));
+                                                System.out.println("login reset------------" + WebTable.connectMap());
+                                                System.out.println("login reset------------" + WebTable.onlineAccount());
                                                 oldWebSocket.close();
+                                            } else {
+                                                System.out.println("正常登陆");
                                             }
                                             WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangeAccountId(accountId).ChangeNickname(nickname));
                                             WebTable.onlineAccountAdd(accountId, webSocket);
+                                            System.out.println("login go------------" + WebTable.connectMap());
+                                            System.out.println("login go------------" + WebTable.onlineAccount());
                                             goHallProcess(connectEnsureID, webSocket, eb);
                                         } else {
                                             webSocket.writeBinaryMessage(Buffer.buffer(CodeMsgTranslate.genErrorBytes("连接异常，连接关闭")));
@@ -267,116 +284,151 @@ public class WebSocketVerticle extends AbstractVerticle {
 
                             break;
                         case CreateRoom_Request:
-                            if (connectionMsg.position().equals("inHall")) {
-                                {
-                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("creatingRoom").ChangeStatus("free"));
-                                    eb.send(Channels.createRoom(), mapAccountId, ar ->
+                            if (b) {
+                                if (connectionMsg.position().equals("inHall")) {
                                     {
-                                        if (ar.succeeded()) {
-                                            String s1 = ar.result().body().toString();
+                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("creatingRoom").ChangeStatus("free"));
+                                        eb.send(Channels.createRoom(), mapAccountId, ar ->
+                                        {
+                                            if (ar.succeeded()) {
+                                                String s1 = ar.result().body().toString();
 //                                            System.out.println("创建回复为：：：" + s1);
-                                            JSONObject crInfo =
-                                                    JSONObject.parseObject(s1);
+                                                JSONObject crInfo =
+                                                        JSONObject.parseObject(s1);
 
-                                            String aid = crInfo.getString("id");
+                                                String aid = crInfo.getString("id");
 //                                            System.out.println("创建者为：：：" + aid);
-                                            int RoomId = crInfo.getInteger("room");
-                                            boolean creatingRoom = WebTable.connectMap().get(connectEnsureID).get().position().equals("creatingRoom");
-                                            boolean equals = aid.equals(mapAccountId);
+                                                int RoomId = crInfo.getInteger("room");
+                                                boolean creatingRoom = WebTable.connectMap().get(connectEnsureID).get().position().equals("creatingRoom");
+                                                boolean equals = aid.equals(mapAccountId);
 
-                                            if (creatingRoom && equals) {
-                                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("Room" + RoomId).ChangeStatus("free"));
-                                                System.out.println("回复房间:" + RoomId + "开启ok--开启者：" + aid);
-                                                byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.CreateRoom_Response).setCreateRoomResponse(MsgScheme.CreateRoomResponse.newBuilder().setRoomId(RoomId)).build().toByteArray();
+                                                if (creatingRoom && equals) {
+                                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("Room" + RoomId).ChangeStatus("free"));
+                                                    System.out.println("回复房间:" + RoomId + "开启ok--开启者：" + aid);
+                                                    byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.CreateRoom_Response).setCreateRoomResponse(MsgScheme.CreateRoomResponse.newBuilder().setRoomId(RoomId)).build().toByteArray();
 
-                                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
 
-                                            } else {
-                                                System.out.println("ws：createRoom：创建失败或玩家状态错误：" + aid);
-                                                byte[] toSend = CodeMsgTranslate.genErrorBytes("创建失败或玩家状态错误");
-                                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                            }
-                                        } else System.out.println("Create Server Error");
-                                    });
+                                                } else {
+                                                    System.out.println("ws：createRoom：创建失败或玩家状态错误：" + aid);
+                                                    byte[] toSend = CodeMsgTranslate.genErrorBytes("创建失败或玩家状态错误");
+                                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                                }
+                                            } else System.out.println("Create Server Error");
+                                        });
+                                    }
+                                } else {
+                                    byte[] toSend = CodeMsgTranslate.genErrorBytes("不可建立房间，你不在大厅中");
+                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+
                                 }
-                            } else {
-                                byte[] toSend = CodeMsgTranslate.genErrorBytes("不可建立房间，你不在大厅中");
-                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-
                             }
                             break;
 
                         case JoinRoom_Request: {
+                            if (b) {
+                                if (WebTable.connectMap().get(connectEnsureID).get().position().equals("inHall")) {
+                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("findingRoom").ChangeStatus("free"));
+                                    //向大厅请求一个有位置的房间号
+                                    eb.send(Channels.findRoom(), mapAccountId, messageAsyncResult -> {
+                                        if (messageAsyncResult.succeeded() && !messageAsyncResult.result().body().equals("fail")) {
 
-                            if (WebTable.connectMap().get(connectEnsureID).get().position().equals("inHall")) {
-                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("findingRoom").ChangeStatus("free"));
-                                //向大厅请求一个有位置的房间号
-                                eb.send(Channels.findRoom(), mapAccountId, messageAsyncResult -> {
-                                    if (messageAsyncResult.succeeded() && !messageAsyncResult.result().body().equals("fail")) {
-
-                                        String roomId = messageAsyncResult.result().body().toString();
-                                        //请求到房间成功后，开始进入房间
-                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("joiningRoom").ChangeStatus(roomId));
-                                        eb.send(Channels.joinRoomNum() + roomId, mapAccountId, messageAsyncResult1 -> {
-                                            //房间回复ok，则记录在房间的状态
-                                            if (WebTable.connectMap().get(connectEnsureID).get().position().equals("joiningRoom")) {
-                                                if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
-                                                    byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.JoinRoom_Response).setJoinRoomResponse(MsgScheme.JoinRoomResponse.newBuilder().setRoomId(Integer.valueOf(roomId))).build().toByteArray();
-                                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("Room" + roomId).ChangeStatus("free"));
+                                            String roomId = messageAsyncResult.result().body().toString();
+                                            //请求到房间成功后，开始进入房间
+                                            WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("joiningRoom").ChangeStatus(roomId));
+                                            eb.send(Channels.joinRoomNum() + roomId, mapAccountId, messageAsyncResult1 -> {
+                                                //房间回复ok，则记录在房间的状态
+                                                if (WebTable.connectMap().get(connectEnsureID).get().position().equals("joiningRoom")) {
+                                                    if (messageAsyncResult1.succeeded() && messageAsyncResult1.result().body().equals("ok")) {
+                                                        byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.JoinRoom_Response).setJoinRoomResponse(MsgScheme.JoinRoomResponse.newBuilder().setRoomId(Integer.valueOf(roomId))).build().toByteArray();
+                                                        responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("Room" + roomId).ChangeStatus("free"));
+                                                    } else {
+                                                        byte[] toSend = CodeMsgTranslate.genErrorBytes("房间出问题，不可进入");
+                                                        responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("inHall").ChangeStatus("free"));
+                                                    }
                                                 } else {
-                                                    byte[] toSend = CodeMsgTranslate.genErrorBytes("房间出问题，不可进入");
-                                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("inHall").ChangeStatus("free"));
+                                                    byte[] bytes = CodeMsgTranslate.genErrorBytes("加入状态有误！！");
+                                                    webSocket.writeBinaryMessage(Buffer.buffer(bytes));
                                                 }
-                                            } else {
-                                                byte[] bytes = CodeMsgTranslate.genErrorBytes("加入状态有误！！");
-                                                webSocket.writeBinaryMessage(Buffer.buffer(bytes));
-                                            }
 
-                                        });
+                                            });
 
-                                    } else {
-                                        byte[] toSend = CodeMsgTranslate.genErrorBytes(MsgScheme.ErrorResponse.ErrorType.NO_ROOM_TO_JOIN, "没有剩余的空房间,请创建房间");
-                                        responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                                        WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("inHall").ChangeStatus("free"));
-                                    }
-                                });
-                            } else {
-                                byte[] toSend = CodeMsgTranslate.genErrorBytes("不可加入房间，你不在大厅中");
-                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                        } else {
+                                            byte[] toSend = CodeMsgTranslate.genErrorBytes(MsgScheme.ErrorResponse.ErrorType.NO_ROOM_TO_JOIN, "没有剩余的空房间,请创建房间");
+                                            responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                            WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangePosition("inHall").ChangeStatus("free"));
+                                        }
+                                    });
+                                } else {
+                                    byte[] toSend = CodeMsgTranslate.genErrorBytes("不可加入房间，你不在大厅中");
+                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                }
                             }
                             break;
                         }
                         case QuitRoom_Request: {
+                            if (b) {
+                                if (connectionMsg.position().startsWith("Room")) {
+                                    JSONObject whoAndReason = new JSONObject();
+                                    whoAndReason.put("id", mapAccountId);
+                                    whoAndReason.put("reason", "normal");
+                                    String whoAndReasonMsg = whoAndReason.toJSONString();
+                                    WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangeStatus("quitingRoom"));
+                                    eb.send(Channels.quitRoom() + WebTable.connectMap().get(connectEnsureID).get().position(), whoAndReasonMsg, messageAsyncResult ->
+                                    {
+                                        if (messageAsyncResult.succeeded() && WebTable.connectMap().get(connectEnsureID).get().status().equals("quitingRoom")) {
+                                            goHallProcess(connectEnsureID, webSocket, eb);
+                                        } else {
+                                            byte[] bytes = CodeMsgTranslate.genErrorBytes("房间错误，请重启");
+                                            webSocket.writeBinaryMessage(Buffer.buffer(bytes));
+                                            webSocket.close();
+                                        }
+                                    });
 
-                            if (connectionMsg.position().startsWith("Room")) {
-                                JSONObject whoAndReason = new JSONObject();
-                                whoAndReason.put("id", mapAccountId);
-                                whoAndReason.put("reason", "normal");
-                                String whoAndReasonMsg = whoAndReason.toJSONString();
-                                WebTable.connectMapAdd(connectEnsureID, connectionMsg.ChangeStatus("quitingRoom"));
-                                eb.send(Channels.quitRoom() + WebTable.connectMap().get(connectEnsureID).get().position(), whoAndReasonMsg, messageAsyncResult ->
-                                {
-                                    if (messageAsyncResult.succeeded() && WebTable.connectMap().get(connectEnsureID).get().status().equals("quitingRoom")) {
-                                        goHallProcess(connectEnsureID, webSocket, eb);
-                                    } else {
-                                        byte[] bytes = CodeMsgTranslate.genErrorBytes("房间错误，请重启");
-                                        webSocket.writeBinaryMessage(Buffer.buffer(bytes));
-                                        webSocket.close();
-                                    }
-                                });
 
+                                    byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.QuitRoom_Response).setQuitRoomResponse(MsgScheme.QuitRoomResponse.newBuilder()).build().toByteArray();
+                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                } else {
 
-                                byte[] toSend = MsgScheme.AMsg.newBuilder().setHead(MsgScheme.AMsg.Head.QuitRoom_Response).setQuitRoomResponse(MsgScheme.QuitRoomResponse.newBuilder()).build().toByteArray();
-                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
-                            } else {
-
-                                byte[] toSend = CodeMsgTranslate.genErrorBytes("不可退出房间，你不在房间中");
-                                responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                    byte[] toSend = CodeMsgTranslate.genErrorBytes("不可退出房间，你不在房间中");
+                                    responseWebSocket.writeBinaryMessage(Buffer.buffer(toSend));
+                                }
                             }
                         }
                         break;
+
+                        case GetReady_Request:
+                            if (b) {
+                                if (connectionMsg.position().startsWith("Room")) {
+                                    body.put("accountId", mapAccountId);
+                                    eb.send(Channels.readyRoom() + connectionMsg.position(), body.toString(), messageAsyncResult -> {
+                                        String s1 = messageAsyncResult.result().body().toString();
+                                        JSONObject jsonObject1 = JSONObject.parseObject(s1);
+                                        String yourStatus = jsonObject1.getString("yourStatus");
+                                        if (yourStatus.equals(MsgScheme.StatusInRoom.GAMING.toString())) {
+                                            JSONArray accountIds = jsonObject1.getJSONArray("accountIds");
+//                                            System.out.println("当前玩家有~~~~~~~" + accountIds);
+                                            accountIds.forEach(jsonObj -> {
+                                                String s2 = jsonObj.toString();
+                                                if (WebTable.onlineAccount().contains(s2)) {
+                                                    Option<ServerWebSocket> serverWebSocketOption = WebTable.onlineAccount().get(s2);
+                                                    String socketBin = WebTable.getSocketBin(serverWebSocketOption);
+                                                    if (WebTable.connectMap().contains(socketBin)) {
+                                                        ConnectionMsg roomConnectionMsg = WebTable.connectMap().get(socketBin).get();
+                                                        WebTable.connectMapAdd(socketBin, roomConnectionMsg.ChangeStatus("play"));
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                        byte[] encode1 = CodeMsgTranslate.encode(MsgScheme.AMsg.Head.GetReady_Response, jsonObject1);
+                                        webSocket.writeBinaryMessage(Buffer.buffer(encode1));
+                                    });
+                                }
+                            }
+                            break;
 
                         default:
                             byte[] toSend = CodeMsgTranslate.genErrorBytes("无效消息，连接关闭");

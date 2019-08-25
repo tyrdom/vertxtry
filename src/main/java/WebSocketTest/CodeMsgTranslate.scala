@@ -29,6 +29,19 @@ object CodeMsgTranslate {
       val code = msgBuilder.build().toByteArray
       code
     //TODO 其他的答复encode在这里加
+
+    case (Head.GetReady_Response, sb) =>
+      val room = sb.getString("yourStatus") match {
+        case x if x == StatusInRoom.GAMING.toString => StatusInRoom.GAMING
+        case x if x == StatusInRoom.STANDBY.toString => StatusInRoom.STANDBY
+        case x if x == StatusInRoom.READY.toString => StatusInRoom.READY
+        case x if x == StatusInRoom.OFFLINE.toString => StatusInRoom.OFFLINE
+        case _ => StatusInRoom.ERROR
+      }
+      val bd = GetReadyResponse.newBuilder().setYourStatus(room)
+      val msg = AMsg.newBuilder().setHead(head).setGetReadyResponse(bd)
+      msg.build().toByteArray
+
     case (Head.Error_Response, sb) =>
       val reason = sb.getString("reason")
       val bdb = ErrorResponse.newBuilder().setReason(reason)
@@ -121,7 +134,11 @@ object CodeMsgTranslate {
         theJsonBody.put("password", password)
         (head, theJsonBody)
       //TODO 其他的请求decode在这里加
-
+      case (Head.GetReady_Request, body) =>
+        val bool = body.getGetReadyRequest.getIsReady
+        val nObject = new JSONObject()
+        nObject.put("isReady", bool)
+        (head, nObject)
       //      case class Login_Request(head:Head,userId:String,password: String)
       //      Login_Request(AMsg.Head.Login_Request,uid,password)
       case (Head.Login_Response, someBody) =>

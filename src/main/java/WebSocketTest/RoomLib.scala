@@ -2,6 +2,7 @@ package WebSocketTest
 
 import io.vertx.core.http
 import io.vertx.core.http.ServerWebSocket
+import msgScheme.MsgScheme
 import msgScheme.MsgScheme.RoomPlayerStatusBroadcast.OnePlayerInRoom
 
 
@@ -30,16 +31,16 @@ object PlayerStatus {
     WebTable.connectMap.get(str) match {
       case Some(value) =>
         val maybeSocket: Option[http.ServerWebSocket] = Option.apply(value.serverWebSocket)
-        PlayerStatus(tempId, OnePlayerInRoom.Status.STANDBY, value.accountId, maybeSocket)
+        PlayerStatus(tempId, MsgScheme.StatusInRoom.STANDBY, value.accountId, maybeSocket)
       case None => PlayerStatus.zero
     }
   }
 
-  val zero = PlayerStatus(-1, OnePlayerInRoom.Status.OFFLINE, "", None)
+  val zero = PlayerStatus(-1, MsgScheme.StatusInRoom.OFFLINE, "", None)
 }
 
-case class PlayerStatus(tempId: Int, status: OnePlayerInRoom.Status, nickname: String, webSocketServer: Option[ServerWebSocket]) {
-  def changeStatus(status: OnePlayerInRoom.Status): PlayerStatus = {
+case class PlayerStatus(tempId: Int, status: MsgScheme.StatusInRoom, nickname: String, webSocketServer: Option[ServerWebSocket]) {
+  def changeStatus(status: MsgScheme.StatusInRoom): PlayerStatus = {
     PlayerStatus(tempId = tempId, status, this.nickname, this.webSocketServer)
   }
 }

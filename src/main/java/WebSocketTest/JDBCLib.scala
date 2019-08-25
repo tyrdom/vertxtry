@@ -42,6 +42,10 @@ object ConnectionMsg {
     ConnectionMsg(accountId, accountId, position, status, serverWebSocket, -1)
   }
 
+  def getAccountId(cms: Option[ConnectionMsg]):String = cms match {
+    case Some(value) => value.accountId
+    case None => ""
+  }
 }
 
 object JDBCLib {

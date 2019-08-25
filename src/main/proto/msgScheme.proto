@@ -32,6 +32,12 @@ message AMsg {
 
         RoomPlayerStatus_Broadcast = 100013;
         HallPlayerStatus_Broadcast = 100014;
+
+        GetReady_Request = 100015;
+        GetReady_Response = 100016;
+
+        Playground_Broadcast = 100017;
+
     }
     Head head = 1;
 
@@ -60,11 +66,37 @@ message AMsg {
         TestRequest testRequest = 17;
         TestResponse testResponse = 18;
 
+
         RoomPlayerStatusBroadcast roomPlayerStatusBroadcast = 19;
         HallPlayersStatusBroadcast hallPlayersStatusBroadcast = 20;
+
+
+        GetReadyRequest getReadyRequest = 21;
+        GetReadyResponse getReadyResponse = 22;
+
+        PlaygroundBroadcast playGroundBroadcast = 23;
     }
 
 }
+
+message PlaygroundBroadcast {
+    repeated OnePlayerInPlayground playersInPlay = 1;
+}
+
+message OnePlayerInPlayground {
+    int32 tempId = 1;
+    int32 cardNum = 2;
+    int32 lifePoint = 3;
+    repeated Character characters = 4;
+
+}
+
+message Character {
+    int32 characterId = 1;
+    int32 level = 2;
+    int32 exp = 3;
+}
+
 message HallPlayersStatusBroadcast {
     repeated OnePlayerInHall onePlayer = 1;
     message OnePlayerInHall {
@@ -76,22 +108,30 @@ message HallPlayersStatusBroadcast {
         }
     }
 }
+enum StatusInRoom {
+    STANDBY = 0;
+    OFFLINE = 1;
+    GAMING = 2;
+    READY = 3;
+    ERROR = 4;
+}
 message RoomPlayerStatusBroadcast {
     repeated OnePlayerInRoom playerStatusList = 1;
     message OnePlayerInRoom {
         int32 tempId = 1;
         string nickName = 2;
-        Status status = 3;
-        enum Status {
-            STANDBY = 0;
-            OFFLINE = 1;
-            GAMING = 2;
-            READY = 3;
-        }
-        //        bool isYou = 4;
+        StatusInRoom status = 3;
+
     }
     int32 yourTempId = 3;
 
+}
+
+message GetReadyResponse {
+    StatusInRoom yourStatus = 1;
+}
+message GetReadyRequest {
+    bool isReady = 1;
 }
 
 message TestRequest {
@@ -178,6 +218,6 @@ message ErrorResponse {
     enum ErrorType {
         UNKNOWN = 0;
         NO_ROOM_TO_JOIN = 1;
-        OTHER_LOGIN=2;
+        OTHER_LOGIN = 2;
     }
 }
